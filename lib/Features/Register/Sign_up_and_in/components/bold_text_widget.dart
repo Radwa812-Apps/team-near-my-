@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants.dart';
+
 class BoldTextWidget extends StatelessWidget {
   final String? name;
 
@@ -14,7 +16,7 @@ class BoldTextWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 40,
             color: Colors.white,
-            fontFamily: 'OpenSans-Bold',
+            fontFamily: kFontBold,
             fontWeight: FontWeight.bold,
           )),
     );

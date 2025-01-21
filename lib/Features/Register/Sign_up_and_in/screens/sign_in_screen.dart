@@ -6,8 +6,7 @@ import '../components/bold_text_widget.dart';
 import '../components/linear_gradient_widget.dart';
 import '../components/or_widget.dart';
 import '../components/submit_button.dart';
-import '../components/text_form_field_sign_in_up_widget.dart';
-import '../components/text_form_password_widget.dart';
+import '../components/text_form_widget.dart';
 
 class SignInScreen extends StatelessWidget {
   double space = 30;
@@ -29,17 +28,18 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 100),
-              TextFormFieldWidegt(
-                name: 'Email',
-                icon: const Icon(Icons.email_outlined, color: Colors.white),
-                txt: TextInputType.emailAddress,
+              TextFormFieldWidget2(
+                hint: 'Email',
+                prefixIcon:
+                    const Icon(Icons.email_outlined, color: Colors.white),
+                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 30),
-              TextFormPasswordFieldWidget(
-                name: 'Password',
-                icon: const Icon(Icons.lock_outline, color: Colors.white),
-                suffx: const Icon(Icons.visibility_off_outlined,
-                    color: Colors.white),
+              TextFormFieldWidget2(
+                hint: 'Password',
+                prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
+                keyboardType: TextInputType.text,
+                isPassword: true,
               ),
               SizedBox(height: 10),
               Padding(
@@ -53,7 +53,7 @@ class SignInScreen extends StatelessWidget {
                     style: TextStyle(
                       color: kSpecialColor, // You can change the color
                       fontSize: 20,
-                      fontFamily: 'OpenSans-Bold',
+                      fontFamily: kFontBold,
                     ),
                   ),
                 ),
@@ -78,7 +78,7 @@ class SignInScreen extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
-                      fontFamily: 'OpenSans-Bold',
+                      fontFamily: kFontBold,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -91,7 +91,7 @@ class SignInScreen extends StatelessWidget {
                       style: TextStyle(
                         color: kSpecialColor, // You can change the color
                         fontSize: 18,
-                        fontFamily: 'OpenSans-Bold',
+                        fontFamily: kFontBold,
                       ),
                     ),
                   ),

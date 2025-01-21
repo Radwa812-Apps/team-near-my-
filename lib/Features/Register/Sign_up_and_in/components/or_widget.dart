@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants.dart';
+
 class ORWediget extends StatelessWidget {
   final double? oRsize;
   final double? lineWidth;
@@ -23,7 +25,7 @@ class ORWediget extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontSize: oRsize,
-            fontFamily: 'OpenSans-Regular',
+            fontFamily: kFontRegular,
           ),
         ),
         SizedBox(

@@ -13,7 +13,7 @@ class HaveAnAccountWidget extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,
-            fontFamily: 'OpenSans-Bold',
+            fontFamily: kFontBold,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -26,7 +26,7 @@ class HaveAnAccountWidget extends StatelessWidget {
             style: TextStyle(
               color: kSpecialColor, // You can change the color
               fontSize: 18,
-              fontFamily: 'OpenSans-Bold',
+              fontFamily: kFontBold,
             ),
           ),
         ),

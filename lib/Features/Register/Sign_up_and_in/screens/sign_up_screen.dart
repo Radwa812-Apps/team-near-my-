@@ -6,8 +6,8 @@ import '../components/have_an_account_widget.dart';
 import '../components/linear_gradient_widget.dart';
 import '../components/or_widget.dart';
 import '../components/submit_button.dart';
-import '../components/text_form_field_sign_in_up_widget.dart';
-import '../components/text_form_password_widget.dart';
+
+import '../components/text_form_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   double space = 30;
@@ -28,43 +28,46 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              TextFormFieldWidegt(
-                name: 'Name',
-                icon: const Icon(Icons.person_2_outlined, color: Colors.white),
-                txt: TextInputType.text,
+              TextFormFieldWidget2(
+                hint: 'Name',
+                prefixIcon:
+                    const Icon(Icons.person_2_outlined, color: Colors.white),
+                keyboardType: TextInputType.text,
               ),
               const SizedBox(height: 30),
-              TextFormFieldWidegt(
-                name: 'Email',
-                icon: const Icon(Icons.email_outlined, color: Colors.white),
-                txt: TextInputType.emailAddress,
+              TextFormFieldWidget2(
+                hint: 'Email',
+                prefixIcon:
+                    const Icon(Icons.email_outlined, color: Colors.white),
+                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 30),
-              TextFormFieldWidegt(
-                name: 'Date Of Birth',
-                icon: const Icon(Icons.edit_calendar_rounded,
+              TextFormFieldWidget2(
+                hint: 'Date Of Birth',
+                prefixIcon: const Icon(Icons.edit_calendar_rounded,
                     color: Colors.white),
-                txt: TextInputType.datetime,
+                keyboardType: TextInputType.datetime,
               ),
               const SizedBox(height: 30),
-              TextFormFieldWidegt(
-                name: 'Phone',
-                icon: const Icon(Icons.phone_outlined, color: Colors.white),
-                txt: TextInputType.number,
+              TextFormFieldWidget2(
+                hint: 'Phone',
+                prefixIcon:
+                    const Icon(Icons.phone_outlined, color: Colors.white),
+                keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 30),
-              TextFormPasswordFieldWidget(
-                name: 'Password',
-                icon: const Icon(Icons.lock_outline, color: Colors.white),
-                suffx: const Icon(Icons.visibility_off_outlined,
-                    color: Colors.white),
+              TextFormFieldWidget2(
+                hint: 'Password',
+                prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
+                keyboardType: TextInputType.text,
+                isPassword: true,
               ),
               const SizedBox(height: 30),
-              TextFormPasswordFieldWidget(
-                name: 'Confirm Password',
-                icon: const Icon(Icons.check, color: Colors.white),
-                suffx: const Icon(Icons.visibility_off_outlined,
-                    color: Colors.white),
+              TextFormFieldWidget2(
+                hint: 'Confirm Password',
+                prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
+                keyboardType: TextInputType.text,
+                isPassword: true,
               ),
               const SizedBox(height: 30),
               SubmitButton(

@@ -29,7 +29,7 @@ class SubmitButton extends StatelessWidget {
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 29,
-                fontFamily: 'OpenSans-SemiBold',
+                fontFamily: kFontSemiBold,
               ),
             ),
           ),
