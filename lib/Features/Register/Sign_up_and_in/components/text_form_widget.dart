@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/core/constants.dart';
 
-class TextFormFieldWidget2 extends StatefulWidget {
+class TextFormFieldWidget extends StatefulWidget {
   final String? hint;
   final Icon? prefixIcon;
   final TextInputType? keyboardType;
   final bool isPassword;
+  final bool isBirthDate;
+  final TextEditingController? controller; // Add controller parameter
+  final VoidCallback? onTap; // Add onTap callback
 
-  const TextFormFieldWidget2({
+  const TextFormFieldWidget({
     super.key,
     this.hint,
     this.prefixIcon,
     this.keyboardType,
     this.isPassword = false,
+    this.isBirthDate = false,
+    this.controller,
+    this.onTap,
   });
 
   @override
-  _TextFormFieldWidget2State createState() => _TextFormFieldWidget2State();
+  _TextFormFieldWidgetState createState() => _TextFormFieldWidgetState();
 }
 
-class _TextFormFieldWidget2State extends State<TextFormFieldWidget2> {
+class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   bool _obscureText = true; // State to manage password visibility
 
   @override
@@ -29,6 +35,13 @@ class _TextFormFieldWidget2State extends State<TextFormFieldWidget2> {
         horizontal: 50.0,
       ),
       child: TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please Fill This Field';
+          }
+          return null;
+        },
+        controller: widget.controller, // Use the provided controller
         style: const TextStyle(
           color: Colors.white, // Set the input text color to white
           fontSize: 20,
@@ -38,6 +51,10 @@ class _TextFormFieldWidget2State extends State<TextFormFieldWidget2> {
         obscureText: widget.isPassword
             ? _obscureText
             : false, // Toggle visibility for passwords
+        readOnly: widget.isBirthDate, // Make the field read-only for birthdate
+        onTap: widget.isBirthDate
+            ? widget.onTap
+            : null, // Use the onTap callback for birthdate
         decoration: InputDecoration(
           hintText: widget.hint,
           prefixIcon: widget.prefixIcon,
