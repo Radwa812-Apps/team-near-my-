@@ -45,7 +45,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
         style: const TextStyle(
           color: Colors.white, // Set the input text color to white
           fontSize: 20,
-          fontFamily: kFontRegular,
+          fontFamily: kFontLight,
         ),
         keyboardType: widget.keyboardType,
         obscureText: widget.isPassword

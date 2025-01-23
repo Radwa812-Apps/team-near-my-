@@ -6,5 +6,7 @@ const kSpecialColor = Color(0xFFFFD449);
 const kFontBold = 'OpenSans-Bold';
 const kFontRegular = 'OpenSans-Regular';
 const kFontSemiBold = 'OpenSans-SemiBold';
+const kFontLight = 'OpenSans-Light';
 const kBackgroundColor = Color(0xFFFEFEFE);
 const kSearchBackgroundColor = Color(0xffFAF8F8);
+const kFontColor = Color(0xFF393939);

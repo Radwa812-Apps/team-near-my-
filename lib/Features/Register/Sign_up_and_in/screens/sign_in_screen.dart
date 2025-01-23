@@ -64,13 +64,15 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                SubmitButton(
-                  name: 'Sign In',
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      print('Validated');
-                    } else {}
-                  },
+                SizedBox(
+                  child: SubmitButton(
+                    name: 'Sign In',
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        print('Validated');
+                      } else {}
+                    },
+                  ),
                 ),
                 const SizedBox(height: 10),
                 ORWediget(
