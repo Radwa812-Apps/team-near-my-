@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nearme_app/Features/Home/components/search_bar_widget.dart';
 import 'package:nearme_app/core/constants.dart';
 
@@ -32,11 +31,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               onChanged: onSearchChanged,
             )
           : Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset(
-                  'assets/images/GreenTransparent.png',
-                  height: 153,
-                  width: 153,
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: Image.asset(
+                    'assets/images/GreenTransparent.png',
+                    height: 153,
+                    width: 153,
+                  ),
                 ),
                 //const SizedBox(width: 10),
               ],

@@ -5,6 +5,7 @@ import 'package:nearme_app/Features/Register/Forgot_password/Screens/forgot_pass
 import 'package:nearme_app/Features/Register/Sign_up_and_in/screens/sign_up_screen.dart';
 
 import 'Features/Home/Screens/home_screen.dart';
+
 import 'Features/Register/Forgot_password/Screens/confirm_password.dart';
 import 'Features/Register/Sign_up_and_in/screens/sign_in_screen.dart';
 // Use only one import path
@@ -29,7 +30,7 @@ class NearMeApp extends StatelessWidget {
         'ForgotPassword': (context) => ForgotPassword(),
         'HomeScreen': (context) => HomeScreen(),
       },
-      initialRoute: 'SignUpScreen',
+      initialRoute: 'HomeScreen',
     );
   }
 }

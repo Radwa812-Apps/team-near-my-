@@ -63,6 +63,7 @@ flutter:
     - assets/images/facebook.png
     - assets/images/google.png
     - assets/images/GreenTransparent.png
+    - assets/images/group.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -80,15 +81,18 @@ flutter:
   - family: OpenSans
     fonts:
       - asset: assets/fonts/static/OpenSans-Bold.ttf
-        weight: 700
+        weight: 800
       - asset: assets/fonts/static/OpenSans-Italic.ttf
         style: italic
+        weight: 400
       - asset: assets/fonts/static/OpenSans-Regular.ttf
         weight: 400
       - asset: assets/fonts/static/OpenSans-SemiBold.ttf
         weight: 600
       - asset: assets/fonts/static/OpenSans-Light.ttf
         weight: 300
+      
+
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
