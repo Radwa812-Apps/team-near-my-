@@ -36,7 +36,7 @@ class NearMeApp extends StatelessWidget {
         'PermissionLocation': (context) => PermissionLocation(),
         'Permissions': (context) => Permissions(),
       },
-      initialRoute: 'Permissions',
+      initialRoute: 'ForgotPassword',
     );
   }
 }
