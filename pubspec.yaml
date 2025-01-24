@@ -64,6 +64,8 @@ flutter:
     - assets/images/google.png
     - assets/images/GreenTransparent.png
     - assets/images/group.jpg
+    - assets/images/Mapmakeregyptstandard.png
+    - assets/images/Rectangle253.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

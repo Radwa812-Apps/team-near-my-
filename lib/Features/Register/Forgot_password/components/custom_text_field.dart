@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/core/constants.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -14,36 +15,39 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 30,
+      height: 40, 
       child: TextField(
         controller: controller,
         focusNode: currentFocus,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.center, 
         style: const TextStyle(
           color: Color.fromRGBO(61, 83, 0, 1),
           fontFamily: 'Open Sans',
           fontSize: 24,
           fontWeight: FontWeight.normal,
         ),
-        maxLength: 1, // Limit input to one character
-        keyboardType: TextInputType.number, // Open numeric keyboard
+        maxLength: 1, 
+        keyboardType: TextInputType.number, 
         decoration: const InputDecoration(
           hintText: '0',
           hintStyle: TextStyle(
-            color: Color.fromRGBO(61, 83, 0, 1),
+            color: kPrimaryColor1,
             fontFamily: 'Open Sans',
             fontSize: 24,
             fontWeight: FontWeight.normal,
           ),
-          counterText: '', // Hides the character count
-          border: InputBorder.none,
-          isDense: true,
+          counterText: '', 
+          border: InputBorder.none, 
+          isDense: true, 
           contentPadding: EdgeInsets.zero,
+          
+          alignLabelWithHint: true, 
         ),
         onChanged: (value) {
           if (value.isNotEmpty && nextFocus != null) {
-            nextFocus!.requestFocus(); // Move to the next field
+            nextFocus!.requestFocus(); 
           }
         },
       ),

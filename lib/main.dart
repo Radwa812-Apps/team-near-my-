@@ -6,6 +6,9 @@ import 'package:nearme_app/Features/Register/Sign_up_and_in/screens/sign_up_scre
 
 import 'Features/Home/Screens/home_screen.dart';
 
+import 'Features/Map_After_SignUp/Screens/map1.dart';
+import 'Features/Permissions/Screens/permission_location.dart';
+import 'Features/Permissions/Screens/permissions.dart';
 import 'Features/Register/Forgot_password/Screens/confirm_password.dart';
 import 'Features/Register/Sign_up_and_in/screens/sign_in_screen.dart';
 // Use only one import path
@@ -29,8 +32,11 @@ class NearMeApp extends StatelessWidget {
         'ChangePassword2': (context) => ChangePassword2(),
         'ForgotPassword': (context) => ForgotPassword(),
         'HomeScreen': (context) => HomeScreen(),
+        'Map1': (context) => Map1(),
+        'PermissionLocation': (context) => PermissionLocation(),
+        'Permissions': (context) => Permissions(),
       },
-      initialRoute: 'HomeScreen',
+      initialRoute: 'Permissions',
     );
   }
 }

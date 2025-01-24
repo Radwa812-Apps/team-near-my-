@@ -16,7 +16,7 @@ class PasswordVisibilityToggle extends StatelessWidget {
     return Positioned(
       top: top,
       left: left,
-      child: Icon(Icons.remove_red_eye_outlined,color:Color.fromRGBO(61, 83, 0, 1),),
+      child: const Icon(Icons.remove_red_eye_outlined,color:Color.fromRGBO(61, 83, 0, 1),),
     );
   }
 }

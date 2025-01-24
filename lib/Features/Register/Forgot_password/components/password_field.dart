@@ -1,39 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/core/constants.dart';
 
 class PasswordField extends StatefulWidget {
+  final Function(bool) onVisibilityChanged;
+
+  const PasswordField({
+    Key? key,
+    required this.onVisibilityChanged,
+  }) : super(key: key);
+
   @override
-  _PasswordFieldState createState() => _PasswordFieldState();
+  _PasswordVisibilityToggleState createState() => _PasswordVisibilityToggleState();
 }
 
-class _PasswordFieldState extends State<PasswordField> {
+class _PasswordVisibilityToggleState extends State<PasswordField> {
   bool _isPasswordVisible = false;
 
-  void _togglePasswordVisibility() {
+  void _toggleVisibility() {
     setState(() {
       _isPasswordVisible = !_isPasswordVisible;
+      widget.onVisibilityChanged(_isPasswordVisible);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        TextField(
-          obscureText: !_isPasswordVisible,
-         
-        ),
-        Positioned(
-          top: 8,  // Adjust this according to your UI
-          right: 8, // Adjust this according to your UI
-          child: GestureDetector(
-            onTap: _togglePasswordVisibility,
-            child: Icon(
-              _isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-              color: Color.fromRGBO(61, 83, 0, 1),
-            ),
-          ),
-        ),
-      ],
+    return IconButton(
+      icon: Icon(
+        _isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+        color: kPrimaryColor1,
+        size: 20,
+      ),
+      onPressed: _toggleVisibility,
     );
   }
 }

@@ -1,102 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Register/Forgot_password/components/password_line_under.dart';
-import 'package:nearme_app/core/Icons/confirm.dart';
-
-import 'package:nearme_app/core/Icons/lock.dart';
-import 'package:nearme_app/core/Icons/password_visibility_toggle.dart';
-import 'package:nearme_app/core/font_style.dart';
-
+import 'package:nearme_app/Features/Register/Forgot_password/components/change_password_textfield.dart';
+import 'package:nearme_app/Features/Register/Forgot_password/components/forgot_password_button.dart';
+import 'package:nearme_app/Features/Register/Forgot_password/components/password_field.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
+import 'package:nearme_app/core/constants.dart';
 
-class ChangePassword extends StatelessWidget {
+class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
+
+  @override
+  State<ChangePassword> createState() => _ChangePasswordState();
+}
+
+class _ChangePasswordState extends State<ChangePassword> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  bool _isNewPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: Center(
         child: Container(
           width: 393,
           height: 852,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
-            color: const Color.fromRGBO(255, 255, 255, 1),
-          ),
           child: Stack(
             children: <Widget>[
-              const ArrowBack(),
-
-              const Positioned(
-                top: 297,
-                left: 91,
-                child: SizedBox(
-                  width: 200,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'New Password',
-                      hintStyle: TextStyles.forgotPasswordText,
-                      border: InputBorder.none,
-                      isDense: true,
-                    ),
-                    style: TextStyles.forgotPasswordText,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ),
-
-              const PasswordLineUnder(top: 336, left: 40),
-              // Confirm Password Text
-              const Positioned(
-                top: 389,
-                left: 90,
-                child: SizedBox(
-                  width: 200,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Confirm Password',
-                      hintStyle: TextStyles.forgotPasswordText,
-                      border: InputBorder.none,
-                      isDense: true,
-                    ),
-                    style: TextStyles.forgotPasswordText,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ),
-              const PasswordLineUnder(top: 434, left: 40),
-              // Save Button
-              Positioned(
-                top: 467,
-                left: 44,
-                child: GestureDetector(
-                  onTap: () {
-                    print('Save Button Pressed');
-                  },
-                  child: Container(
-                    width: 304,
-                    height: 64,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(1000),
-                      color: const Color.fromRGBO(255, 212, 73, 1),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Save',
-                        textAlign: TextAlign.center,
-                        style: TextStyles.forgotPasswordButtonText,
-                      ),
+              const ArrowBack(top: 85, left: 40),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 300),
+                        ChangePasswordTextfield(
+                          textHint: 'New Password',
+                          leftIcon: Icon(Icons.lock_outlined,
+                              color: kPrimaryColor1, size: 20),
+                          rightIcon: PasswordField(
+                            onVisibilityChanged: (isVisible) {
+                              setState(() {
+                                _isNewPasswordVisible = isVisible;
+                              });
+                            },
+                          ),
+                          controller: _newPasswordController,
+                          isPasswordVisible: _isNewPasswordVisible,
+                        ),
+                        const SizedBox(height: 32),
+                        ChangePasswordTextfield(
+                          textHint: 'Confirm Password',
+                          leftIcon:
+                              Icon(Icons.check, color: kPrimaryColor1, size: 20),
+                          rightIcon: PasswordField(
+                            onVisibilityChanged: (isVisible) {
+                              setState(() {
+                                _isConfirmPasswordVisible = isVisible;
+                              });
+                            },
+                          ),
+                          controller: _confirmPasswordController,
+                          isPasswordVisible: _isConfirmPasswordVisible,
+                        ),
+                        const SizedBox(height: 78),
+                        ForgotPasswordButton(
+                          buttonText: 'Save',
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.pushNamed(context, 'ChangePassword2');
+                            } else {
+                              print('Please enter valid passwords.');
+                            }
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-              const PasswordVisibilityToggle(
-                top: 305,
-                left: 320,
-              ),
-              const PasswordVisibilityToggle(top: 397, left: 320),
-              const Lock(top: 305, left: 40),
-              const Confirm(top: 397, left: 40)
             ],
           ),
         ),
