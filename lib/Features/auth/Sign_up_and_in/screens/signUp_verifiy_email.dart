@@ -1,0 +1,234 @@
+import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
+import 'package:nearme_app/core/data/services/validator.dart';
+import 'package:nearme_app/core/messages.dart';
+import 'package:nearme_app/Features/Auth/Sign_up_and_in/components/custom_back_button.dart';
+import 'package:nearme_app/core/constants.dart';
+import 'package:nearme_app/core/data/services/Auth_functions.dart';
+import '../../../../core/data/services/internet_connection.dart';
+import 'add_user_success.dart';
+
+class SignUpVerificationEmailPage extends StatefulWidget {
+  static const String signUpVerificationEmailPageKey =
+      'SignUpVerificationEmailPage';
+
+  final Services services;
+  const SignUpVerificationEmailPage({
+    Key? key,
+    required this.services,
+  }) : super(key: key);
+
+  @override
+  _SignUpVerificationEmailPageState createState() =>
+      _SignUpVerificationEmailPageState();
+}
+
+class _SignUpVerificationEmailPageState
+    extends State<SignUpVerificationEmailPage>
+    with SingleTickerProviderStateMixin {
+  bool isEmailVerified = false;
+  bool canResentEmail = false;
+  bool isConnected = true;
+  Timer? timer;
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _controller.repeat(reverse: true);
+
+    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    if (!isEmailVerified) {
+      initializeVerificationProcess();
+    }
+  }
+
+  Future<void> initializeVerificationProcess() async {
+    bool isConnected = await checkConnection();
+    if (!isConnected) {
+      if (mounted) {
+        AppMessages().sendVerification(context, Colors.red.withOpacity(0.8),
+            'No internet connection. Please check your network.');
+      }
+      return;
+    }
+
+    await sendVerification();
+    timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      checkEmailVerified();
+    });
+  }
+
+  void dispose() {
+    timer?.cancel();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future checkEmailVerified() async {
+    bool isConnected = await checkConnection();
+    {
+      if (!isConnected) {
+        AppMessages().sendVerification(context, Colors.red.withOpacity(0.8),
+            'No internet connection. Please check your network.');
+        return;
+      }
+    }
+
+    await FirebaseAuth.instance.currentUser!.reload();
+    setState(() {
+      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    });
+    if (isEmailVerified) {
+      // ignore: use_build_context_synchronously
+      AppMessages().sendVerification(context, Colors.green.withOpacity(0.8),
+          'Congratulations\nYour account has been created! Verify email to continue.');
+
+      timer?.cancel();
+      final Map<String, dynamic> arguments =
+          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      final String email = arguments['email'] as String;
+      final String dateOfBirth = arguments['dateOfBirth'] as String;
+      final String phoneNumber = arguments['phoneNumber'] as String;
+
+      final String fname = arguments['fname'] as String;
+      final String lname = arguments['lname'] as String;
+
+      await widget.services.addUser(
+        fName: fname,
+        lName: lname,
+        email: email,
+        phoneNumber: phoneNumber,
+        dateOfBirth: dateOfBirth,
+        profilPicture: 'https://example.com/profile.jpg',
+        role: 'Not admin',
+      );
+    }
+  }
+
+  Future sendVerification() async {
+    bool isConnected = await checkConnection();
+    {
+      if (!isConnected) {
+        AppMessages().sendVerification(context, Colors.red.withOpacity(0.8),
+            'No internet connection. Please check your network.');
+        return;
+      }
+    }
+
+    try {
+      final user = FirebaseAuth.instance.currentUser!;
+      await user.sendEmailVerification();
+      // ignore: use_build_context_synchronously
+      AppMessages().sendVerification(context, Colors.orange.withOpacity(0.8),
+          "We've sent a confirmation email to your registered email address. Please check your inbox to verify your account and get started!");
+      setState(() => canResentEmail = false);
+      await Future.delayed(const Duration(seconds: 5));
+      setState(() => canResentEmail = true);
+    } catch (e) {
+      AppMessages()
+          .sendVerification(context, Colors.red.withOpacity(0.8), e.toString());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isEmailVerified
+        ? SuccessPage()
+        : Scaffold(
+            body: Stack(
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimatedBuilder(
+                        animation: _controller,
+                        builder: (context, child) {
+                          return Transform.scale(
+                            scale: _scaleAnimation.value,
+                            child: Image.network(
+                              'https://img.freepik.com/free-vector/new-message-concept-illustration_114360-6007.jpg',
+                              height: 350,
+                              width: 350,
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Verify your email address!',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        child: Text(
+                          'A Verification email has been sent to your email ,  Please check your inbox to verify your account and get started!',
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                          maxLines: 3,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kSpecialColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            minimumSize: const Size(double.infinity, 50),
+                          ),
+                          onPressed: () {
+                            if (isConnected) {
+                              canResentEmail ? sendVerification() : null;
+                            } else {
+                              AppMessages().sendVerification(
+                                context,
+                                Colors.red.withOpacity(0.8),
+                                "No internet connection. Please check your network settings.",
+                              );
+                            }
+                          },
+                          child: const Text(
+                            'Resend Email',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                CustomBackButton(
+                  ontap: () {
+                    //  FirebaseAuth.instance.signOut();
+                    Navigator.pushNamed(context, SignInScreen.signInScreenKey);
+                  },
+                ),
+              ],
+            ),
+          );
+  }
+}

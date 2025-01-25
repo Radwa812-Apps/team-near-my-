@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 selectedTab: _selectedTab,
                 onTabSelected: _selectTab,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
 
@@ -107,10 +107,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: _selectedTab == 'Groups'
                     ? (_groups.isEmpty
-                        ? Center(
+                        ? const Center(
                             child: Text(
                               'No groups added. Tap the icon below to create one.',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: kFontColor,
                                   fontSize: 16,
                                   fontFamily: kFontItalic),
@@ -129,10 +129,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             },
                           ))
-                    : Center(
+                    : const Center(
                         child: Text(
                           'No chats available.',
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: kFontColor,
                               fontSize: 16,
                               fontFamily: kFontItalic),

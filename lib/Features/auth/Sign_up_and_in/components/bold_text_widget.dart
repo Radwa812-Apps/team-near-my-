@@ -13,7 +13,7 @@ class BoldTextWidget extends StatelessWidget {
         top: 50.0,
       ),
       child: Text(name!,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 40,
             color: Colors.white,
             fontFamily: kFontBold,

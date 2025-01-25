@@ -4,7 +4,7 @@ class NearMeGradientColor extends StatelessWidget {
   @override
   Widget build(Object context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -13,8 +13,8 @@ class NearMeGradientColor extends StatelessWidget {
             Color.fromRGBO(177, 211, 209, 1),
           ],
           stops: [
-            0.1, // 70% of the gradient is the darker color
-            1.0, // Remaining 30% is the lighter color
+            0.1, 
+            1.0, 
           ],
         ),
       ),

@@ -7,8 +7,10 @@ class TextFormFieldWidget extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool isPassword;
   final bool isBirthDate;
-  final TextEditingController? controller; // Add controller parameter
-  final VoidCallback? onTap; // Add onTap callback
+  final TextEditingController? controller; 
+  final VoidCallback? onTap; 
+  final String? Function(String?) validatior;
+  final Function (String) onchange;
 
   const TextFormFieldWidget({
     super.key,
@@ -18,7 +20,8 @@ class TextFormFieldWidget extends StatefulWidget {
     this.isPassword = false,
     this.isBirthDate = false,
     this.controller,
-    this.onTap,
+    this.onTap, required this.validatior, required this.onchange,
+    
   });
 
   @override
@@ -26,35 +29,32 @@ class TextFormFieldWidget extends StatefulWidget {
 }
 
 class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
-  bool _obscureText = true; // State to manage password visibility
-
+  bool _obscureText = true; 
+  @override
+ 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 50.0,
+        horizontal: 20.0,
       ),
       child: TextFormField(
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'Please Fill This Field';
-          }
-          return null;
-        },
-        controller: widget.controller, // Use the provided controller
+       onChanged: widget.onchange,
+        validator: widget.validatior,
+        controller: widget.controller, 
         style: const TextStyle(
-          color: Colors.white, // Set the input text color to white
+          color: Colors.white, 
           fontSize: 20,
-          fontFamily: kFontLight,
+          fontFamily: kFontRegular,
         ),
         keyboardType: widget.keyboardType,
         obscureText: widget.isPassword
             ? _obscureText
-            : false, // Toggle visibility for passwords
-        readOnly: widget.isBirthDate, // Make the field read-only for birthdate
+            : false, 
+        readOnly: widget.isBirthDate, 
         onTap: widget.isBirthDate
             ? widget.onTap
-            : null, // Use the onTap callback for birthdate
+            : null, 
         decoration: InputDecoration(
           hintText: widget.hint,
           prefixIcon: widget.prefixIcon,
@@ -72,11 +72,11 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
                   onPressed: () {
                     setState(() {
                       _obscureText =
-                          !_obscureText; // Toggle password visibility
+                          !_obscureText; 
                     });
                   },
                 )
-              : null, // Show suffix icon only for passwords
+              : null, 
           hintStyle: const TextStyle(
             color: Colors.white,
             fontSize: 20,

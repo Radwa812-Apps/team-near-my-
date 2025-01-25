@@ -8,7 +8,7 @@ class HaveAnAccountWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           "Already have an account?",
           style: TextStyle(
             color: Colors.white,
@@ -21,10 +21,10 @@ class HaveAnAccountWidget extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, 'SignInScreen');
           },
-          child: Text(
+          child: const Text(
             "Sign In",
             style: TextStyle(
-              color: kSpecialColor, // You can change the color
+              color: kSpecialColor, 
               fontSize: 18,
               fontFamily: kFontBold,
             ),

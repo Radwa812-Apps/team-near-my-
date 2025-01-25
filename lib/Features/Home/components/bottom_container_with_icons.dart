@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nearme_app/Features/Home/components/icon_button_widegt.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/constants.dart';
 
@@ -12,7 +15,7 @@ class BottomContainerWithIcons extends StatelessWidget {
       height: 65,
       decoration: BoxDecoration(
         color: kPrimaryColor1.withOpacity(.20),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(18),
           topRight: Radius.circular(18),
         ),
@@ -25,13 +28,24 @@ class BottomContainerWithIcons extends StatelessWidget {
         ),
         SizedBox(width: space),
         IconButtonWidegt(
-          onPressed: () {},
+          onPressed: () {
+             GoogleSignIn googleSignIn = GoogleSignIn();
+            googleSignIn.disconnect();
+            FirebaseAuth.instance.signOut();
+            Navigator.popAndPushNamed(context, 'SignInScreen');
+          },
           icon: Icons.notifications_outlined,
           size: 30,
         ),
         SizedBox(width: space),
         IconButtonWidegt(
-          onPressed: () {},
+          onPressed: () async {
+            SharedPreferences sharedPreferences =
+                await SharedPreferences.getInstance();
+            sharedPreferences.clear();
+            await FirebaseAuth.instance.signOut();
+            Navigator.popAndPushNamed(context, 'SignInScreen');
+          },
           icon: Icons.person_outlined,
           size: 30,
         ),

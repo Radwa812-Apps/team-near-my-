@@ -13,11 +13,11 @@ class ORWediget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          height: 1.0, // Height of the line
+          height: 1.0, 
           color: Colors.white,
-          width: lineWidth, // Color of the line
+          width: lineWidth, 
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Text(
@@ -28,13 +28,13 @@ class ORWediget extends StatelessWidget {
             fontFamily: kFontRegular,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Container(
-          height: 1.0, // Height of the line
+          height: 1.0, 
           color: Colors.white,
-          width: lineWidth, // Color of the line
+          width: lineWidth, 
         ),
       ],
     );
