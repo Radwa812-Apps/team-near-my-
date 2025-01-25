@@ -189,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(height: 20),
                       TextFormFieldWidget(
                         hint: 'Name',
-                        prefixIcon: const Icon(Icons.person_2_outlined,
+                        prefixIcon: const Icon(Icons.person_outlined,
                             color: Colors.white),
                         keyboardType: TextInputType.text,
                       ),

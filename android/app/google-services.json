@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "129461857706",
+    "project_id": "my-near-me",
+    "storage_bucket": "my-near-me.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129461857706:android:a566b160a7ff1227470fd3",
+        "android_client_info": {
+          "package_name": "com.example.temp_signin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjBXtDK4ooDK6B3TeqKnGiL3-Sja0BPcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

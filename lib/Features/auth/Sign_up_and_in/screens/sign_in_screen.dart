@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Register/Sign_up_and_in/components/facebook_google_widget.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/components/facebook_google_widget.dart';
 
 import '../../../../core/constants.dart';
 import '../components/bold_text_widget.dart';

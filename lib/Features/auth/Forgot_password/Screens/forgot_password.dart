@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Register/Forgot_password/components/forgot_password_button.dart';
+import 'package:nearme_app/Features/auth/Forgot_password/components/forgot_password_button.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';

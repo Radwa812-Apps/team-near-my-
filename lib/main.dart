@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Register/Forgot_password/Screens/change_password.dart';
-import 'package:nearme_app/Features/Register/Forgot_password/Screens/change_password2.dart';
-import 'package:nearme_app/Features/Register/Forgot_password/Screens/forgot_password.dart';
-import 'package:nearme_app/Features/Register/Sign_up_and_in/screens/sign_up_screen.dart';
+import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password.dart';
+import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password2.dart';
+import 'package:nearme_app/Features/auth/Forgot_password/Screens/forgot_password.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
 
 import 'Features/Home/Screens/home_screen.dart';
 
 import 'Features/Map_After_SignUp/Screens/map1.dart';
 import 'Features/Permissions/Screens/permission_location.dart';
 import 'Features/Permissions/Screens/permissions.dart';
-import 'Features/Register/Forgot_password/Screens/confirm_password.dart';
-import 'Features/Register/Sign_up_and_in/screens/sign_in_screen.dart';
+import 'Features/auth/Forgot_password/Screens/confirm_password.dart';
+import 'Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 // Use only one import path
 
 void main() {

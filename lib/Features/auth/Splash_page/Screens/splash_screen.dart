@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Register/Sign_up_and_in/screens/sign_up_screen.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
 
-import 'package:nearme_app/Features/Register/Splash_page/components/animation_controller.dart';
-import 'package:nearme_app/Features/Register/Splash_page/components/gradient_background.dart';
+import 'package:nearme_app/Features/auth/Splash_page/components/animation_controller.dart';
+import 'package:nearme_app/Features/auth/Splash_page/components/gradient_background.dart';
 
 import '../../Forgot_password/Screens/forgot_password.dart';
 
