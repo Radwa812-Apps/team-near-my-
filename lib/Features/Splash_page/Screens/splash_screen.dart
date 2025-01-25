@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
 
-import 'package:nearme_app/Features/auth/Splash_page/components/animation_controller.dart';
-import 'package:nearme_app/Features/auth/Splash_page/components/gradient_background.dart';
+import 'package:nearme_app/Features/Splash_page/components/animation_controller.dart';
+import 'package:nearme_app/Features/Splash_page/components/gradient_background.dart';
 
-import '../../Forgot_password/Screens/forgot_password.dart';
+import '../../auth/Forgot_password/Screens/forgot_password.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
+    static const String splashPageKey = 'SplashPage';
 
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -30,7 +32,7 @@ class _SplashPageState extends State<SplashPage>
   void _navigateToNextScreen() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) =>  SignUpScreen()),
+      MaterialPageRoute(builder: (context) =>  SignInScreen()),
     );
   }
 

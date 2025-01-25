@@ -6,6 +6,7 @@ import 'package:nearme_app/core/font_style.dart';
 
 class ForgotPassword extends StatelessWidget {
   ForgotPassword({super.key});
+    static const String forgotPasswordKey = 'ForgotPassword';
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

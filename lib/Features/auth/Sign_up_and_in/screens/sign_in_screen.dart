@@ -9,6 +9,8 @@ import '../components/submit_button.dart';
 import '../components/text_form_widget.dart';
 
 class SignInScreen extends StatelessWidget {
+  static const String signInScreenKey = 'SignInScreen';
+
   double space = 30;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

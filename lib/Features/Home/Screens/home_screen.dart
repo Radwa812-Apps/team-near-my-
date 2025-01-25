@@ -10,6 +10,8 @@ import '../components/floating_yellow_icon.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
+      static const String homeScreenKey = 'HomeScreen';
+
 }
 
 class _HomeScreenState extends State<HomeScreen> {

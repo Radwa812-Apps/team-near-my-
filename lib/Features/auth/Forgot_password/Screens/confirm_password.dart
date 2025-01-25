@@ -6,6 +6,7 @@ import 'package:nearme_app/core/font_style.dart';
 
 class ConfirmPassword extends StatelessWidget {
   ConfirmPassword({super.key});
+    static const String confirmPasswordKey = 'ConfirmPassword';
 
   final _controllers = List.generate(4, (_) => TextEditingController());
   final _focusNodes = List.generate(4, (_) => FocusNode());

@@ -3,6 +3,7 @@ import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password2.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/forgot_password.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
+import 'package:nearme_app/Features/Splash_page/Screens/splash_screen.dart';
 
 import 'Features/Home/Screens/home_screen.dart';
 
@@ -25,18 +26,21 @@ class NearMeApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        'SignUpScreen': (context) => SignUpScreen(),
-        'SignInScreen': (context) => SignInScreen(),
-        'ChangePassword': (context) => ChangePassword(),
-        'ConfirmPassword': (context) => ConfirmPassword(),
-        'ChangePassword2': (context) => ChangePassword2(),
-        'ForgotPassword': (context) => ForgotPassword(),
-        'HomeScreen': (context) => HomeScreen(),
-        'Map1': (context) => Map1(),
-        'PermissionLocation': (context) => PermissionLocation(),
-        'Permissions': (context) => Permissions(),
+        SignUpScreen.signUpScreenKey: (context) => SignUpScreen(),
+        SignInScreen.signInScreenKey: (context) => SignInScreen(),
+        ChangePassword.changePasswordKey: (context) => const ChangePassword(),
+        ConfirmPassword.confirmPasswordKey: (context) => ConfirmPassword(),
+        ChangePassword2.changePassword2Key: (context) =>
+            const ChangePassword2(),
+        ForgotPassword.forgotPasswordKey: (context) => ForgotPassword(),
+        HomeScreen.homeScreenKey: (context) => HomeScreen(),
+        Map1.map1Key: (context) => const Map1(),
+        PermissionLocation.permissionLocationKey: (context) =>
+            PermissionLocation(),
+        Permissions.permissionsKey: (context) => const Permissions(),
+        SplashPage.splashPageKey: ((context) => SplashPage())
       },
-      initialRoute: 'ForgotPassword',
+      initialRoute: SplashPage.splashPageKey,
     );
   }
 }

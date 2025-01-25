@@ -7,6 +7,8 @@ import 'package:nearme_app/core/font_style.dart';
 class PermissionLocation extends StatefulWidget {
   @override
   _PermissionLocationState createState() => _PermissionLocationState();
+      static const String permissionLocationKey = 'PermissionLocation';
+
 }
 
 class _PermissionLocationState extends State<PermissionLocation> {

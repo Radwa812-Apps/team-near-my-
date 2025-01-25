@@ -7,6 +7,7 @@ import 'package:nearme_app/core/Icons/arrow_back.dart';
 
 class Map1 extends StatefulWidget {
   const Map1({super.key});
+    static const String map1Key = 'Map1';
 
   @override
   State<Map1> createState() => _Map1State();

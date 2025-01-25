@@ -6,6 +6,7 @@ import 'package:nearme_app/core/font_style.dart';
 
 class Permissions extends StatefulWidget {
   const Permissions({super.key});
+    static const String permissionsKey = 'Permissions';
 
   @override
   _PermissionsState createState() => _PermissionsState();

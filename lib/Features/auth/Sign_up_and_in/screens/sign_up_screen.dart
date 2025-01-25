@@ -133,6 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 }
 */
+
 import 'package:flutter/material.dart';
 
 import '../../../../helper/date_picker_helper.dart';
@@ -147,12 +148,13 @@ import '../components/text_form_widget.dart';
 class SignUpScreen extends StatefulWidget {
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
+    static const String signUpScreenKey = 'SignUpScreen';
+
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
   double space = 30;
   final TextEditingController _dateController = TextEditingController();
-
   @override
   void dispose() {
     _dateController.dispose();

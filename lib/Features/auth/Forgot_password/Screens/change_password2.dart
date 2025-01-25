@@ -8,6 +8,7 @@ import 'package:nearme_app/core/constants.dart';
 
 class ChangePassword2 extends StatefulWidget {
   const ChangePassword2({super.key});
+    static const String changePassword2Key = 'ChangePassword2';
 
   @override
   State<ChangePassword2> createState() => _ChangePasswordState();
