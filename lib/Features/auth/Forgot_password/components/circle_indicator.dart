@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CircleIndicator extends StatelessWidget {
-  const CircleIndicator({super.key});
+  final Widget child;
+
+  const CircleIndicator({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,7 @@ class CircleIndicator extends StatelessWidget {
           Radius.elliptical(46, 43),
         ),
       ),
+      child: Center(child: child), 
     );
   }
 }

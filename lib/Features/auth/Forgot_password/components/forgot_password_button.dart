@@ -13,20 +13,23 @@ class ForgotPasswordButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: 64,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(1000),
-          color: const Color.fromRGBO(255, 212, 73, 1),
-        ),
-        child: Center(
-          child: Text(
-            buttonText,
-            textAlign: TextAlign.center,
-            style: TextStyles.forgotPasswordButtonText,
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          height: 64,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(1000),
+            color: const Color.fromRGBO(255, 212, 73, 1),
+          ),
+          child: Center(
+            child: Text(
+              buttonText,
+              textAlign: TextAlign.center,
+              style: TextStyles.forgotPasswordButtonText,
+            ),
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Auth/Sign_up_and_in/components/custom_back_button.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import '../../../../core/constants.dart';
 
@@ -144,9 +144,11 @@ class _SuccessPageState extends State<SuccessPage>
             ),
           ),
           CustomBackButton(ontap: (() {
+
             FirebaseAuth.instance.signOut();
             Navigator.pushNamed(context, SignInScreen.signInScreenKey);
-          }))
+          }), icon:Icons.close,)
+          
         ],
       ),
     );

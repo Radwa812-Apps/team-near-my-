@@ -3,8 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({super.key, required this.ontap});
+  const CustomBackButton({super.key, required this.ontap, required this.icon});
   final Function() ontap;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -19,15 +20,15 @@ class CustomBackButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 2,
                 blurRadius: 5,
                 offset: const Offset(0, 3),
               ),
             ],
           ),
-          child: const Icon(
-            Icons.close,
+          child:  Icon(
+            icon,
             color: Colors.black,
           ),
         ),

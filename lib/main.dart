@@ -87,12 +87,13 @@ class NearMeApp extends StatelessWidget {
                       (context) =>
                           SignUpVerificationEmailPage(services: Services())
                 },
-                initialRoute: isUserLoggedIn
-                    ? HomeScreen.homeScreenKey
-                    : SplashPage.splashPageKey,
+                initialRoute: Permissions.permissionsKey,
               ),
             );
           }
         }));
   }
 }
+// isUserLoggedIn
+//                     ? HomeScreen.homeScreenKey
+//                     : SplashPage.splashPageKey,

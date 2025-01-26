@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/components/circle_indicator.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/components/custom_text_field.dart';
+import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
+import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
+
+import '../components/circle_indicator.dart';
+import '../components/custom_text_field.dart';
+import '../components/forgot_password_button.dart';
 
 class ConfirmPassword extends StatelessWidget {
   ConfirmPassword({super.key});
-    static const String confirmPasswordKey = 'ConfirmPassword';
-
+  static const confirmPasswordKey = 'ConfirmPassword';
   final _controllers = List.generate(4, (_) => TextEditingController());
   final _focusNodes = List.generate(4, (_) => FocusNode());
 
@@ -30,99 +33,107 @@ class ConfirmPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(253, 253, 253, 1),
+      backgroundColor: background,
       body: SingleChildScrollView(
         child: Center(
           child: SizedBox(
             width: 393,
-            height: 852,
-            child: Stack(
-              children: <Widget>[
-                const ArrowBack(
-                  top: 85,
-                  left: 40,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 20,
                 ),
-                Positioned(
-                  top: 454,
-                  left: 44,
-                  child: GestureDetector(
-                    onTap: () {
-                      if (_validateCode(context)) {
-                        Navigator.pushNamed(context, 'ChangePassword');
-                      }
-                    },
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
                     child: Container(
-                      width: 304,
-                      height: 64,
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(1000),
-                        color: const Color.fromRGBO(255, 212, 73, 1),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
                       ),
-                      child: const Center(
-                        child: Text(
-                          'Confirm',
-                          style: TextStyles.forgotPasswordButtonText,
-                        ),
+                      child: const Icon(
+                        Icons.arrow_back_ios_outlined,
+                        color: Colors.black,
                       ),
                     ),
                   ),
                 ),
-                const Positioned(
-                  top: 343,
-                  left: 60,
-                  child: CircleIndicator(),
+
+                const SizedBox(height: 200),
+                // Circle Indicators Row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CircleIndicator(
+                      child: CustomTextField(
+                        controller: _controllers[0],
+                        currentFocus: _focusNodes[0],
+                        nextFocus: _focusNodes[1],
+                      ),
+                    ),
+                    CircleIndicator(
+                      child: CustomTextField(
+                        controller: _controllers[1],
+                        currentFocus: _focusNodes[1],
+                        nextFocus: _focusNodes[2],
+                      ),
+                    ),
+                    CircleIndicator(
+                      child: CustomTextField(
+                        controller: _controllers[2],
+                        currentFocus: _focusNodes[2],
+                        nextFocus: _focusNodes[3],
+                      ),
+                    ),
+                    CircleIndicator(
+                      child: CustomTextField(
+                        controller: _controllers[3],
+                        currentFocus: _focusNodes[3],
+                        nextFocus: null,
+                      ),
+                    ),
+                  ],
                 ),
-                const Positioned(
-                  top: 343,
-                  left: 137,
-                  child: CircleIndicator(),
-                ),
-                const Positioned(
-                  top: 343,
-                  left: 214,
-                  child: CircleIndicator(),
-                ),
-                const Positioned(
-                  top: 343,
-                  left: 282,
-                  child: CircleIndicator(),
-                ),
-                Positioned(
-                  top: 348,
-                  left: 68,
-                  child: CustomTextField(
-                    controller: _controllers[0],
-                    currentFocus: _focusNodes[0],
-                    nextFocus: _focusNodes[1],
+                const SizedBox(height: 50),
+                // Confirm Button
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kSpecialColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, ChangePassword.changePasswordKey);
+                    },
+                    child: const Text(
+                      'Confirm',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-                Positioned(
-                  top: 348,
-                  left: 145,
-                  child: CustomTextField(
-                    controller: _controllers[1],
-                    currentFocus: _focusNodes[1],
-                    nextFocus: _focusNodes[2],
-                  ),
-                ),
-                Positioned(
-                  top: 348,
-                  left: 223,
-                  child: CustomTextField(
-                    controller: _controllers[2],
-                    currentFocus: _focusNodes[2],
-                    nextFocus: _focusNodes[3],
-                  ),
-                ),
-                Positioned(
-                  top: 348,
-                  left: 292,
-                  child: CustomTextField(
-                    controller: _controllers[3],
-                    currentFocus: _focusNodes[3],
-                    nextFocus: null,
-                  ),
-                ),
+
+                // ForgotPasswordButton(
+                //     buttonText: 'Confirm',
+                //     onTap: () {
+                //       Navigator.pushNamed(context, 'ChangePassword');
+                //     })
               ],
             ),
           ),

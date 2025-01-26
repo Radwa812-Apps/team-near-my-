@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/core/constants.dart';
 
 class ArrowBack extends StatelessWidget {
   final double top;
@@ -8,16 +9,18 @@ class ArrowBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: top,
-      left: left,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: const Icon(
-          Icons.arrow_back_ios,
-          color: Color.fromRGBO(61, 83, 0, 1),
+    return Align(
+      alignment: Alignment.topLeft, 
+      child: Padding(
+        padding: EdgeInsets.only(top: top, left: left), 
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: kPrimaryColor1,
+          ),
         ),
       ),
     );

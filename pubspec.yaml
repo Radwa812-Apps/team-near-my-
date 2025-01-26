@@ -48,6 +48,8 @@ dependencies:
   intl_phone_number_input: ^0.7.2
   shared_preferences: ^2.2.0
   internet_connection_checker_plus: ^1.0.1
+  google_maps_flutter: ^2.3.0
+  permission_handler: ^11.0.1
 
 dev_dependencies:
   flutter_test:

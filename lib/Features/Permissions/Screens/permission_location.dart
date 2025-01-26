@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/button.dart';
+import 'package:nearme_app/Features/Permissions/Screens/permissions.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PermissionLocation extends StatefulWidget {
   @override
   _PermissionLocationState createState() => _PermissionLocationState();
-      static const String permissionLocationKey = 'PermissionLocation';
-
+  static const String permissionLocationKey = 'PermissionLocation';
 }
 
 class _PermissionLocationState extends State<PermissionLocation> {
@@ -16,15 +17,16 @@ class _PermissionLocationState extends State<PermissionLocation> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: background,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Stack(
-          
           children: [
-            const ArrowBack(top: 50,left: 20,),
+            const ArrowBack(
+              top: 50,
+              left: 20,
+            ),
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -55,7 +57,8 @@ class _PermissionLocationState extends State<PermissionLocation> {
                         const SizedBox(height: 20),
                         Switch(
                           value: isSwitchOn,
-                          onChanged: (value) {
+                          onChanged: (value) async {
+                           
                             setState(() {
                               isSwitchOn = value;
                             });
@@ -102,7 +105,6 @@ class _PermissionLocationState extends State<PermissionLocation> {
                 ],
               ),
             ),
-            
             if (isSwitchOn)
               Positioned(
                 bottom: 20,

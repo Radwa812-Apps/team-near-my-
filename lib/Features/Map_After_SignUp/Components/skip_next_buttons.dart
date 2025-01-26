@@ -54,7 +54,7 @@ class SkipNextButtons extends StatelessWidget {
                 ],
               ),
               child: const Padding(
-                padding: const EdgeInsets.all(10),
+                padding:  EdgeInsets.all(10),
                 child: Icon(
                   Icons.next_plan_outlined,
                   size: 30,

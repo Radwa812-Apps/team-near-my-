@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import 'package:nearme_app/core/data/services/validator.dart';
 import 'package:nearme_app/core/messages.dart';
-import 'package:nearme_app/Features/Auth/Sign_up_and_in/components/custom_back_button.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/data/services/Auth_functions.dart';
 import '../../../../core/data/services/internet_connection.dart';
@@ -225,7 +225,8 @@ class _SignUpVerificationEmailPageState
                   ontap: () {
                     //  FirebaseAuth.instance.signOut();
                     Navigator.pushNamed(context, SignInScreen.signInScreenKey);
-                  },
+                  }, icon: Icons.close,
+                  
                 ),
               ],
             ),

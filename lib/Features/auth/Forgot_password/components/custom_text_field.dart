@@ -17,19 +17,19 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 30,
-      height: 40, 
+      height: 40,
       child: TextField(
         controller: controller,
         focusNode: currentFocus,
-        textAlign: TextAlign.center, 
+        textAlign: TextAlign.center,
         style: const TextStyle(
           color: Color.fromRGBO(61, 83, 0, 1),
           fontFamily: 'Open Sans',
           fontSize: 24,
           fontWeight: FontWeight.normal,
         ),
-        maxLength: 1, 
-        keyboardType: TextInputType.number, 
+        maxLength: 1,
+        keyboardType: TextInputType.number,
         decoration: const InputDecoration(
           hintText: '0',
           hintStyle: TextStyle(
@@ -38,16 +38,15 @@ class CustomTextField extends StatelessWidget {
             fontSize: 24,
             fontWeight: FontWeight.normal,
           ),
-          counterText: '', 
-          border: InputBorder.none, 
-          isDense: true, 
+          counterText: '',
+          border: InputBorder.none,
+          isDense: true,
           contentPadding: EdgeInsets.zero,
-          
-          alignLabelWithHint: true, 
+          alignLabelWithHint: true,
         ),
         onChanged: (value) {
           if (value.isNotEmpty && nextFocus != null) {
-            nextFocus!.requestFocus(); 
+            nextFocus!.requestFocus();
           }
         },
       ),
