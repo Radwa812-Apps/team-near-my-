@@ -20,6 +20,7 @@ import 'Features/Permissions/Screens/permission_location.dart';
 import 'Features/Permissions/Screens/permissions.dart';
 import 'Features/auth/Forgot_password/Screens/confirm_password.dart';
 import 'Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
+import 'Features/group_chat/screens/ChatPage.dart';
 // Use only one import path
 
 void main() async {
@@ -77,7 +78,7 @@ class NearMeApp extends StatelessWidget {
                   ForgotPassword.forgotPasswordKey: (context) =>
                       ForgotPassword(),
                   HomeScreen.homeScreenKey: (context) => HomeScreen(),
-                  Map1.map1Key: (context) => const Map1(),
+                  Map1.map1Key: (context) =>  Map1(),
                   PermissionLocation.permissionLocationKey: (context) =>
                       PermissionLocation(),
                   Permissions.permissionsKey: (context) => const Permissions(),
@@ -85,9 +86,10 @@ class NearMeApp extends StatelessWidget {
                   SuccessPage.successPageKey: ((context) => SuccessPage()),
                   SignUpVerificationEmailPage.signUpVerificationEmailPageKey:
                       (context) =>
-                          SignUpVerificationEmailPage(services: Services())
+                          SignUpVerificationEmailPage(services: Services()),
+                          // GroupChatScreen.groupChatScreenKey:((context) => GroupChatScreen())
                 },
-                initialRoute: Permissions.permissionsKey,
+                initialRoute: Map1.map1Key,
               ),
             );
           }

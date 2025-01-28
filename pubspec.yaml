@@ -50,6 +50,7 @@ dependencies:
   internet_connection_checker_plus: ^1.0.1
   google_maps_flutter: ^2.3.0
   permission_handler: ^11.0.1
+  label_marker: ^1.0.1
 
 dev_dependencies:
   flutter_test:
