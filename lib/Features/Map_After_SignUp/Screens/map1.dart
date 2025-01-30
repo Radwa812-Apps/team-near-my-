@@ -1,27 +1,41 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:label_marker/label_marker.dart';
-import 'package:nearme_app/Features/Map_After_SignUp/Components/show_customplaces.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:nearme_app/Features/Map_After_SignUp/Components/custom_container.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
+import 'package:nearme_app/core/data/models/custom_places.dart';
+import 'package:nearme_app/core/data/services/Auth_functions.dart';
+import 'package:nearme_app/core/messages.dart';
 
 import '../../../core/constants.dart';
+import '../../../core/data/bloc/custom_places/custom_places_bloc.dart';
 import '../Components/custom_places.dart';
 
 class Map1 extends StatefulWidget {
   const Map1({super.key});
-  static const String map1Key = 'Map1';
+  static const String map1Key = '/Map1';
 
   @override
   State<Map1> createState() => _Map1State();
 }
 
 class _Map1State extends State<Map1> {
+  bool isLoad = false;
+
   bool _isBottomSheetVisible = false;
+
   final TextEditingController _textBarController = TextEditingController();
   LatLng? selectedLatLng;
-
+  String? name;
   Set<Marker> markers = {};
 
   final Completer<GoogleMapController> _controller =
@@ -33,237 +47,210 @@ class _Map1State extends State<Map1> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: GoogleMap(
-                onTap: (latLng) {
-                  setState(() {
-                    selectedLatLng = latLng;
-                  });
-                  _showBottomSheet(context);
-                },
-                markers: markers,
-                mapType: MapType.normal,
-                initialCameraPosition: _Assuit,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-                zoomControlsEnabled: false,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 40,
-            left: 20,
-            right: 20,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 4,
-                    offset: const Offset(2, 2),
-                  ),
-                ],
-              ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  border: InputBorder.none,
-                  suffixIcon: Icon(Icons.search, color: Colors.grey),
-                ),
-              ),
-            ),
-          ),
-          AnimatedPositioned(
-            duration: Duration(milliseconds: 300),
-            bottom: _isBottomSheetVisible ? 220 : 10,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return BlocConsumer<CustomPlacesBloc, CustomPlacesState>(
+      listener: (context, state) {
+        if (state is AddCustomPlacesSuccess) {
+          isLoad = false;
+          AppMessages().sendVerification(context, Colors.green.withOpacity(0.8),
+              'This Custon Place added successfuly 😉');
+        } else if (state is AddCustomPlacesFailure) {
+          isLoad = false;
+          AppMessages().sendVerification(
+              context, Colors.green.withOpacity(0.8), state.error);
+        } else {
+          isLoad = false;
+        }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: isLoad,
+          child: Scaffold(
+            body: Stack(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Container(
-                    width: 140,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60),
-                        bottomLeft: Radius.circular(60),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                          offset: const Offset(2, 2),
-                        ),
-                      ],
-                    ),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.skip_next_rounded,
-                        color: kPrimaryColor1,
-                        size: 30,
-                      ),
-                      onPressed: () {},
+                Positioned.fill(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: GoogleMap(
+                      onTap: (latLng) {
+                        setState(() {
+                          selectedLatLng = latLng;
+                        });
+                        _addCustomPlaceBottomSheet(context);
+                      },
+                      markers: markers,
+                      mapType: MapType.normal,
+                      initialCameraPosition: _Assuit,
+                      onMapCreated: (GoogleMapController controller) {
+                        if (!_controller.isCompleted) {
+                          _controller.complete(controller);
+                        }
+                      },
+                      zoomControlsEnabled: false,
                     ),
                   ),
                 ),
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(60)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: const Offset(2, 2),
-                      ),
-                    ],
-                  ),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.location_on_rounded,
-                      color: kPrimaryColor1,
-                      size: 40,
-                    ),
-                    onPressed: () {
-                      _showCustomBottomSheet(context);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Container(
-                    width: 140,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60),
-                        bottomRight: Radius.circular(60),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                          offset: const Offset(2, 2),
+                Positioned(
+                  left: 10,
+                  top: 40,
+                  child: Row(children: [
+                    CustomContainer(
+                      w: 44,
+                      h: 44,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.location_on_outlined,
+                          color: kPrimaryColor1,
+                          size: 30,
                         ),
-                      ],
-                    ),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: kPrimaryColor1,
-                        size: 25,
+                        onPressed: () {
+                          _showCustomBottomSheet(context);
+                        },
                       ),
-                      onPressed: () {},
                     ),
-                  ),
+                    CustomContainer(
+                      w: 250,
+                      h: 50,
+                      child: Center(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search ...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(60),
+                              borderSide: BorderSide.none,
+                            ),
+                            suffixIcon:
+                                Icon(Icons.search, color: kPrimaryColor1),
+                          ),
+                        ),
+                      ),
+                    ),
+                    CustomContainer(
+                      w: 44,
+                      h: 44,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: kPrimaryColor1,
+                          size: 25,
+                        ),
+                        onPressed: () {},
+                      ),
+                    )
+                  ]),
+                ),
+                Positioned(
+                  bottom: 20,
+                  left: 310,
+                  right: 10,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: kSpecialColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          padding: EdgeInsets.zero,
+                          minimumSize: Size(10, 40)),
+                      onPressed: () {},
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      )),
                 ),
               ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  void _showBottomSheet(BuildContext context) {
+  void _addCustomPlaceBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        // تحديد شكل الحواف المدورة
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20.0), // جعل الحواف العلوية مدورة
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       builder: (BuildContext context) {
         return Padding(
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context)
-                .viewInsets
-                .bottom, // للتأكد من أن الـ TextField لا يتم تغطيته بواسطة لوحة المفاتيح
+            bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: Container(
             padding: const EdgeInsets.all(16.0),
             decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20.0), // جعل حواف الـ BottomSheet مدورة
-              ),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200], // لون خلفية TextField
-                    borderRadius: BorderRadius.circular(10.0), // حواف مدورة
-                  ),
-                  child: TextField(
-                    controller: _textBarController,
-                    decoration: InputDecoration(
-                      hintText: 'Enter place name',
-                      border: InputBorder.none, // إزالة الحدود الافتراضية
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 12.0), // تعديل المساحة الداخلية
-                      suffixIcon: IconButton(
-                        icon: const Icon(
-                          Icons.clear,
-                          color: kSpecialColor,
-                        ), // أيقونة المسح
-                        onPressed: () {
-                          _textBarController
-                              .clear(); // مسح النص عند الضغط على الأيقونة
-                        },
-                      ),
+                TextField(
+                  controller: _textBarController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter place name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20), // حواف مدوّرة
+                      borderSide: BorderSide(color: Colors.white), // لون الحدود
                     ),
-                    onSubmitted: (value) {
-                      _handleTextBarSubmit();
-                      _textBarController.clear(); // مسح النص بعد الإرسال
-                      Navigator.pop(
-                          context); // لإغلاق الـ BottomSheet بعد الإرسال
-                    },
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 12.0),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear, color: kSpecialColor),
+                      onPressed: () {
+                        _textBarController.clear();
+                      },
+                    ),
                   ),
+                  onSubmitted: (value) {
+                    _handleTextBarSubmit();
+                    Navigator.pop(context);
+                  },
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
+                    if (_textBarController.text.isEmpty ||
+                        selectedLatLng == null) {
+                      AppMessages().sendVerification(
+                        context,
+                        Colors.red.withOpacity(0.8),
+                        'Please enter a place name and select a location on the map.',
+                      );
+                      return;
+                    }
+
+                    // إرسال البيانات إلى الكيوبت
+                    BlocProvider.of<CustomPlacesBloc>(context).add(
+                      AddCustomPlaces(
+                        latitude: selectedLatLng!.latitude,
+                        placeName: _textBarController.text,
+                        raduis: 500,
+                        longitude: selectedLatLng!.longitude,
+                        createdAt: Timestamp.now(),
+                        updatedAt: Timestamp.now(),
+                        // uId: FirebaseAuth.instance.currentUser!.uid,
+                      ),
+                    );
+
+                    // إضافة marker
                     _handleTextBarSubmit();
+
+                    // إغلاق الـ BottomSheet
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kSpecialColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24.0, vertical: 12.0),
                   ),
                   child: const Text(
                     'Add',
-                    style: TextStyle(fontSize: 16.0), // حجم النص
+                    style: TextStyle(fontSize: 16.0),
                   ),
                 ),
               ],
@@ -288,9 +275,9 @@ class _Map1State extends State<Map1> {
             ),
           ),
         );
-
-        _textBarController.clear();
       });
+
+      _textBarController.clear();
     }
   }
 
@@ -301,6 +288,7 @@ class _Map1State extends State<Map1> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -309,30 +297,43 @@ class _Map1State extends State<Map1> {
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search...',
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.search, color: Colors.grey),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                  ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 0.2, sigmaY: 0.2),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.7), // لون أبيض شفاف
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(20)),
                 ),
-                const SizedBox(height: 20),
-                CustomPlaces(),
-                const SizedBox(height: 20),
-              ],
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search...',
+                          border: InputBorder.none,
+                          suffixIcon: IconButton(
+                              onPressed: (() {}),
+                              icon: Icon(Icons.search, color: Colors.grey)),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 9, vertical: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const CustomPlacesCrudOp(),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
             ),
           ),
         );

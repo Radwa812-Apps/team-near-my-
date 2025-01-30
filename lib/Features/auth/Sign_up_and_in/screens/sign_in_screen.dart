@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:nearme_app/Features/Auth/Sign_up_and_in/components/facebook_google_widget.dart';
 import 'package:nearme_app/Features/Home/Screens/home_screen.dart';
+import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/forgot_password.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
@@ -21,7 +22,8 @@ import '../components/text_form_widget.dart';
 class SignInScreen extends StatefulWidget {
   @override
   State<SignInScreen> createState() => _SignInScreenState();
-  static const String signInScreenKey = 'SignInScreen';
+  
+  static const String signInScreenKey = '/SignInScreen';
 }
 
 class _SignInScreenState extends State<SignInScreen> {
@@ -44,7 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          Navigator.pushNamed(context, HomeScreen.homeScreenKey);
+          Navigator.pushNamed(context, Map1.map1Key);
         } else if (state is LoginError) {
           isload = false;
           AppMessages().sendVerification(
@@ -216,3 +218,37 @@ class _SignInScreenState extends State<SignInScreen> {
     await prefs.setBool('KeppUserLogIn', value);
   }
 }
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/cupertino.dart';
+
+// class GetUserName extends StatelessWidget {
+
+
+//   @override
+//   Widget build(BuildContext context) {
+//     CollectionReference users = FirebaseFirestore.instance.collection('customPlaces');
+
+//     return FutureBuilder<DocumentSnapshot>(
+//       future: users.doc('r0zgKcay7O1tO7RS8fXM').get(),
+//       builder:
+//           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
+//         if (snapshot.hasError) {
+//           return Text("Something went wrong");
+//         }
+
+//         if (snapshot.hasData && !snapshot.data!.exists) {
+//           return Text("Document does not exist");
+//         }
+
+//         if (snapshot.connectionState == ConnectionState.done) {
+//           Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+//           return Text("latitude: ${data['latitude']} longitude: ${data['longitude']}");
+//         }
+
+//         return Text("loading");
+//       },
+//     );
+//   }
+// }

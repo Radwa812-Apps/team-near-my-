@@ -9,7 +9,7 @@ import '../components/forgot_password_button.dart';
 
 class ForgotPassword extends StatelessWidget {
   ForgotPassword({super.key});
-  static const forgotPasswordKey = 'ForgotPassword';
+  static const forgotPasswordKey = '/ForgotPassword';
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override

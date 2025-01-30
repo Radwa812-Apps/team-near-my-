@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/components/change_password_textfield.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/components/forgot_password_button.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/components/password_field.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
 
+import '../components/change_password_textfield.dart';
+import '../components/forgot_password_button.dart';
+import '../components/password_field.dart';
+
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
-  static const String changePasswordKey = 'ChangePassword';
-
-
+  static const changePasswordKey = '/ChangePassword';
   @override
   State<ChangePassword> createState() => _ChangePasswordState();
 }
@@ -60,8 +59,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                         const SizedBox(height: 32),
                         ChangePasswordTextfield(
                           textHint: 'Confirm Password',
-                          leftIcon:
-                              Icon(Icons.check, color: kPrimaryColor1, size: 20),
+                          leftIcon: Icon(Icons.check,
+                              color: kPrimaryColor1, size: 20),
                           rightIcon: PasswordField(
                             onVisibilityChanged: (isVisible) {
                               setState(() {

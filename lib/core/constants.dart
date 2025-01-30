@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 const kPrimaryColor1 = Color(0xFF446E42);
 const kPrimaryColor2 = Color(0xFFB1D3D1);
 const kSpecialColor = Color(0xFFFFD449);
@@ -16,3 +15,7 @@ const textColor = Color.fromRGBO(57, 57, 57, 1);
 const background = Color.fromRGBO(255, 255, 255, 1);
 const spectialgreen = Color(0xFFB5C9A3);
 const anothergreen = Color(0xFF446E42);
+const kDefaultGroupImge = 'assets/images/group.jpg';
+const kDefaultUserImge = 'assets/images/group.jpg';
+const kGreenLogo = 'assets/images/GreenTransparent.png';
+const notificationColor = Color.fromRGBO(209, 177, 83, 0.68);

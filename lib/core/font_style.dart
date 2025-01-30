@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:nearme_app/core/constants.dart';
 
 class TextStyles {
   static const TextStyle forgotPasswordText = TextStyle(
@@ -25,6 +26,13 @@ class TextStyles {
     fontFamily: 'OpenSans-Bold',
     fontSize: 20,
 fontWeight: FontWeight.w700,
+    
+  );
+  static const TextStyle NotificationsTilteText = TextStyle(
+     color: textColor,
+                fontFamily: 'OpenSans-Regular',
+                fontSize: 25,
+                fontWeight: FontWeight.w400,
     
   );
 }

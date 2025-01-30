@@ -3,15 +3,15 @@ import 'package:nearme_app/Features/Home/components/container_text_field_widget.
 import 'package:nearme_app/Features/Home/components/group_style.dart';
 import 'package:nearme_app/Features/Home/components/home_bar_widget.dart';
 import 'package:nearme_app/Features/Home/components/row_after_bar_chats_groups.dart';
+import 'package:nearme_app/Features/Settings/screens/settings_screen.dart';
 import 'package:nearme_app/core/constants.dart';
-import '../components/bottom_container_with_icons.dart';
+import '../../../components/bottom_bar.dart';
 import '../components/floating_yellow_icon.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
-      static const String homeScreenKey = 'HomeScreen';
-
+  static const homeScreenKey = '/HomeScreen';
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -99,49 +99,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 selectedTab: _selectedTab,
                 onTabSelected: _selectTab,
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
 
               // Main content: Show groups or chats
               Expanded(
-                child: _selectedTab == 'Groups'
-                    ? (_groups.isEmpty
-                        ? const Center(
-                            child: Text(
-                              'No groups added. Tap the icon below to create one.',
-                              style: TextStyle(
-                                  color: kFontColor,
-                                  fontSize: 16,
-                                  fontFamily: kFontItalic),
-                            ),
-                          )
-                        : ListView.builder(
-                            itemCount: _groups.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 4.0),
-                                child: GroupStyle(
-                                  groupName:
-                                      _groups[index], // Pass group name here
-                                ),
-                              );
-                            },
-                          ))
-                    : const Center(
-                        child: Text(
-                          'No chats available.',
-                          style: TextStyle(
-                              color: kFontColor,
-                              fontSize: 16,
-                              fontFamily: kFontItalic),
-                        ),
-                      ),
-              ),
+                  child: _selectedTab == 'Groups'
+                      ? (_groups.isEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.only(bottom: 100),
+                              child: Image.asset('assets/images/noGroups.png',
+                                  width: 400, height: 400),
+                            )
+                          : ListView.builder(
+                              itemCount: _groups.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0, vertical: 4.0),
+                                  child: GroupStyle(
+                                    groupName:
+                                        _groups[index], // Pass group name here
+                                  ),
+                                );
+                              },
+                            ))
+                      : Padding(
+                          padding: const EdgeInsets.only(bottom: 100),
+                          child: Image.asset('assets/images/noChats.png',
+                              width: 400, height: 400),
+                        )),
 
               // Bottom container with icons
-              BottomContainerWithIcons(),
             ],
           ),
 

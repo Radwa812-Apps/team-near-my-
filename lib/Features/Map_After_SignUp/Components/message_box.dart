@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/Map_After_SignUp/Components/custom_container.dart';
 import 'package:nearme_app/core/constants.dart';
 
 class MessageBox extends StatelessWidget {
@@ -12,20 +13,10 @@ class MessageBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Stack(
         children: [
-          Container(
-            padding: const EdgeInsets.all(30),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 5,
-                  offset: const Offset(0, 10),
-                ),
-              ],
-            ),
-            child: const Text(
+          const CustomContainer(
+            w: 60,
+            h: 40,
+            child: Text(
               'Tap on the map to add your place',
               style: TextStyle(
                 fontSize: 16,
@@ -40,7 +31,7 @@ class MessageBox extends StatelessWidget {
             top: 10,
             right: 10,
             child: GestureDetector(
-              onTap: onClose, 
+              onTap: onClose,
               child: const Icon(
                 Icons.close,
                 color: Colors.green,

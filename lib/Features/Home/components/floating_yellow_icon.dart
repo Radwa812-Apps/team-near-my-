@@ -10,7 +10,7 @@ class FloatingYellowIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 100, // Adjust the position as needed
+      bottom: 40, // Adjust the position as needed
       right: 20, // Adjust the position as needed
       child: Container(
         width: 60,

@@ -1,0 +1,177 @@
+import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/Notifications/Components/date_label.dart';
+import 'package:nearme_app/Features/Notifications/Components/header_notifications.dart';
+import 'package:nearme_app/Features/Notifications/Components/notification_item.dart';
+import 'package:nearme_app/Features/Notifications/Screens/group_notifications.dart';
+import 'package:nearme_app/core/constants.dart';
+
+class GeneralNotifications extends StatelessWidget {
+  final String title;
+  static const generalNotificationsKey = '/GeneralNotifications';
+
+  const GeneralNotifications({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: background,
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: background,
+          ),
+          child: Column(
+            children: [
+              const HeaderNotifications(
+                title: 'Notifications',
+                backArrow: null,
+                showCircleAvatar: false,
+              ),
+
+              // Date Label
+              const DateLabel(dateText: 'Yesterday'),
+
+              // Notifications List
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      NotificationItem(
+                        title: 'Alex Trip',
+                        name: 'Aliaa',
+                        message: 'Aliaa just arrived home',
+                        time: '12:00 PM',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const GroupNotifications(
+                                title: 'Alex Trip',
+                              ),
+                            ),
+                          );
+                        },
+                        showForwardIcon: true,
+                      ),
+                      NotificationItem(
+                        title: 'Home',
+                        name: 'Radwa',
+                        message: 'Radwa on her way to work',
+                        time: '12:00 PM',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const GroupNotifications(
+                                title: 'Home',
+                              ),
+                            ),
+                          );
+                        },
+                        showForwardIcon: true,
+                      ),
+                      NotificationItem(
+                        title: 'Home',
+                        name: 'Nada',
+                        message: 'Nada at the gym',
+                        time: '12:00 PM',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const GroupNotifications(
+                                title: 'Home',
+                              ),
+                            ),
+                          );
+                        },
+                        showForwardIcon: true,
+                      ),
+                      NotificationItem(
+                        title: 'Home',
+                        name: 'Amira',
+                        message: 'Amira on her way to Home',
+                        time: '12:00 PM',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const GroupNotifications(
+                                title: 'Home',
+                              ),
+                            ),
+                          );
+                        },
+                        showForwardIcon: true,
+                      ),
+                      NotificationItem(
+                        title: 'Home',
+                        name: 'Nada',
+                        message: 'Nada At El-Hamed Supermarket',
+                        time: '12:00 PM',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const GroupNotifications(
+                                title: 'Home',
+                              ),
+                            ),
+                          );
+                        },
+                        showForwardIcon: true,
+                      ),
+                      NotificationItem(
+                        title: 'University',
+                        name: 'Nada',
+                        message: 'Nada At El-Hamed Supermarket',
+                        time: '12:00 PM',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const GroupNotifications(
+                                title: 'University',
+                              ),
+                            ),
+                          );
+                        },
+                        showForwardIcon: true,
+                      ),
+                      NotificationItem(
+                        title: 'Home',
+                        name: 'Nada',
+                        message: 'Nada At El-Hamed Supermarket',
+                        time: '12:00 PM',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const GroupNotifications(
+                                title: 'Home',
+                              ),
+                            ),
+                          );
+                        },
+                        showForwardIcon: true,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      // Bottom Bar
+    );
+  }
+}

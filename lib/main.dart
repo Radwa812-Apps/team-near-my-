@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nearme_app/Features/Notifications/Screens/general_notifications.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password2.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/forgot_password.dart';
@@ -12,15 +13,14 @@ import 'package:nearme_app/Features/Splash_page/Screens/splash_screen.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
 import 'package:nearme_app/core/data/services/Auth_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'Features/Home/Screens/home_screen.dart';
-
 import 'Features/Map_After_SignUp/Screens/map1.dart';
 import 'Features/Permissions/Screens/permission_location.dart';
 import 'Features/Permissions/Screens/permissions.dart';
 import 'Features/auth/Forgot_password/Screens/confirm_password.dart';
 import 'Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
-import 'Features/group_chat/screens/ChatPage.dart';
+import 'components/mainScaffold.dart';
+import 'core/data/bloc/custom_places/custom_places_bloc.dart';
 // Use only one import path
 
 void main() async {
@@ -57,15 +57,23 @@ class NearMeApp extends StatelessWidget {
                     Services(),
                   ),
                   child: Container(),
+                ),
+                BlocProvider(
+                  create: (context) => CustomPlacesBloc(Services()),
+                  child: Container(),
                 )
               ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
-                home: (FirebaseAuth.instance.currentUser != null &&
-                        FirebaseAuth.instance.currentUser!.emailVerified)
-                    ? SignInScreen()
-                    : HomeScreen(),
+                navigatorObservers: [routeObserver],
+                initialRoute: '/',
                 routes: {
+                  '/': (context) =>
+                      (FirebaseAuth.instance.currentUser != null &&
+                              FirebaseAuth.instance.currentUser!.emailVerified)
+                          ? SignInScreen()
+                          : HomeScreen(),
+
                   SignUpScreen.signUpScreenKey: (context) =>
                       const SignUpScreen(),
                   SignInScreen.signInScreenKey: (context) => SignInScreen(),
@@ -78,18 +86,17 @@ class NearMeApp extends StatelessWidget {
                   ForgotPassword.forgotPasswordKey: (context) =>
                       ForgotPassword(),
                   HomeScreen.homeScreenKey: (context) => HomeScreen(),
-                  Map1.map1Key: (context) =>  Map1(),
-                  PermissionLocation.permissionLocationKey: (context) =>
-                      PermissionLocation(),
-                  Permissions.permissionsKey: (context) => const Permissions(),
+                  Map1.map1Key: (context) => Map1(),
+                  GeneralNotifications.generalNotificationsKey: (context) =>
+                      GeneralNotifications(title: 'Radwa'),
                   SplashPage.splashPageKey: ((context) => const SplashPage()),
                   SuccessPage.successPageKey: ((context) => SuccessPage()),
                   SignUpVerificationEmailPage.signUpVerificationEmailPageKey:
                       (context) =>
                           SignUpVerificationEmailPage(services: Services()),
-                          // GroupChatScreen.groupChatScreenKey:((context) => GroupChatScreen())
+                  '/': (context) => MainScaffold(),
+                  // GroupChatScreen.groupChatScreenKey:((context) => GroupChatScreen())
                 },
-                initialRoute: Map1.map1Key,
               ),
             );
           }

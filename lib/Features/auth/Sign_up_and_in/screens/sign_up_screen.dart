@@ -29,7 +29,7 @@ import 'signUp_verifiy_email.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
-    static const String signUpScreenKey = 'SignUpScreen';
+    static const String signUpScreenKey = '/SignUpScreen';
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();

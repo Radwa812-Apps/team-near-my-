@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
@@ -10,7 +9,7 @@ import '../components/forgot_password_button.dart';
 
 class ConfirmPassword extends StatelessWidget {
   ConfirmPassword({super.key});
-  static const confirmPasswordKey = 'ConfirmPassword';
+  static const confirmPasswordKey = '/ConfirmPassword';
   final _controllers = List.generate(4, (_) => TextEditingController());
   final _focusNodes = List.generate(4, (_) => FocusNode());
 
@@ -41,31 +40,13 @@ class ConfirmPassword extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.arrow_back_ios_outlined,
-                        color: Colors.black,
-                      ),
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 85, left: 40),
+                    child: Icon(
+                      Icons.arrow_back_ios_new_outlined,
+                      color: kPrimaryColor1,
                     ),
                   ),
                 ),
@@ -107,33 +88,11 @@ class ConfirmPassword extends StatelessWidget {
                 ),
                 const SizedBox(height: 50),
                 // Confirm Button
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: kSpecialColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      minimumSize: const Size(double.infinity, 50),
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, ChangePassword.changePasswordKey);
-                    },
-                    child: const Text(
-                      'Confirm',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-
-                // ForgotPasswordButton(
-                //     buttonText: 'Confirm',
-                //     onTap: () {
-                //       Navigator.pushNamed(context, 'ChangePassword');
-                //     })
+                ForgotPasswordButton(
+                    buttonText: 'Confirm',
+                    onTap: () {
+                      Navigator.pushNamed(context, 'ChangePassword');
+                    })
               ],
             ),
           ),

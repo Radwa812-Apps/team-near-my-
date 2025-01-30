@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/components/change_password_textfield.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/components/forgot_password_button.dart';
-import 'package:nearme_app/Features/auth/Forgot_password/components/password_field.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
+
+import '../components/change_password_textfield.dart';
+import '../components/forgot_password_button.dart';
+import '../components/password_field.dart';
 
 
 class ChangePassword2 extends StatefulWidget {
   const ChangePassword2({super.key});
-    static const String changePassword2Key = 'ChangePassword2';
+  static const changePassword2Key = '/ChangePassword2';
 
   @override
   State<ChangePassword2> createState() => _ChangePasswordState();

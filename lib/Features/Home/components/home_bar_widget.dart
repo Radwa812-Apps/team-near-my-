@@ -23,6 +23,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: isSearching
           ? SearchBarWidget(
               // Use CustomSearchBar here
@@ -30,19 +31,13 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               onSearch: onSearch,
               onChanged: onSearchChanged,
             )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: Image.asset(
-                    'assets/images/GreenTransparent.png',
-                    height: 153,
-                    width: 153,
-                  ),
-                ),
-                //const SizedBox(width: 10),
-              ],
+          : Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: Image.asset(
+                kGreenLogo,
+                height: 153,
+                width: 153,
+              ),
             ),
       actions: isSearching
           ? [
@@ -56,13 +51,16 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ]
           : [
-              IconButton(
-                icon: Icon(
-                  Icons.search_outlined,
-                  color: kPrimaryColor1,
-                  size: 33,
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.search_outlined,
+                    color: kPrimaryColor1,
+                    size: 33,
+                  ),
+                  onPressed: onSearchPressed,
                 ),
-                onPressed: onSearchPressed,
               ),
             ],
       backgroundColor: kBackgroundColor,

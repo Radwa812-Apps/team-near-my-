@@ -8,7 +8,7 @@ class SuccessPage extends StatefulWidget {
   @override
   _SuccessPageState createState() => _SuccessPageState();
 
-  static const String successPageKey = 'SuccessPage';
+  static const String successPageKey = '/SuccessPage';
 }
 
 class _SuccessPageState extends State<SuccessPage>

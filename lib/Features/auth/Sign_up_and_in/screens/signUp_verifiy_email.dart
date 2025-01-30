@@ -13,7 +13,7 @@ import 'add_user_success.dart';
 
 class SignUpVerificationEmailPage extends StatefulWidget {
   static const String signUpVerificationEmailPageKey =
-      'SignUpVerificationEmailPage';
+      '/SignUpVerificationEmailPage';
 
   final Services services;
   const SignUpVerificationEmailPage({
