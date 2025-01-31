@@ -66,7 +66,9 @@ class NearMeApp extends StatelessWidget {
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 navigatorObservers: [routeObserver],
-                initialRoute: '/',
+                initialRoute: isUserLoggedIn
+                    ? SignInScreen.signInScreenKey
+                    : SplashPage.splashPageKey,
                 routes: {
                   '/': (context) =>
                       (FirebaseAuth.instance.currentUser != null &&
@@ -103,6 +105,3 @@ class NearMeApp extends StatelessWidget {
         }));
   }
 }
-// isUserLoggedIn
-//                     ? HomeScreen.homeScreenKey
-//                     : SplashPage.splashPageKey,

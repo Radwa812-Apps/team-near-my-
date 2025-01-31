@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Components/custom_container.dart';
 
 import '../../../core/data/services/customplace_crud_operation.dart';
+import '../../../core/messages.dart';
 
 class CustomPlacesCrudOp extends StatefulWidget {
   const CustomPlacesCrudOp({super.key});
@@ -15,8 +17,38 @@ class CustomPlacesCrudOp extends StatefulWidget {
 }
 
 class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('customPlaces').snapshots();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late Stream<List<DocumentSnapshot>> _usersStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _usersStream = _getUserCustomPlaces();
+  }
+
+  Stream<List<DocumentSnapshot>> _getUserCustomPlaces() {
+    final userId = _auth.currentUser?.uid;
+    if (userId == null) {
+      return const Stream.empty();
+    }
+
+    return FirebaseFirestore.instance
+        .collection('user_customPlaces')
+        .where('userId', isEqualTo: userId)
+        .snapshots()
+        .asyncMap((userPlacesSnapshot) async {
+      List<DocumentSnapshot> customPlacesDocs = [];
+      for (var userPlaceDoc in userPlacesSnapshot.docs) {
+        var customPlaceId = userPlaceDoc['customPlaceId'];
+        var customPlaceDoc = await FirebaseFirestore.instance
+            .collection('customPlaces')
+            .doc(customPlaceId)
+            .get();
+        customPlacesDocs.add(customPlaceDoc);
+      }
+      return customPlacesDocs;
+    });
+  }
 
   void _showEditDialog(
       BuildContext context, String documentId, String currentName) {
@@ -60,6 +92,13 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
                       if (newName.isNotEmpty) {
                         updateUser(documentId, newName);
                         Navigator.pop(context);
+                        setState(() {
+                          _usersStream = _getUserCustomPlaces();
+                        });
+                        AppMessages().sendVerification(
+                            (context),
+                            Colors.green.withOpacity(0.8),
+                            'Custom place updated successfully!');
                       }
                     },
                     child: const Text(
@@ -76,16 +115,46 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
     );
   }
 
+  void _confirmDelete(BuildContext context, String documentId, String name) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Confirm Delete"),
+        content: Text("Are you sure you want to delete $name?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel", style: TextStyle(color: Colors.blue)),
+          ),
+          TextButton(
+            onPressed: () {
+              deleteUser(context,documentId);
+              Navigator.pop(context);
+              setState(() {
+                _usersStream = _getUserCustomPlaces();
+              });
+              AppMessages().sendVerification(
+                  (context),
+                  Colors.green.withOpacity(0.8),
+                  'Custom place deleted successfully!');
+            },
+            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.4,
-        child: StreamBuilder<QuerySnapshot>(
+        child: StreamBuilder<List<DocumentSnapshot>>(
           stream: _usersStream,
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          builder: (BuildContext context,
+              AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
             if (snapshot.hasError) {
               return Center(
                   child: Text('Something went wrong: ${snapshot.error}'));
@@ -95,13 +164,17 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            if (snapshot.data!.docs.isEmpty) {
+            if (snapshot.data!.isEmpty) {
               return const Center(child: Text("No custom places found"));
             }
             return ListView(
-              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              children: snapshot.data!.map((DocumentSnapshot document) {
+                if (document.data() == null) {
+                  return const SizedBox.shrink();
+                }
+
                 Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
+                    document.data() as Map<String, dynamic>;
                 String documentId = document.id;
                 return CustomContainer(
                   w: 70,
@@ -115,8 +188,7 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
                           w: 40,
                           h: 40,
                           child: IconButton(
-                            icon: const Icon(Icons.edit,
-                                color: Colors.blue), // أيقونة التعديل
+                            icon: const Icon(Icons.edit, color: Colors.blue),
                             onPressed: () {
                               _showEditDialog(
                                   context, documentId, data['name']);
@@ -133,8 +205,7 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
                           child: IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              deleteUser(documentId);
-                              print("Delete pressed for ${data['name']}");
+                              _confirmDelete(context, documentId, data['name']);
                             },
                           ),
                         )
