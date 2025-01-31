@@ -11,7 +11,7 @@ part 'custom_places_state.dart';
 
 class CustomPlacesBloc extends Bloc<CustomPlacesEvent, CustomPlacesState> {
   final Services services;
-    List<CustomPlace> myList = [];
+  List<CustomPlace> myList = [];
 
   CustomPlacesBloc(this.services) : super(AddCustomPlacesInitial()) {
     on<CustomPlacesEvent>(
@@ -32,7 +32,7 @@ class CustomPlacesBloc extends Bloc<CustomPlacesEvent, CustomPlacesState> {
               'latitude': event.latitude,
               'longitude': event.longitude,
               'radius': event.raduis,
-              
+              // 'timeStapm': Timestamp.now()
             });
             try {
               final userCustomPlacesRef =
@@ -55,11 +55,10 @@ class CustomPlacesBloc extends Bloc<CustomPlacesEvent, CustomPlacesState> {
           } catch (e) {
             emit(AddCustomPlacesFailure(e.toString()));
           }
-        } else if (event is ShowCustomPlacesEvent){
+        } else if (event is ShowCustomPlacesEvent) {
           emit(ShowCustomPlacesLoading());
           try {
-          myList =
-             await  services.ShowCustomPlaceMethod(event.uId);
+            myList = await services.ShowCustomPlaceMethod(event.uId);
             print('ssssssssssssssssssssssssssss 😉😉😉😉😉😉' + event.uId);
             print(myList.length);
 

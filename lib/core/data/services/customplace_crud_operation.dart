@@ -58,10 +58,12 @@ Future<List<CustomPlace>> getUserCustomPlaces() async {
   final userCustomPlacesSnapshot = await FirebaseFirestore.instance
       .collection('user_customPlaces')
       .where('userId', isEqualTo: userId)
+      .orderBy('createdAt', descending: true)
       .get();
 
   // جلب تفاصيل كل custom place من مجموعة customPlaces
-  final customPlaces = await Future.wait(userCustomPlacesSnapshot.docs.map((doc) async {
+  final customPlaces =
+      await Future.wait(userCustomPlacesSnapshot.docs.map((doc) async {
     final customPlaceId = doc['customPlaceId'];
     final customPlaceDoc = await FirebaseFirestore.instance
         .collection('customPlaces')
@@ -81,7 +83,6 @@ Future<List<CustomPlace>> getUserCustomPlaces() async {
     }
     return null;
   }));
-
 
   return customPlaces.whereType<CustomPlace>().toList();
 }
