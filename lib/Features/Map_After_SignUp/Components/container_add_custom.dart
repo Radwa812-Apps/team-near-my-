@@ -11,9 +11,15 @@ import '../../../core/data/bloc/custom_places/custom_places_bloc.dart';
 import '../../../core/messages.dart';
 
 class ContainerAddCustom extends StatefulWidget {
-  const ContainerAddCustom({super.key, required this.selectedLatLng,required this.markers});
+  const ContainerAddCustom({
+    super.key,
+    required this.selectedLatLng,
+    required this.markers,
+    // required this.onPlaceAdded
+  });
   final LatLng selectedLatLng;
- final Set<Marker>  markers;
+  final Set<Marker> markers;
+  // final VoidCallback onPlaceAdded;
 
   @override
   State<ContainerAddCustom> createState() => _ContainerAddCustomState();
@@ -51,7 +57,7 @@ class _ContainerAddCustomState extends State<ContainerAddCustom> {
               ),
             ),
             onSubmitted: (value) {
-              _handleTextBarSubmit();
+              //  _addMarker();
               Navigator.pop(context);
             },
           ),
@@ -67,8 +73,6 @@ class _ContainerAddCustomState extends State<ContainerAddCustom> {
                 );
                 return;
               }
-
-              // إرسال البيانات إلى الكيوبت
               BlocProvider.of<CustomPlacesBloc>(context).add(
                 AddCustomPlaces(
                   latitude: widget.selectedLatLng!.latitude,
@@ -81,8 +85,12 @@ class _ContainerAddCustomState extends State<ContainerAddCustom> {
                 ),
               );
 
-              _handleTextBarSubmit();
+              // _addMarker();
+
               Navigator.pop(context);
+              // setState(() {
+              //   widget.onPlaceAdded();
+              // });
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: kSpecialColor,
@@ -102,23 +110,23 @@ class _ContainerAddCustomState extends State<ContainerAddCustom> {
     );
   }
 
-  Future<void> _handleTextBarSubmit() async {
-    if (_textBarController.text.isNotEmpty && widget.selectedLatLng != null) {
-      setState(() {
-       widget.markers.add(
-          Marker(
-            markerId: MarkerId(widget.selectedLatLng.toString()),
-            position: widget.selectedLatLng!,
-            icon:
-                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-            infoWindow: InfoWindow(
-              title: _textBarController.text,
-            ),
-          ),
-        );
-      });
+  // Future<void> _addMarker() async {
+  //   if (_textBarController.text.isNotEmpty && widget.selectedLatLng != null) {
+  //     setState(() {
+  //       widget.markers.add(
+  //         Marker(
+  //           markerId: MarkerId(widget.selectedLatLng.toString()),
+  //           position: widget.selectedLatLng,
+  //           icon:
+  //               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //           infoWindow: InfoWindow(
+  //             title: _textBarController.text,
+  //           ),
+  //         ),
+  //       );
+  //     });
 
-      _textBarController.clear();
-    }
-  }
+  //     _textBarController.clear();
+  //   }
+  // }
 }

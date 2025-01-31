@@ -44,13 +44,10 @@ class Services {
         .where('userId', isEqualTo: userId);
 
 
-
-
-
     QuerySnapshot querySnapshot = await customPlaces.get();
     List<CustomPlace> customplacesList = [];
     querySnapshot.docs.forEach((doc) {
-      customPlace.add(CustomPlace.fromJson(doc.data()));
+      customPlace.add(CustomPlace.fromJson(doc.data(),doc.id));
     });
     // customPlace.snapshots().listen((event) {
     //   // customplacesList = [];

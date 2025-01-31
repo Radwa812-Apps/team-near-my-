@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nearme_app/core/messages.dart';
+
+import '../models/custom_places.dart';
 
 Future<void> deleteUser(BuildContext context, String documentId) async {
   try {
@@ -45,4 +48,40 @@ Future<void> updateUser(String documentId, String newName) async {
   } catch (error) {
     print("Failed to update user: $error");
   }
+}
+
+Future<List<CustomPlace>> getUserCustomPlaces() async {
+  final userId = FirebaseAuth.instance.currentUser?.uid;
+  if (userId == null) return []; // إذا لم يكن المستخدم مسجل الدخول
+
+  // جلب الـ user_customPlaces المرتبطة بالمستخدم
+  final userCustomPlacesSnapshot = await FirebaseFirestore.instance
+      .collection('user_customPlaces')
+      .where('userId', isEqualTo: userId)
+      .get();
+
+  // جلب تفاصيل كل custom place من مجموعة customPlaces
+  final customPlaces = await Future.wait(userCustomPlacesSnapshot.docs.map((doc) async {
+    final customPlaceId = doc['customPlaceId'];
+    final customPlaceDoc = await FirebaseFirestore.instance
+        .collection('customPlaces')
+        .doc(customPlaceId)
+        .get();
+
+    if (customPlaceDoc.exists) {
+      final data = customPlaceDoc.data();
+      if (data != null) {
+        return CustomPlace(
+          id: customPlaceDoc.id,
+          name: data['name'] ?? 'No Name',
+          latitude: data['latitude'],
+          longitude: data['longitude'],
+        );
+      }
+    }
+    return null;
+  }));
+
+
+  return customPlaces.whereType<CustomPlace>().toList();
 }
