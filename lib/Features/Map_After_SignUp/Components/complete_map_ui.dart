@@ -17,8 +17,8 @@ class CompleteMapUi extends StatefulWidget {
 }
 
 class _CompleteMapUiState extends State<CompleteMapUi> {
-    bool _isBottomSheetVisible = false;
-
+  bool _isBottomSheetVisible = false;
+  String searchQuery = '';
   @override
   Widget build(BuildContext context) {
     return Row(children: [
@@ -79,49 +79,62 @@ class _CompleteMapUiState extends State<CompleteMapUi> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 0.2, sigmaY: 0.2),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.7), // لون أبيض شفاف
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(20)),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search...',
-                          border: InputBorder.none,
-                          suffixIcon: IconButton(
-                              onPressed: (() {}),
-                              icon: const Icon(Icons.search, color: Colors.grey)),
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 9, vertical: 12),
-                        ),
-                      ),
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setModalState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20)),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 0.2, sigmaY: 0.2),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.7),
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(20)),
                     ),
-                    const SizedBox(height: 20),
-                    const CustomPlacesCrudOp(),
-                    const SizedBox(height: 20),
-                  ],
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: TextField(
+                            onChanged: (value) {
+                              setModalState(() {
+                                searchQuery = value;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Search...',
+                              border: InputBorder.none,
+                              suffixIcon: IconButton(
+                                  onPressed: (() {}),
+                                  icon: const Icon(Icons.search,
+                                      color: Colors.grey)),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 9, vertical: 12),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        CustomPlacesCrudOp(
+                          searchQuery: searchQuery,
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     ).whenComplete(() {

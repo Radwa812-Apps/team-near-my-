@@ -9,8 +9,8 @@ import '../../../core/data/services/customplace_crud_operation.dart';
 import '../../../core/messages.dart';
 
 class CustomPlacesCrudOp extends StatefulWidget {
-  const CustomPlacesCrudOp({super.key});
-
+  const CustomPlacesCrudOp({super.key, required this.searchQuery});
+  final String searchQuery;
   @override
   // ignore: library_private_types_in_public_api
   _CustomPlacesCrudOpState createState() => _CustomPlacesCrudOpState();
@@ -128,7 +128,7 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
           ),
           TextButton(
             onPressed: () {
-              deleteUser(context,documentId);
+              deleteUser(context, documentId);
               Navigator.pop(context);
               setState(() {
                 _usersStream = _getUserCustomPlaces();
@@ -167,15 +167,23 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
             if (snapshot.data!.isEmpty) {
               return const Center(child: Text("No custom places found"));
             }
-            return ListView(
-              children: snapshot.data!.map((DocumentSnapshot document) {
-                if (document.data() == null) {
-                  return const SizedBox.shrink();
-                }
+            final filteredDate = snapshot.data!.where(((element) {
+              final data = element.data() as Map<String, dynamic>?;
+              if (data == null) return false;
+              final name = data['name']?.toString().toLowerCase() ?? '';
+              return name.contains(widget.searchQuery.toLowerCase());
+            })).toList();
 
-                Map<String, dynamic> data =
+            if (filteredDate.isEmpty) {
+              return const Center(child: Text("No results found"));
+            }
+            return ListView(
+              shrinkWrap: true,
+              children: filteredDate.map((DocumentSnapshot document) {
+               final data =
                     document.data() as Map<String, dynamic>;
                 String documentId = document.id;
+
                 return CustomContainer(
                   w: 70,
                   h: 60,
