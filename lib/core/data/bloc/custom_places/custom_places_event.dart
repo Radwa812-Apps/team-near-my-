@@ -40,3 +40,4 @@ class UpdateCustomPlace extends CustomPlacesEvent {
 
   UpdateCustomPlace(this.place);
 }
+

@@ -6,12 +6,11 @@ import 'package:nearme_app/core/messages.dart';
 
 import '../models/custom_places.dart';
 
-Future<void> deleteUser(BuildContext context, String documentId) async {
+Future<void> deleteUser(String documentId) async {
   try {
     String? user = FirebaseAuth.instance.currentUser?.uid;
     if (user == null) {
-      AppMessages().sendVerification((context), Colors.red.withOpacity(0.8),
-          'No authenticated user found!');
+      
       return;
     }
 

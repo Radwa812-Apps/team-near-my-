@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/core/data/services/Auth_functions.dart';
 
 import '../../models/custom_places.dart';
+import '../../services/customplace_crud_operation.dart';
 part 'custom_places_event.dart';
 part 'custom_places_state.dart';
 
@@ -65,6 +66,14 @@ class CustomPlacesBloc extends Bloc<CustomPlacesEvent, CustomPlacesState> {
             emit(ShowCustomPlacesSuccess(myList));
           } catch (e) {
             emit(ShowCustomPlacesFailure(e.toString()));
+          }
+        } else if (event is DeleteCustomPlace) {
+          emit(DeleteCustomPlacesLoading());
+          try {
+          await  deleteUser(event.placeId);
+            emit(DeleteCustomPlacesSuccess());
+          } catch (e) {
+            emit(DeleteCustomPlacesFailure(e.toString()));
           }
         }
       },

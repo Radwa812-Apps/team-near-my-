@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Components/custom_container.dart';
+import 'package:nearme_app/core/data/bloc/custom_places/custom_places_bloc.dart';
 
 import '../../../core/data/services/customplace_crud_operation.dart';
 import '../../../core/messages.dart';
@@ -115,7 +117,8 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
     );
   }
 
-  void _confirmDelete(BuildContext context, String documentId, String name) {
+  void _confirmDelete(BuildContext context, String documentId, String name,
+      Function() onpress) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -127,17 +130,7 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
             child: const Text("Cancel", style: TextStyle(color: Colors.blue)),
           ),
           TextButton(
-            onPressed: () {
-              deleteUser(context, documentId);
-              Navigator.pop(context);
-              setState(() {
-                _usersStream = _getUserCustomPlaces();
-              });
-              AppMessages().sendVerification(
-                  (context),
-                  Colors.green.withOpacity(0.8),
-                  'Custom place deleted successfully!');
-            },
+            onPressed: onpress,
             child: const Text("Delete", style: TextStyle(color: Colors.red)),
           ),
         ],
@@ -145,87 +138,128 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
     );
   }
 
+//  () {
+//               // deleteUser(context, documentId);
+//               Navigator.pop(context);
+//               setState(() {
+//                 _usersStream = _getUserCustomPlaces();
+//               });
+//               AppMessages().sendVerification(
+//                   (context),
+//                   Colors.green.withOpacity(0.8),
+//                   'Custom place deleted successfully!');
+//             },
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.4,
-        child: StreamBuilder<List<DocumentSnapshot>>(
-          stream: _usersStream,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                  child: Text('Something went wrong: ${snapshot.error}'));
-            }
+    return BlocConsumer<CustomPlacesBloc, CustomPlacesState>(
+      listener: (context, state) {
+        if (state is DeleteCustomPlacesSuccess) {
+          Navigator.pop(context);
+          setState(() {
+            _usersStream = _getUserCustomPlaces();
+          });
+          AppMessages().sendVerification(
+              (context),
+              Colors.green.withOpacity(0.8),
+              'Custom place deleted successfully!');
+        }
+      },
+      builder: (context, state) {
+        return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: StreamBuilder<List<DocumentSnapshot>>(
+              stream: _usersStream,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                      child: Text('Something went wrong: ${snapshot.error}'));
+                }
 
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-            if (snapshot.data!.isEmpty) {
-              return const Center(child: Text("No custom places found"));
-            }
-            final filteredDate = snapshot.data!.where(((element) {
-              final data = element.data() as Map<String, dynamic>?;
-              if (data == null) return false;
-              final name = data['name']?.toString().toLowerCase() ?? '';
-              return name.contains(widget.searchQuery.toLowerCase());
-            })).toList();
+                if (snapshot.data!.isEmpty) {
+                  return const Center(child: Text("No custom places found"));
+                }
+                final filteredDate = snapshot.data!.where(((element) {
+                  final data = element.data() as Map<String, dynamic>?;
+                  if (data == null) return false;
+                  final name = data['name']?.toString().toLowerCase() ?? '';
+                  return name.contains(widget.searchQuery.toLowerCase());
+                })).toList();
 
-            if (filteredDate.isEmpty) {
-              return const Center(child: Text("No results found"));
-            }
-            return ListView(
-              shrinkWrap: true,
-              children: filteredDate.map((DocumentSnapshot document) {
-               final data =
-                    document.data() as Map<String, dynamic>;
-                String documentId = document.id;
+                if (filteredDate.isEmpty) {
+                  return const Center(child: Text("No results found"));
+                }
+                return ListView(
+                  shrinkWrap: true,
+                  children: filteredDate.map((DocumentSnapshot document) {
+                    final data = document.data() as Map<String, dynamic>;
+                    String documentId = document.id;
 
-                return CustomContainer(
-                  w: 70,
-                  h: 60,
-                  child: ListTile(
-                    title: Text(data['name'] ?? 'No Name'),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CustomContainer(
-                          w: 40,
-                          h: 40,
-                          child: IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.blue),
-                            onPressed: () {
-                              _showEditDialog(
-                                  context, documentId, data['name']);
-                              print("Edit pressed for ${data['name']}");
-                            },
-                          ),
+                    return CustomContainer(
+                      w: 70,
+                      h: 60,
+                      child: ListTile(
+                        title: Text(data['name'] ?? 'No Name'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomContainer(
+                              w: 40,
+                              h: 40,
+                              child: IconButton(
+                                icon:
+                                    const Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () {
+                                  _showEditDialog(
+                                      context, documentId, data['name']);
+                                  print("Edit pressed for ${data['name']}");
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 7,
+                            ),
+                            CustomContainer(
+                              w: 40,
+                              h: 40,
+                              child: IconButton(
+                                icon:
+                                    const Icon(Icons.delete, color: Colors.red),
+                                onPressed: () {
+                                  _confirmDelete(
+                                      context, documentId, data['name'], (() {
+                                    BlocProvider.of<CustomPlacesBloc>(context)
+                                        .add(DeleteCustomPlace(documentId));
+                                    Navigator.pop(context);
+                                    setState(() {
+                                      _usersStream = _getUserCustomPlaces();
+                                    });
+                                    AppMessages().sendVerification(
+                                        (context),
+                                        Colors.green.withOpacity(0.8),
+                                        'Custom place deleted successfully!');
+                                  }));
+                                },
+                              ),
+                            )
+                          ],
                         ),
-                        const SizedBox(
-                          width: 7,
-                        ),
-                        CustomContainer(
-                          w: 40,
-                          h: 40,
-                          child: IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () {
-                              _confirmDelete(context, documentId, data['name']);
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  }).toList(),
                 );
-              }).toList(),
-            );
-          },
-        ),
-      ),
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

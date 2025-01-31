@@ -74,7 +74,8 @@ class _Map1State extends State<Map1> {
     final markers = convertToMarkers(customPlaces);
     return BlocConsumer<CustomPlacesBloc, CustomPlacesState>(
       listener: (context, state) {
-        if (state is AddCustomPlacesSuccess) {
+        if (state is AddCustomPlacesSuccess ||
+            state is DeleteCustomPlacesSuccess) {
           isLoad = false;
           AppMessages().sendVerification(context, Colors.green.withOpacity(0.8),
               'This Custon Place added successfuly 😉');
@@ -148,7 +149,6 @@ class _Map1State extends State<Map1> {
               //     _loadCustomPlaces();
               //   });
               // },
-            
             ));
       },
     );
