@@ -9,8 +9,8 @@ import 'package:nearme_app/Features/Auth/Sign_up_and_in/components/phone_widget.
 import 'package:nearme_app/Features/Auth/Sign_up_and_in/screens/add_user_success.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
 import 'package:nearme_app/core/data/models/user.dart';
-import 'package:nearme_app/core/data/services/Auth_functions.dart';
-import 'package:nearme_app/core/data/services/validator.dart';
+import 'package:nearme_app/core/services/Auth_functions.dart';
+import 'package:nearme_app/core/services/validator.dart';
 
 import '../../../../core/constants.dart';
 import '../../../../core/messages.dart';

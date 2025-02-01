@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nearme_app/Features/Map_After_SignUp/Screens/MapSearchWidget.dart';
 import 'package:nearme_app/Features/Notifications/Screens/general_notifications.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password2.dart';
@@ -11,7 +12,7 @@ import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/signUp_verifiy_e
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
 import 'package:nearme_app/Features/Splash_page/Screens/splash_screen.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
-import 'package:nearme_app/core/data/services/Auth_functions.dart';
+import 'package:nearme_app/core/services/Auth_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Features/Home/Screens/home_screen.dart';
 import 'Features/Map_After_SignUp/Screens/map1.dart';
@@ -75,7 +76,7 @@ class NearMeApp extends StatelessWidget {
                               FirebaseAuth.instance.currentUser!.emailVerified)
                           ? SignInScreen()
                           : HomeScreen(),
-
+                  '/shimass': (context) => Map1shimaa(),
                   SignUpScreen.signUpScreenKey: (context) =>
                       const SignUpScreen(),
                   SignInScreen.signInScreenKey: (context) => SignInScreen(),

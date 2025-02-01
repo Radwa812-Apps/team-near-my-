@@ -132,7 +132,7 @@ import 'package:nearme_app/core/data/models/user.dart';
 import 'package:nearme_app/core/messages.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
-import '../../constants.dart';
+import '../constants.dart';
 import 'handleFirebaseAuthException.dart';
 import 'internet_connection.dart';
 

@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Components/custom_container.dart';
 import 'package:nearme_app/core/data/bloc/custom_places/custom_places_bloc.dart';
 
-import '../../../core/data/services/customplace_crud_operation.dart';
+import '../../../core/services/customplace_crud_operation.dart';
 import '../../../core/messages.dart';
 
 class CustomPlacesCrudOp extends StatefulWidget {

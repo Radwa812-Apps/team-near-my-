@@ -6,12 +6,21 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../../../core/constants.dart';
+import '../../../core/services/map.dart';
+import 'autoComplete_map.dart';
 import 'custom_container.dart';
 import 'custom_places.dart';
 
 class CompleteMapUi extends StatefulWidget {
-  const CompleteMapUi({super.key});
+  const CompleteMapUi(
+      {super.key,
+      required this.service,
+      required this.controller,
+      required this.GetSearchedPlace});
 
+  final MapServices service;
+  final TextEditingController controller;
+  final Function(String) GetSearchedPlace;
   @override
   State<CompleteMapUi> createState() => _CompleteMapUiState();
 }
@@ -40,18 +49,29 @@ class _CompleteMapUiState extends State<CompleteMapUi> {
         w: 250,
         h: 50,
         child: Center(
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: 'Search ...',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(60),
-                borderSide: BorderSide.none,
-              ),
-              suffixIcon: const Icon(Icons.search, color: kPrimaryColor1),
-            ),
+          child: AutoCompleteSearch(
+            GetSearchedPlace: widget.GetSearchedPlace,
+            controller: widget.controller,
+            service: widget.service,
           ),
+          // TextField(
+          //   decoration: InputDecoration(
+          //     hintText: 'Search ...',
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(60),
+          //       borderSide: BorderSide.none,
+          //     ),
+          //     suffixIcon: const Icon(Icons.search, color: kPrimaryColor1),
+          //   ),
+          // ),
         ),
       ),
+      // AutoCompleteSearch(
+      //   GetSearchedPlace: widget.GetSearchedPlace,
+      //   controller: widget.controller,
+      //   service: widget.service,
+      // ),
+
       CustomContainer(
         w: 44,
         h: 44,
@@ -143,4 +163,5 @@ class _CompleteMapUiState extends State<CompleteMapUi> {
       });
     });
   }
+  
 }

@@ -7,11 +7,11 @@ import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/forgot_password.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
-import 'package:nearme_app/core/data/services/validator.dart';
+import 'package:nearme_app/core/services/validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants.dart';
-import '../../../../core/data/services/signInWithGoogle.dart';
+import '../../../../core/services/signInWithGoogle.dart';
 import '../../../../core/messages.dart';
 import '../components/bold_text_widget.dart';
 import '../components/linear_gradient_widget.dart';
@@ -22,7 +22,7 @@ import '../components/text_form_widget.dart';
 class SignInScreen extends StatefulWidget {
   @override
   State<SignInScreen> createState() => _SignInScreenState();
-  
+
   static const String signInScreenKey = '/SignInScreen';
 }
 
@@ -47,6 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
       listener: (context, state) {
         if (state is LoginSuccess) {
           Navigator.pushNamed(context, Map1.map1Key);
+          // Navigator.pushNamed(context, '/shimass');
         } else if (state is LoginError) {
           isload = false;
           AppMessages().sendVerification(

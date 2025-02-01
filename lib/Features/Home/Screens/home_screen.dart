@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:nearme_app/Features/Home/components/container_text_field_widget.dart';
 import 'package:nearme_app/Features/Home/components/group_style.dart';
 import 'package:nearme_app/Features/Home/components/home_bar_widget.dart';
@@ -94,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Column(
             children: [
+             // Icon(Iconsax.profile_2user4),
               // Row below the app bar for "Chats" or "Groups"
               RowAfterBarChatsGroups(
                 selectedTab: _selectedTab,

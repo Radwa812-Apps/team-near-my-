@@ -9,10 +9,10 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:nearme_app/core/data/models/user.dart';
-import 'package:nearme_app/core/data/services/auth_error.dart';
+import 'package:nearme_app/core/services/auth_error.dart';
 
-import '../../services/Auth_functions.dart';
-import '../../services/internet_connection.dart';
+import '../../../services/Auth_functions.dart';
+import '../../../services/internet_connection.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

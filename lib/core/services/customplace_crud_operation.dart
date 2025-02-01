@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nearme_app/core/messages.dart';
 
-import '../models/custom_places.dart';
+import '../data/models/custom_places.dart';
 
 Future<void> deleteUser(String documentId) async {
   try {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
-import 'package:nearme_app/core/data/services/validator.dart';
 
 import '../../../../core/constants.dart';
+import '../../../../core/services/validator.dart';
 
 class PhoneNumberWidget extends StatelessWidget {
   PhoneNumberWidget({super.key, required this.onchange});

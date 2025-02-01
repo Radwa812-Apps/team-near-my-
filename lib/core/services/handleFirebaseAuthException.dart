@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart'; // تأكد من استيرا
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../messages.dart';
+import '../messages.dart';
 
 void handleFirebaseAuthException(FirebaseAuthException e, BuildContext context) {
   switch (e.code) {

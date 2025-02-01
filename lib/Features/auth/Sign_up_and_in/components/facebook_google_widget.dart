@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/data/services/signInWithGoogle.dart';
 
 class FacebookGoogleWidget extends StatelessWidget {
   @override
