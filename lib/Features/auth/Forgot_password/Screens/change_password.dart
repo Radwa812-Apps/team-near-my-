@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password2.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
 
@@ -44,7 +45,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         const SizedBox(height: 300),
                         ChangePasswordTextfield(
                           textHint: 'New Password',
-                          leftIcon: Icon(Icons.lock_outlined,
+                          leftIcon: const Icon(Icons.lock_outlined,
                               color: kPrimaryColor1, size: 20),
                           rightIcon: PasswordField(
                             onVisibilityChanged: (isVisible) {
@@ -59,7 +60,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         const SizedBox(height: 32),
                         ChangePasswordTextfield(
                           textHint: 'Confirm Password',
-                          leftIcon: Icon(Icons.check,
+                          leftIcon: const Icon(Icons.check,
                               color: kPrimaryColor1, size: 20),
                           rightIcon: PasswordField(
                             onVisibilityChanged: (isVisible) {
@@ -76,7 +77,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           buttonText: 'Save',
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.pushNamed(context, 'ChangePassword2');
+                              Navigator.pushNamed(context, ChangePassword2.changePassword2Key);
                             } else {
                               print('Please enter valid passwords.');
                             }

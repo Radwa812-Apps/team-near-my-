@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/button.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
@@ -7,6 +8,7 @@ import 'package:nearme_app/core/font_style.dart';
 class PermissionLocation extends StatefulWidget {
   @override
   _PermissionLocationState createState() => _PermissionLocationState();
+  static String permissionLocationKey = '/PermissionLocation';
 }
 
 class _PermissionLocationState extends State<PermissionLocation> {
@@ -107,13 +109,13 @@ class _PermissionLocationState extends State<PermissionLocation> {
                   Spacer(), // Pushes the button to the right
                   ElevatedButton(
                     onPressed: () {
-                      print('Button pressed');
+                      Navigator.pushNamed(context, Map1.map1Key);
                     },
+                    style: AppButtonStyles.elevatedButtonStyle(),
                     child: const Text(
                       'Next',
                       style: TextStyles.permissionButtonText,
                     ),
-                    style: AppButtonStyles.elevatedButtonStyle(),
                   ),
                 ],
               ),

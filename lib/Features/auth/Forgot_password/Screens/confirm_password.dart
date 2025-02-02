@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
@@ -91,7 +92,8 @@ class ConfirmPassword extends StatelessWidget {
                 ForgotPasswordButton(
                     buttonText: 'Confirm',
                     onTap: () {
-                      Navigator.pushNamed(context, 'ChangePassword');
+                      Navigator.pushNamed(
+                          context, ChangePassword.changePasswordKey);
                     })
               ],
             ),

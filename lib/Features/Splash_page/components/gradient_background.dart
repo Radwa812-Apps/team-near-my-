@@ -9,14 +9,6 @@ class GradientBackground extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       decoration: const BoxDecoration(
-        // gradient: LinearGradient(
-        //   begin: Alignment.topLeft,
-        //   end: Alignment.bottomRight,
-        //   colors: [
-        //     Color.fromRGBO(68, 110, 66, 1),
-        //     Color.fromRGBO(177, 211, 209, 1),
-        //   ],
-        // ),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -34,17 +26,17 @@ class GradientBackground extends StatelessWidget {
             Color.fromRGBO(161, 182, 160, 1),
           ],
           stops: [
-            0.0, // First color at 0%
-            0.1, // Second color at 10%
-            0.2, // Third color at 20%
-            0.3, // Fourth color at 30%
-            0.4, // Fifth color at 40%
-            0.5, // Sixth color at 50%
-            0.6, // Seventh color at 60%
-            0.7, // Eighth color at 70%
-            0.8, // Ninth color at 80%
-            0.9, // Tenth color at 90%
-            1.0, // Last color at 100%
+            0.0, 
+            0.1, 
+            0.2, 
+            0.3, 
+            0.4, 
+            0.5, 
+            0.6, 
+            0.7, 
+            0.8, 
+            0.9, 
+            1.0, 
           ],
         ),
       ),

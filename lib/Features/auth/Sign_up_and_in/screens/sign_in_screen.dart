@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:nearme_app/Features/Auth/Sign_up_and_in/components/facebook_google_widget.dart';
-import 'package:nearme_app/Features/Home/Screens/home_screen.dart';
+import 'package:nearme_app/Features/Home/Home/Screens/home_screen.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
+import 'package:nearme_app/Features/Permissions/Screens/permissions.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/forgot_password.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
+import 'package:nearme_app/components/mainScaffold.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
-import 'package:nearme_app/core/services/validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants.dart';
@@ -46,8 +46,9 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          Navigator.pushNamed(context, Map1.map1Key);
+          // Navigator.pushNamed(context, Map1.map1Key);
           // Navigator.pushNamed(context, '/shimass');
+          Navigator.pushNamed(context,Permissions.permissionsKey);
         } else if (state is LoginError) {
           isload = false;
           AppMessages().sendVerification(

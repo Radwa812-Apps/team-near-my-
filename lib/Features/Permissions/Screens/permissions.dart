@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/button.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/permission_tile.dart';
+import 'package:nearme_app/Features/Permissions/Screens/permission_location.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
 
 class Permissions extends StatefulWidget {
   const Permissions({super.key});
-
+  static String permissionsKey = '/Permissions';
   @override
   _PermissionsState createState() => _PermissionsState();
 }
 
 class _PermissionsState extends State<Permissions> {
- 
   List<bool> switchStatus = [false, false, false, false, false];
 
-  
   void updateSwitchStatus(int index, bool value) {
     setState(() {
       switchStatus[index] = value;
@@ -24,11 +23,10 @@ class _PermissionsState extends State<Permissions> {
 
   @override
   Widget build(BuildContext context) {
-    
     bool anySwitchActive = switchStatus.contains(true);
 
     return Scaffold(
-      backgroundColor:background,
+      backgroundColor: background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -60,14 +58,16 @@ class _PermissionsState extends State<Permissions> {
                     PermissionTile(
                       icon: Icons.mic_none_outlined,
                       title: 'Microphone',
-                      subtitle: 'Access to your microphone to record audio or enable voice-based services.',
+                      subtitle:
+                          'Access to your microphone to record audio or enable voice-based services.',
                       switchValue: switchStatus[1],
                       onChanged: (value) => updateSwitchStatus(1, value),
                     ),
                     PermissionTile(
                       icon: Icons.folder_outlined,
                       title: 'Access files',
-                      subtitle: 'Access to your files to upload or manage documents.',
+                      subtitle:
+                          'Access to your files to upload or manage documents.',
                       switchValue: switchStatus[2],
                       onChanged: (value) => updateSwitchStatus(2, value),
                     ),
@@ -92,15 +92,15 @@ class _PermissionsState extends State<Permissions> {
                         children: [
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, 'PermissionLocation');
+                              Navigator.pushNamed(
+                                  context, PermissionLocation.permissionLocationKey);
                             },
                             child: Text(
                               anySwitchActive ? 'Next' : 'Skip',
                               style: TextStyles.permissionButtonText,
                             ),
                             style: AppButtonStyles.elevatedButtonStyle(),
-                            ),
-                          
+                          ),
                         ],
                       ),
                     ),

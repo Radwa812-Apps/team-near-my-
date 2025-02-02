@@ -1,0 +1,51 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/Group_Profile/components/switch_widget.dart';
+
+import '../../../core/constants.dart';
+
+class IconsTextSwitchWidget extends StatelessWidget {
+  const IconsTextSwitchWidget({
+    super.key,
+    this.showSwitch = true,
+    required this.featureName,
+    required this.iconData,
+  }) : assert(showSwitch != null);
+
+  final bool showSwitch;
+  final String? featureName;
+  final IconData? iconData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(
+                iconData,
+                size: 30,
+                color: kPrimaryColor1,
+              ),
+              const SizedBox(width: 10),
+              Text(
+                featureName!,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontFamily: kFontRegular,
+                  fontWeight: FontWeight.normal,
+                  color: kFontColor,
+                ),
+              ),
+            ],
+          ),
+          if (showSwitch)
+            const SwitchWidget(), // Use an if condition to include the switch only if showSwitch is true
+        ],
+      ),
+    );
+  }
+}

@@ -55,6 +55,9 @@ dependencies:
   modern_form_line_awesome_icons: ^2.0.1
   dio: ^5.8.0+1
   iconsax: ^0.0.6
+  flutter_native_splash: ^2.2.18
+  liquid_swipe: ^3.1.0
+  smooth_page_indicator: ^1.2.0+3
 
  
 
@@ -96,6 +99,11 @@ flutter:
     - assets/images/image.png
     - assets/images/Screenshot 2025-01-30 135647.png
     - assets/images/Screenshot 2025-01-30 135854.png
+    - assets/images/splash_photo.jpg
+    - assets/images/11436085_4721508.png
+    - assets/images/page2.png
+    - assets/images/page1.png
+    - assets/images/page3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

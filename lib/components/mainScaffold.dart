@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Home/Screens/home_screen.dart';
 import 'package:nearme_app/Features/Notifications/Screens/general_notifications.dart';
 import 'package:nearme_app/Features/Settings/screens/settings_screen.dart';
-import 'package:nearme_app/Features/User%20Profile/screens/user_profile_screen.dart';
 import 'package:nearme_app/components/bottom_bar.dart';
+
+import '../Features/Home/Home/Screens/home_screen.dart';
+import '../Features/User_Profile/screens/user_profile_screen.dart';
 
 // Create a RouteObserver
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
@@ -11,6 +12,7 @@ final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 class MainScaffold extends StatefulWidget {
   @override
   _MainScaffoldState createState() => _MainScaffoldState();
+  static String mainScaffoldKey = '/MainScaffold';
 }
 
 class _MainScaffoldState extends State<MainScaffold> with RouteAware {
@@ -21,7 +23,7 @@ class _MainScaffoldState extends State<MainScaffold> with RouteAware {
   final List<Widget> _pages = [
     HomeScreen(), // Index 0: Home
     UserProfileScreen(), // Index 1: User Profile
-    GeneralNotifications(
+    const GeneralNotifications(
         title:
             'Notifications'), // Index 2: Notifications (assuming this is for notifications)
     SettingsScreen(), // Index 3: Settings
@@ -55,11 +57,21 @@ class _MainScaffoldState extends State<MainScaffold> with RouteAware {
     _updateBottomBarVisibility();
   }
 
+  // void _updateBottomBarVisibility() {
+  //   final currentRoute = ModalRoute.of(context)?.settings.name;
+  //   setState(() {
+  //     _showBottomBar =
+  //         !(currentRoute == '/signin' || currentRoute == '/signup');
+  //   });
+  // }
   void _updateBottomBarVisibility() {
     final currentRoute = ModalRoute.of(context)?.settings.name;
     setState(() {
-      _showBottomBar =
-          !(currentRoute == '/signin' || currentRoute == '/signup');
+      _showBottomBar = currentRoute == MainScaffold.mainScaffoldKey ||
+          currentRoute == HomeScreen.homeScreenKey ||
+          currentRoute == UserProfileScreen.userProfileScreenKey ||
+          currentRoute == GeneralNotifications.generalNotificationsKey ||
+          currentRoute == SettingsScreen.settingsScreenKey;
     });
   }
 

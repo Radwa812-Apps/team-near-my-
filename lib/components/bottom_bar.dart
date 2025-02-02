@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Home/components/icon_button_widegt.dart';
 
 import '../../../core/constants.dart';
+import '../Features/Home/Home/components/icon_button_widegt.dart';
 
 class BottomContainerWithIcons extends StatelessWidget {
   final int selectedIndex;

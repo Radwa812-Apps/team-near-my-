@@ -1,0 +1,237 @@
+import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/Group_Profile/components/search_text_widget.dart';
+import 'package:nearme_app/Features/Group_Profile/components/split_between_features.dart';
+import 'package:nearme_app/Features/chat/screens/group_chat.dart';
+import '../../../core/constants.dart';
+import '../../Settings/components/confirm_message_widget.dart';
+import '../components/features_one.dart';
+import '../components/leave_group.dart';
+import '../components/members_style_widget.dart';
+import '../components/row_add_member.dart';
+
+class GroupProfileScreen extends StatefulWidget {
+  static String groupProfileScreenKey = '/groupProfileScreen';
+  final String groupName = 'Alex Trip';
+
+  @override
+  _GroupProfileScreenState createState() => _GroupProfileScreenState();
+}
+
+class _GroupProfileScreenState extends State<GroupProfileScreen> {
+  bool _isSearchExpanded = false;
+  OverlayEntry? _overlayEntry;
+
+  void _toggleSearch() {
+    setState(() {
+      _isSearchExpanded = !_isSearchExpanded;
+    });
+  }
+
+  void _showMenu(BuildContext context) {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final Offset offset = renderBox.localToGlobal(Offset.zero);
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => GestureDetector(
+        onTap: () {
+          _overlayEntry?.remove(); // Close the overlay when tapping outside
+          _overlayEntry = null;
+        },
+        behavior: HitTestBehavior.translucent,
+        child: Container(
+          color: Colors.transparent,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 100, // Adjust based on your layout
+                left: 200, // Adjust based on your layout
+                child: Material(
+                  color: Colors.transparent,
+                  child: LeaveGroup(
+                    onLeaveGroupPressed: () {
+                      // Show the ConfirmMessageWidget when "Leave Group" is pressed
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ConfirmMessageWidget(
+                            message:
+                                'Are you sure you want to leave the group?',
+                            onCancel: () {
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            onConfirm: () {
+                              Navigator.of(context).pop(); // Close the dialog
+                              // Add your logic here for leaving the group
+                              print('User confirmed leaving the group');
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context)?.insert(_overlayEntry!);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: kBackgroundColor,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: kBackgroundColor,
+            expandedHeight: 250.0,
+            floating: false,
+            pinned: true,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                double appBarHeight = constraints.biggest.height;
+                bool isCollapsed = appBarHeight <= kToolbarHeight + 50;
+
+                return FlexibleSpaceBar(
+                  title: isCollapsed
+                      ? Row(
+                          children: [
+                            const CircleAvatar(
+                              radius: 20, // Increased size when collapsed
+                              backgroundImage: AssetImage(kDefaultGroupImge),
+                            ),
+                            const SizedBox(width: 10),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 3, left: 5),
+                              child: Text(
+                                widget.groupName,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: kFontBold,
+                                  fontWeight: FontWeight.bold,
+                                  color: kFontColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : null, // Hide title when expanded
+
+                  background: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircleAvatar(
+                            radius: 60,
+                            backgroundImage: AssetImage(kDefaultGroupImge),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            widget.groupName,
+                            style: const TextStyle(
+                              fontSize: 30,
+                              fontFamily: kFontBold,
+                              fontWeight: FontWeight.bold,
+                              color: kFontColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (isCollapsed)
+                        const Positioned(
+                          left: 10, // Adjusted position to move it to the left
+                          child: CircleAvatar(
+                            radius: 20, // Increased size when collapsed
+                            backgroundImage: AssetImage(kDefaultGroupImge),
+                          ),
+                        ),
+                    ],
+                  ),
+                );
+              },
+            ),
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 15, bottom: 15),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: kPrimaryColor1,
+                  size: 28,
+                ),
+                onPressed: () {
+                  // Handle back button press
+                },
+              ),
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: kPrimaryColor1,
+                    size: 28,
+                  ),
+                  onPressed: () {
+                    _showMenu(context);
+                  },
+                ),
+              ),
+            ],
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  const FeaturesOne(),
+                  SplitBetweenFeatures(),
+                  const SizedBox(height: 10),
+                  RowAddMember(
+                    screenWidth: screenWidth,
+                    onSearchPressed: _toggleSearch,
+                  ),
+                  if (_isSearchExpanded) const SearchTextWidget(),
+                  const SizedBox(height: 30),
+                  const MembersStyleWidget(userName: 'Radwa'),
+                  const SizedBox(height: 10),
+                  const MembersStyleWidget(userName: 'Nada'),
+                  const SizedBox(height: 10),
+                  const MembersStyleWidget(userName: 'Radwa'),
+                  const SizedBox(height: 10),
+                  const MembersStyleWidget(userName: 'Nada'),
+                  const SizedBox(height: 10),
+                  const MembersStyleWidget(userName: 'Radwa'),
+                  const SizedBox(height: 10),
+                  const MembersStyleWidget(userName: 'Nada'),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, GroupChat.groupChatKey);
+        },
+        backgroundColor: kPrimaryColor1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.0),
+        ),
+        child: const Icon(Icons.message, color: Colors.white),
+      ),
+    );
+  }
+}
