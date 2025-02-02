@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Home/Home/components/home_bar_widget.dart';
-import 'package:nearme_app/Features/Settings/screens/settings_screen.dart';
 import 'package:nearme_app/core/constants.dart';
 import '../components/container_text_field_widget.dart';
 import '../components/floating_yellow_icon.dart';
@@ -20,9 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final DraggableScrollableController _draggableScrollableController =
       DraggableScrollableController();
   String _selectedTab =
-      'Groups'; // Track whether "Chats" or "Groups" is selected
-  List<String> _groups = []; // List to store dynamically added groups
-
+      'Groups'; 
+  List<String> _groups = []; 
   // Toggle search bar visibility
   void _toggleSearch() {
     setState(() {
@@ -121,8 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10.0, vertical: 4.0),
                                   child: GroupStyle(
-                                    groupName:
-                                        _groups[index], // Pass group name here
+                                    groupName: _groups[index],
                                   ),
                                 );
                               },

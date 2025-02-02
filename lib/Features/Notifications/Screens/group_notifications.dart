@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:nearme_app/Features/Notifications/Components/date_label.dart';
 import 'package:nearme_app/Features/Notifications/Components/header_notifications.dart';
 import 'package:nearme_app/Features/Notifications/Components/notification_item.dart';
+import 'package:nearme_app/Features/Notifications/Screens/personal_notifications.dart';
 import 'package:nearme_app/core/constants.dart';
 
 class GroupNotifications extends StatelessWidget {
   final String title;
-    static const groupNotificationsKey = 'GroupNotifications';
-
+  static const groupNotificationsKey = '/GroupNotifications';
 
   const GroupNotifications({
     Key? key,
@@ -35,11 +34,7 @@ class GroupNotifications extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-
-              // Date Label
               const DateLabel(dateText: 'Yesterday'),
-
-              // Notifications List
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -54,7 +49,7 @@ class GroupNotifications extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const GroupNotifications(
+                              builder: (context) => const PersonalNotifications(
                                 title: 'Aliaa',
                               ),
                             ),

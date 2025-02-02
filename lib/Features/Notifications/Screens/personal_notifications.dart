@@ -4,12 +4,11 @@ import 'package:nearme_app/Features/Notifications/Components/date_label.dart';
 import 'package:nearme_app/Features/Notifications/Components/header_notifications.dart';
 import 'package:nearme_app/Features/Notifications/Components/notification_item.dart';
 import 'package:nearme_app/Features/Notifications/Screens/group_notifications.dart';
-import 'package:nearme_app/Features/Notifications/Screens/personal_notifications.dart';
 import 'package:nearme_app/core/constants.dart';
 
 class PersonalNotifications extends StatelessWidget {
   final String title;
-  static const personalNotificationsKey = 'PersonalNotifications';
+  static const personalNotificationsKey = '/PersonalNotifications';
 
   const PersonalNotifications({
     Key? key,
@@ -43,7 +42,7 @@ class PersonalNotifications extends StatelessWidget {
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                   ),
                   children: [
@@ -54,7 +53,7 @@ class PersonalNotifications extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => GroupNotifications(
+                            builder: (context) => const GroupNotifications(
                               title: 'Aliaa',
                             ),
                           ),
@@ -63,14 +62,14 @@ class PersonalNotifications extends StatelessWidget {
                       showForwardIcon: false,
                     ),
                     NotificationItem(
-                      message: 'Radwa on her way to work',
+                      message: 'Aliaa on her way to work',
                       time: '12:00 PM',
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => GroupNotifications(
-                              title: 'Radwa',
+                            builder: (context) => const GroupNotifications(
+                              title: 'Aliaa',
                             ),
                           ),
                         );
@@ -78,14 +77,14 @@ class PersonalNotifications extends StatelessWidget {
                       showForwardIcon: false,
                     ),
                     NotificationItem(
-                      message: 'Nada at the gym',
+                      message: 'Aliaa at the gym',
                       time: '12:00 PM',
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => GroupNotifications(
-                              title: 'Nada',
+                            builder: (context) => const GroupNotifications(
+                              title: 'Aliaa',
                             ),
                           ),
                         );
@@ -93,14 +92,14 @@ class PersonalNotifications extends StatelessWidget {
                       showForwardIcon: false,
                     ),
                     NotificationItem(
-                      message: 'Amira on her way to Home',
+                      message: 'Aliaa on her way to Home',
                       time: '12:00 PM',
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => GroupNotifications(
-                              title: 'Amira',
+                            builder: (context) => const GroupNotifications(
+                              title: 'Aliaa',
                             ),
                           ),
                         );
@@ -108,14 +107,14 @@ class PersonalNotifications extends StatelessWidget {
                       showForwardIcon: false,
                     ),
                     NotificationItem(
-                      message: 'Nada At El-Hamed Supermarket',
+                      message: 'Aliaa At El-Hamed Supermarket',
                       time: '12:00 PM',
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PersonalNotifications(
-                              title: 'Nada',
+                            builder: (context) => const PersonalNotifications(
+                              title: 'Aliaa',
                             ),
                           ),
                         );

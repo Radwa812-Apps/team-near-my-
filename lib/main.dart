@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/Features/Group_Profile/screens/group_profile_screen.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Screens/MapSearchWidget.dart';
 import 'package:nearme_app/Features/Notifications/Screens/general_notifications.dart';
+import 'package:nearme_app/Features/Notifications/Screens/group_notifications.dart';
+import 'package:nearme_app/Features/Notifications/Screens/personal_notifications.dart';
 import 'package:nearme_app/Features/Settings/screens/settings_screen.dart';
 import 'package:nearme_app/Features/Splash_page/Screens/after_splash.dart';
 import 'package:nearme_app/Features/User_Profile/components/edit_user_widget.dart';
@@ -117,6 +119,12 @@ class NearMeApp extends StatelessWidget {
                       AddMembersScreen(),
                   GroupChat.groupChatKey: (context) => const GroupChat(),
                   EditScreen.editScreenKey: (context) => EditScreen(),
+                  GroupNotifications.groupNotificationsKey: (context) =>
+                      const GroupNotifications(
+                        title: 'Alex Trip',
+                      ),
+                  PersonalNotifications.personalNotificationsKey: (context) =>
+                      PermissionLocation(),
                   // '/': (context) => MainScaffold(),
                   // GroupChatScreen.groupChatScreenKey:((context) => GroupChatScreen())
                 },

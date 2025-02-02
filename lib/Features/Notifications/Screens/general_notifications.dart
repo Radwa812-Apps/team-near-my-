@@ -50,14 +50,8 @@ class GeneralNotifications extends StatelessWidget {
                         message: 'Aliaa just arrived home',
                         time: '12:00 PM',
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const GroupNotifications(
-                                title: 'Alex Trip',
-                              ),
-                            ),
-                          );
+                          Navigator.pushNamed(context,
+                              GroupNotifications.groupNotificationsKey);
                         },
                         showForwardIcon: true,
                       ),
