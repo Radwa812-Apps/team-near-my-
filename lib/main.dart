@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/Features/Group_Profile/screens/group_profile_screen.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Screens/MapSearchWidget.dart';
 import 'package:nearme_app/Features/Notifications/Screens/general_notifications.dart';
 import 'package:nearme_app/Features/Notifications/Screens/group_notifications.dart';
 import 'package:nearme_app/Features/Notifications/Screens/personal_notifications.dart';
+import 'package:nearme_app/Features/Private_chat/screens/private_chat_screen.dart';
 import 'package:nearme_app/Features/Settings/screens/settings_screen.dart';
 import 'package:nearme_app/Features/Splash_page/Screens/after_splash.dart';
 import 'package:nearme_app/Features/User_Profile/components/edit_user_widget.dart';
@@ -18,10 +20,14 @@ import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/add_user_success
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/signUp_verifiy_email.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
 import 'package:nearme_app/Features/Splash_page/Screens/splash_screen.dart';
-import 'package:nearme_app/Features/chat/screens/group_chat.dart';
+import 'package:nearme_app/Features/chat_group/screens/group_chat.dart';
 import 'package:nearme_app/Features/group_profile/screens/add_members_screen.dart';
+import 'package:nearme_app/Features/group_profile/screens/media.dart';
+import 'package:nearme_app/Features/select_place/screens/select_place_screen.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
+import 'package:nearme_app/core/data/models/chat_model_temp.dart';
 import 'package:nearme_app/core/services/Auth_functions.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Features/Home/Home/Screens/home_screen.dart';
 import 'Features/Map_After_SignUp/Screens/map1.dart';
@@ -34,11 +40,18 @@ import 'core/data/bloc/custom_places/custom_places_bloc.dart';
 // Use only one import path
 
 void main() async {
+  // debugPaintSizeEnabled = true;
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp();
   }
-  runApp(NearMeApp());
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ChatModelTemp(),
+      child: NearMeApp(),
+    ),
+  );
 }
 
 class NearMeApp extends StatelessWidget {
@@ -76,16 +89,19 @@ class NearMeApp extends StatelessWidget {
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 navigatorObservers: [routeObserver],
-                initialRoute: FirebaseAuth.instance.currentUser != null &&
-                        FirebaseAuth.instance.currentUser!.emailVerified
-                    ? MainScaffold.mainScaffoldKey
-                    : SplashPage.splashPageKey,
-                // isUserLoggedIn
-                //     ? SignInScreen.signInScreenKey
-                //     : SplashPage.splashPageKey,
+                initialRoute: SplashPage.splashPageKey,
+                //  isUserLoggedIn
+                // ? SignInScreen.signInScreenKey
+                // : SplashPage.splashPageKey,
+                // // FirebaseAuth.instance.currentUser != null &&
+                // //         FirebaseAuth.instance.currentUser!.emailVerified
+                // //     ? MainScaffold.mainScaffoldKey  :
+                // SplashPage.splashPageKey,
+
                 routes: {
+                  '/': (context) => HomeScreen(),
                   SplashPage.splashPageKey: (context) => const SplashPage(),
-                  // '/shimass': (context) => const Map1shimaa(),
+                  //'/shimass': (context) => const Map1shimaa(),
                   SignUpScreen.signUpScreenKey: (context) =>
                       const SignUpScreen(),
                   SignInScreen.signInScreenKey: (context) => SignInScreen(),
@@ -101,7 +117,7 @@ class NearMeApp extends StatelessWidget {
                   ForgotPassword.forgotPasswordKey: (context) =>
                       ForgotPassword(),
                   WelcomeView.welcomeViewKey: (context) => WelcomeView(),
-                  HomeScreen.homeScreenKey: (context) => HomeScreen(),
+                  // HomeScreen.homeScreenKey: (context) => HomeScreen(),
                   Map1.map1Key: (context) => const Map1(),
                   GeneralNotifications.generalNotificationsKey: (context) =>
                       const GeneralNotifications(title: 'Radwa'),
@@ -125,6 +141,13 @@ class NearMeApp extends StatelessWidget {
                       ),
                   PersonalNotifications.personalNotificationsKey: (context) =>
                       PermissionLocation(),
+                  PrivateChatScreen.PrivateChatScreenKey: (context) =>
+                      const PrivateChatScreen(
+                        recipient: 'Radwa',
+                      ),
+                  SelectPlaceScreen.selectPlaceScreenKey: ((context) =>
+                      SelectPlaceScreen()),
+                  MediaScreen.mediaScreenKey: (context) => MediaScreen(),
                   // '/': (context) => MainScaffold(),
                   // GroupChatScreen.groupChatScreenKey:((context) => GroupChatScreen())
                 },
@@ -137,8 +160,8 @@ class NearMeApp extends StatelessWidget {
 
 
   //  routes: {
-  //                 '/': (context) =>
-  //                     (FirebaseAuth.instance.currentUser != null &&
-  //                             FirebaseAuth.instance.currentUser!.emailVerified)
-  //                         ? SignInScreen()
-  //                         : HomeScreen(),
+                  // '/': (context) =>
+                  //     (FirebaseAuth.instance.currentUser != null &&
+                  //             FirebaseAuth.instance.currentUser!.emailVerified)
+                  //         ? SignInScreen()
+                  //         : HomeScreen(),

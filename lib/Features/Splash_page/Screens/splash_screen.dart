@@ -3,10 +3,13 @@ import 'package:nearme_app/Features/Splash_page/Screens/after_splash.dart';
 
 import 'package:nearme_app/Features/Splash_page/components/animation_controller.dart';
 import 'package:nearme_app/Features/Splash_page/components/gradient_background.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../components/mainScaffold.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
-  static const String splashPageKey = '/';
+  static const String splashPageKey = '/SplashPage';
 
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -26,11 +29,29 @@ class _SplashPageState extends State<SplashPage>
     );
   }
 
-  void _navigateToNextScreen() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => WelcomeView()),
-    );
+  void _navigateToNextScreen() async {
+    await Future.delayed(Duration(seconds: 2));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? rememberMe = prefs.getBool('KeppUserLogIn');
+
+    if (rememberMe == true) {
+      // إذا كان "Remember Me" مفعلًا، انتقل إلى HomeScreen
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
+
+      //Navigator.pushReplacementNamed(context, '/');
+    } else {
+      // إذا لم يكن "Remember Me" مفعلًا، انتقل إلى WelcomeView
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => WelcomeView()),
+      );
+    }
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => WelcomeView()),
+    // );
   }
 
   @override

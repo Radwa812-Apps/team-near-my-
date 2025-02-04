@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/Map_After_SignUp/Screens/MapSearchWidget.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/button.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
@@ -110,6 +111,7 @@ class _PermissionLocationState extends State<PermissionLocation> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, Map1.map1Key);
+                      //  Navigator.pushNamed(context, '/shimass');
                     },
                     style: AppButtonStyles.elevatedButtonStyle(),
                     child: const Text(

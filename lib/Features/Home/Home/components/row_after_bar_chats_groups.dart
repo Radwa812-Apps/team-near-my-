@@ -4,9 +4,8 @@ import '../../../../core/constants.dart';
 import 'text_after_bar.dart';
 
 class RowAfterBarChatsGroups extends StatelessWidget {
-  final String selectedTab; // Pass the selected tab from the parent
-  final Function(String) onTabSelected; // Callback for tab selection
-
+  final String selectedTab;
+  final Function(String) onTabSelected;
   const RowAfterBarChatsGroups({
     super.key,
     required this.selectedTab,
@@ -19,7 +18,7 @@ class RowAfterBarChatsGroups extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () => onTabSelected('Chats'), // Use the callback
+          onTap: () => onTabSelected('Chats'),
           child: Column(
             children: [
               TextAfterBar(

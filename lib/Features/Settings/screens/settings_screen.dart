@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import 'package:nearme_app/core/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/confirm_message_widget.dart';
 import '../components/icon_and_text_widget.dart';
@@ -141,8 +145,18 @@ class SettingsScreen extends StatelessWidget {
                       onCancel: () {
                         Navigator.of(context).pop();
                       },
-                      onConfirm: () {
-                        // Add your logout logic here
+                      onConfirm: () async {
+                        SharedPreferences sharedPreferences =
+                            await SharedPreferences.getInstance();
+                        sharedPreferences.clear();
+                        await FirebaseAuth.instance.signOut();
+
+                        GoogleSignIn googleSignIn = GoogleSignIn();
+                        // googleSignIn.disconnect();
+                        FirebaseAuth.instance.signOut();
+                        // ignore: use_build_context_synchronously
+                        Navigator.popAndPushNamed(
+                            context, SignInScreen.signInScreenKey);
                       },
                     );
                   },

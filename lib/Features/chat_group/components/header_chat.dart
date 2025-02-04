@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Chat/Components/three_dots_manu.dart';
 import 'package:nearme_app/Features/Notifications/Components/search_icon.dart';
+import 'package:nearme_app/Features/chat_group/components/three_dots_manu.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
 
@@ -53,7 +53,7 @@ class _HeaderChatState extends State<HeaderChat> {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(18),
           bottomRight: Radius.circular(18),
         ),
@@ -88,7 +88,7 @@ class _HeaderChatState extends State<HeaderChat> {
                       CircleAvatar(
                         backgroundImage: widget.circleAvatarImage != null
                             ? AssetImage(widget.circleAvatarImage!)
-                            : AssetImage("assets/images/Ellipse104.png"),
+                            : const AssetImage("assets/images/Ellipse104.png"),
                         radius: 20,
                       ),
                     if (widget.showCircleAvatar) const SizedBox(width: 10),

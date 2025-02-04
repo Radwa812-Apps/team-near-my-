@@ -24,7 +24,8 @@ class _AutoCompleteSearchState extends State<AutoCompleteSearch> {
   Widget build(BuildContext context) {
     return Autocomplete<String>(
       optionsBuilder: (TextEditingValue textEditingValue) async {
-        if (textEditingValue.text.isEmpty) { 
+        if (textEditingValue.text.isEmpty)
+        { 
           return const Iterable<String>.empty();
         }
         final suggestions = await widget.service

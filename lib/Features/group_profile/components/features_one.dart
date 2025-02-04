@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Group_Profile/components/icons_text_switch_widget.dart';
+import 'package:nearme_app/Features/group_profile/screens/media.dart';
+import 'package:nearme_app/Features/select_place/screens/select_place_screen.dart';
 
 class FeaturesOne extends StatelessWidget {
   const FeaturesOne({
@@ -21,7 +23,10 @@ class FeaturesOne extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+                context, SelectPlaceScreen.selectPlaceScreenKey);
+          },
           child: const IconsTextSwitchWidget(
             iconData: Icons.select_all_rounded,
             featureName: 'Select Places',
@@ -30,7 +35,9 @@ class FeaturesOne extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, MediaScreen.mediaScreenKey);
+          },
           child: const IconsTextSwitchWidget(
             iconData: Icons.image_outlined,
             featureName: 'Media',

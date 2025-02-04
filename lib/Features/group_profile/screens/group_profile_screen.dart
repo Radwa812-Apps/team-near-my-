@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Group_Profile/components/search_text_widget.dart';
 import 'package:nearme_app/Features/Group_Profile/components/split_between_features.dart';
-import 'package:nearme_app/Features/chat/screens/group_chat.dart';
 import '../../../core/constants.dart';
 import '../../Settings/components/confirm_message_widget.dart';
+import '../../chat_group/screens/group_chat.dart';
 import '../components/features_one.dart';
 import '../components/leave_group.dart';
 import '../components/members_style_widget.dart';
@@ -170,7 +170,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                   size: 28,
                 ),
                 onPressed: () {
-                  // Handle back button press
+                  Navigator.pop(context);
                 },
               ),
             ),

@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:async';
 import 'dart:convert';
@@ -12,7 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapServices {
   final Dio dio;
-  final MapApiKey = "AlzaSyNnpqTp8sHScfLUhZTaee53nesmtJVUmxu";
+  final MapApiKey = "AlzaSyetuGJZzPCNKSqqTJtLrakppsC7JOzCSxC";
   String inputType = 'textquery';
   MapServices(this.dio);
   LatLng? latLng;
@@ -125,4 +124,3 @@ class MapServices {
     }
   }
 }
-
