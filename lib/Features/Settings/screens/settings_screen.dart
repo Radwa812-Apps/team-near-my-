@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
               iconSize: 30,
               fontSize: 24,
               onTap: () {
-                // Navigate to another screen
+                Navigator.pushNamed(context, Map1.map1Key);
               },
             ),
             SizedBox(height: spaceBetweenRows),

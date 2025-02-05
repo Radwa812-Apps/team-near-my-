@@ -117,7 +117,7 @@ class NearMeApp extends StatelessWidget {
                   ForgotPassword.forgotPasswordKey: (context) =>
                       ForgotPassword(),
                   WelcomeView.welcomeViewKey: (context) => WelcomeView(),
-                  // HomeScreen.homeScreenKey: (context) => HomeScreen(),
+                  HomeScreen.homeScreenKey: (context) => HomeScreen(),
                   Map1.map1Key: (context) => const Map1(),
                   GeneralNotifications.generalNotificationsKey: (context) =>
                       const GeneralNotifications(title: 'Radwa'),

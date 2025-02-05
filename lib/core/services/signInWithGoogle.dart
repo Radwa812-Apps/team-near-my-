@@ -118,20 +118,17 @@
 //   }
 // }
 
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nearme_app/Features/Home/Home/Screens/home_screen.dart';
 import 'package:nearme_app/core/data/models/user.dart';
 import 'package:nearme_app/core/messages.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
+import '../../components/mainScaffold.dart';
 import '../constants.dart';
 import 'handleFirebaseAuthException.dart';
 import 'internet_connection.dart';
@@ -142,60 +139,122 @@ class SocialAuthWidget extends StatefulWidget {
 }
 
 class _SocialAuthWidgetState extends State<SocialAuthWidget> {
-  bool isLoading = false; // حالة التحميل
+  bool isLoading = false;
 
-  Future<void> signInWithGoogle(BuildContext context) async {
-    setState(() {
-      isLoading = true; // بدء التحميل
-    });
+Future<void> signInWithGoogle(BuildContext context) async {
+  setState(() {
+    isLoading = true;
+  });
 
-    if (!await checkConnection()) {
+  if (!await checkConnection()) {
+    if (mounted) {
       setState(() {
-        isLoading = false; // إيقاف التحميل
+        isLoading = false;
       });
+    }
+    return;
+  }
+
+  try {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
       return;
     }
 
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        setState(() {
-          isLoading = false; // إيقاف التحميل
-        });
-        return;
-      }
+    final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
+    UserCredential user = await FirebaseAuth.instance.signInWithCredential(credential);
+    print(user.additionalUserInfo!.username);
+    // Navigator.pushNamed(context, HomeScreen.homeScreenKey);
+         Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
 
-      UserCredential user =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      print(user.additionalUserInfo!.username);
-      Navigator.pushNamed(context, 'HomeScreen');
-      await addUserToFirestore(user, context);
+    await addUserToFirestore(user, context);
 
-
-    } on FirebaseException catch (e) {
-      handleFirebaseException(e, context);
-    } on FirebaseAuthException catch (e) {
-      handleFirebaseAuthException(e, context);
-    } on PlatformException catch (e) {
-      handlePlatformException(e, context);
-    } catch (e) {
-      handleUnknownException(e, context);
-    } finally {
+  } on FirebaseException catch (e) {
+    print('FirebaseException: $e');
+    handleFirebaseException(e, context);
+  } on FirebaseAuthException catch (e) {
+    print('FirebaseAuthException: $e');
+    handleFirebaseAuthException(e, context);
+  } on PlatformException catch (e) {
+    print('PlatformException: $e');
+    handlePlatformException(e, context);
+  } catch (e) {
+    print('Unknown Exception: $e');
+    handleUnknownException(e, context);
+  } finally {
+    if (mounted) {
       setState(() {
-        isLoading = false; // إيقاف التحميل
+        isLoading = false;
       });
     }
   }
+}
 
-  Future<void> 
-  addUserToFirestore(
+  // Future<void> signInWithGoogle(BuildContext context) async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+
+  //   if (!await checkConnection()) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     return;
+  //   }
+
+  //   try {
+  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //     if (googleUser == null) {
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //       return;
+  //     }
+
+  //     final GoogleSignInAuthentication? googleAuth =
+  //         await googleUser.authentication;
+  //     final credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth?.accessToken,
+  //       idToken: googleAuth?.idToken,
+  //     );
+
+  //     UserCredential user =
+  //         await FirebaseAuth.instance.signInWithCredential(credential);
+  //     print(user.additionalUserInfo!.username);
+  //     // Navigator.pushNamed(context, HomeScreen.homeScreenKey);
+  //     Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
+
+  //     await addUserToFirestore(user, context);
+  //   } on FirebaseException catch (e) {
+  //     print('FirebaseException: $e');
+  //     handleFirebaseException(e, context);
+  //   } on FirebaseAuthException catch (e) {
+  //     print('FirebaseAuthException: $e');
+  //     handleFirebaseAuthException(e, context);
+  //   } on PlatformException catch (e) {
+  //     print('PlatformException: $e');
+  //     handlePlatformException(e, context);
+  //   } catch (e) {
+  //     print('Unknown Exception: $e');
+  //     handleUnknownException(e, context);
+  //   } finally {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
+
+  Future<void> addUserToFirestore(
       UserCredential user, BuildContext context) async {
     try {
       if (user != null) {
