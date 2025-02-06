@@ -626,12 +626,13 @@ class Map1 extends StatefulWidget {
 
 class _Map1State extends State<Map1> {
   List<CustomPlace> customPlaces = [];
+  Set<Circle> circles = {};
   bool isLoad = false;
   LatLng? selectedLatLng;
   Set<Marker> markers = {};
   StreamSubscription<User?>? _authListener;
   CameraPosition? _cameraPosition;
-
+  GoogleMapController? mapController;
   bool isTextBarVisible = false;
   String? markerLabelCustomPlaceName;
   final TextEditingController _textBarController = TextEditingController();
@@ -653,6 +654,18 @@ class _Map1State extends State<Map1> {
     }).toSet();
   }
 
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller); // تأكد من إكمال الـ Completer
+    onCreatedmapController = controller;
+
+    // افتح الـ InfoWindow لكل marker بعد تحميل الخريطة
+    markers.forEach((marker) async {
+      await Future.delayed(
+          Duration(milliseconds: 500)); // تأخير بسيط لتجنب التحميل الزائد
+      controller.showMarkerInfoWindow(marker.markerId);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -664,6 +677,7 @@ class _Map1State extends State<Map1> {
         print("User is signed in: ${user.uid}");
       }
     });
+
     _loadCustomPlaces();
     _getCurrentLocation();
   }
@@ -762,6 +776,7 @@ class _Map1State extends State<Map1> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: GoogleMap(
+                      circles: circles,
                       onTap: (latLng) {
                         setState(() {
                           selectedLatLng = latLng;
@@ -774,11 +789,9 @@ class _Map1State extends State<Map1> {
                       initialCameraPosition: _cameraPosition ?? _Assuit,
                       myLocationEnabled: true,
                       myLocationButtonEnabled: true,
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
-                        onCreatedmapController = controller;
-                      },
-                      //zoomControlsEnabled: false,
+                      onMapCreated: _onMapCreated,
+
+                      //zooontrolsEnabled: false,
                     ),
                   ),
                 ),
@@ -847,15 +860,75 @@ class _Map1State extends State<Map1> {
     }
   }
 
-  Future<void> goToPlace(double latitude, double longitude) async {
+  // Future<void> goToPlace(
+  //     double latitude, double longitude, String docId) async {
+  //   final GoogleMapController controller = await _controller.future;
+  //   await controller.animateCamera(
+  //     CameraUpdate.newCameraPosition(
+  //       CameraPosition(
+  //         target: LatLng(latitude, longitude),
+  //         zoom: 40.0,
+  //         //tilt: 60.0,
+  //       ),
+  //     ),
+  //   );
+  //   controller.showMarkerInfoWindow(MarkerId(docId));
+
+  //   setState(() {
+  //     circles.clear();
+  //     circles.add(
+  //       Circle(
+  //         circleId: CircleId(docId),
+  //         center: LatLng(latitude, longitude),
+  //         radius: 5,
+  //         fillColor: Colors.red.withOpacity(0.3),
+  //         strokeColor: Colors.black.withOpacity(0.3),
+  //         strokeWidth: 2,
+  //       ),
+  //     );
+  //   });
+  // }
+
+  Future<void> goToPlace(
+      double latitude, double longitude, String docId) async {
     final GoogleMapController controller = await _controller.future;
+
+    // إظهار الماركر بعد تأخير بسيط
+    controller.showMarkerInfoWindow(MarkerId(docId));
+
+    // تحريك الكاميرا مع أنيميشن
     await controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: LatLng(latitude, longitude),
-          zoom: 20.0,
+          zoom: 40.0,
+          tilt: 60.0, // يمكن تعديل الميل لزيادة تأثير الأنيميشن
         ),
       ),
     );
+
+    setState(() {
+      // إضافة دائرة حول الماركر مع تأثير الانيميشن
+      circles.clear();
+      circles.add(
+        Circle(
+          circleId: CircleId(docId),
+          center: LatLng(latitude, longitude),
+          radius: 5,
+          fillColor: Colors.red.withOpacity(0.3),
+          strokeColor: Colors.black.withOpacity(0.3),
+          strokeWidth: 2,
+        ),
+      );
+    });
+
+    // إذا أردت أن تغير حجم الماركر مع الأنيميشن يمكنك إضافة أنيميشن لتغيير الحجم هنا
+    await Future.delayed(Duration(milliseconds: 2000)); // تأخير بسيط
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: LatLng(latitude, longitude),
+        zoom: 19.0, // تقليل الزوم لجعل التأثير أكثر وضوحًا
+      ),
+    ));
   }
 }

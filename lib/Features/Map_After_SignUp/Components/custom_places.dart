@@ -15,7 +15,7 @@ class CustomPlacesCrudOp extends StatefulWidget {
   const CustomPlacesCrudOp(
       {super.key, required this.searchQuery, required this.goToPlace});
   final String searchQuery;
-  final Function(double, double) goToPlace;
+  final Function(double, double,String) goToPlace;
   @override
   // ignore: library_private_types_in_public_api
   _CustomPlacesCrudOpState createState() => _CustomPlacesCrudOpState();
@@ -210,7 +210,7 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
                       onTap: () {
                         final double latitude = data['latitude'];
                         final double longitude = data['longitude'];
-                        widget.goToPlace(latitude, longitude);
+                        widget.goToPlace(latitude, longitude,documentId);
                         Navigator.pop(context);
                       },
                       child: CustomContainer(

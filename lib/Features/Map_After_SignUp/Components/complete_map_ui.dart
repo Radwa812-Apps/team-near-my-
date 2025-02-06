@@ -190,7 +190,7 @@ class CompleteMapUi extends StatefulWidget {
   final MapServices service;
   final TextEditingController controller;
   final Function(String) GetSearchedPlace;
-  final Function(double,double) goToPlace;
+  final Function(double,double,String) goToPlace;
   @override
   State<CompleteMapUi> createState() => _CompleteMapUiState();
 }
