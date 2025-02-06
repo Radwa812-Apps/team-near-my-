@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nearme_app/Features/Map_After_SignUp/Screens/MapSearchWidget.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/button.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../../core/services/permission_handler.dart';
 
 class PermissionLocation extends StatefulWidget {
   @override
@@ -14,6 +16,56 @@ class PermissionLocation extends StatefulWidget {
 
 class _PermissionLocationState extends State<PermissionLocation> {
   bool isSwitchOn = false;
+  final PermissionHandler _permissionHandler = PermissionHandler();
+  bool permissionGranted = false;
+
+  void updateSwitchStatus(int index, bool value) async {
+    bool permissionGranted = false;
+
+    try {
+      switch (index) {
+        case 0:
+          permissionGranted =
+              await _permissionHandler.checkLocationPermission();
+      }
+
+      setState(() {
+        isSwitchOn = permissionGranted;
+      });
+
+      if (!permissionGranted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                'Permission not granted for ${_getPermissionName(index)}. Please enable it manually in settings.'),
+            backgroundColor: Colors.red,
+            action: SnackBarAction(
+              label: 'Open Settings',
+              onPressed: () async {
+                await openAppSettings();
+              },
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An error occurred: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  String _getPermissionName(int index) {
+    switch (index) {
+      case 0:
+        return 'Location';
+      default:
+        return 'Unknown';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +107,7 @@ class _PermissionLocationState extends State<PermissionLocation> {
                           const SizedBox(height: 20),
                           Switch(
                             value: isSwitchOn,
-                            onChanged: (value) {
-                              setState(() {
-                                isSwitchOn = value;
-                              });
-                            },
+                            onChanged: (value) => updateSwitchStatus(0, value),
                             activeColor: kPrimaryColor1,
                           ),
                         ],

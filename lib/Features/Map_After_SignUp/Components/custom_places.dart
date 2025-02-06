@@ -13,6 +13,7 @@ import '../../../core/messages.dart';
 class CustomPlacesCrudOp extends StatefulWidget {
   const CustomPlacesCrudOp({super.key, required this.searchQuery});
   final String searchQuery;
+
   @override
   // ignore: library_private_types_in_public_api
   _CustomPlacesCrudOpState createState() => _CustomPlacesCrudOpState();
@@ -188,6 +189,7 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
                 }
                 final filteredDate = snapshot.data!.where(((element) {
                   final data = element.data() as Map<String, dynamic>?;
+
                   if (data == null) return false;
                   final name = data['name']?.toString().toLowerCase() ?? '';
                   return name.contains(widget.searchQuery.toLowerCase());
@@ -202,54 +204,65 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
                     final data = document.data() as Map<String, dynamic>;
                     String documentId = document.id;
 
-                    return CustomContainer(
-                      w: 70,
-                      h: 60,
-                      child: ListTile(
-                        title: Text(data['name'] ?? 'No Name'),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CustomContainer(
-                              w: 40,
-                              h: 40,
-                              child: IconButton(
-                                icon:
-                                    const Icon(Icons.edit, color: Colors.blue),
-                                onPressed: () {
-                                  _showEditDialog(
-                                      context, documentId, data['name']);
-                                  print("Edit pressed for ${data['name']}");
-                                },
+                    return GestureDetector(
+                      onTap: () {
+                        // final double latitude = data['latitude'];
+                        // final double longitude = data['longitude'];
+                        // Map1.mapKey.currentState
+                        //     ?.goToPlace(latitude, longitude);
+                        // widget.onNavigate?.call(latitude, longitude);
+
+                        // goToPlace(latitude, longitude);
+                      },
+                      child: CustomContainer(
+                        w: 70,
+                        h: 60,
+                        child: ListTile(
+                          title: Text(data['name'] ?? 'No Name'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CustomContainer(
+                                w: 40,
+                                h: 40,
+                                child: IconButton(
+                                  icon: const Icon(Icons.edit,
+                                      color: Colors.blue),
+                                  onPressed: () {
+                                    _showEditDialog(
+                                        context, documentId, data['name']);
+                                    print("Edit pressed for ${data['name']}");
+                                  },
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            CustomContainer(
-                              w: 40,
-                              h: 40,
-                              child: IconButton(
-                                icon:
-                                    const Icon(Icons.delete, color: Colors.red),
-                                onPressed: () {
-                                  _confirmDelete(
-                                      context, documentId, data['name'], (() {
-                                    BlocProvider.of<CustomPlacesBloc>(context)
-                                        .add(DeleteCustomPlace(documentId));
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      _usersStream = _getUserCustomPlaces();
-                                    });
-                                    AppMessages().sendVerification(
-                                        (context),
-                                        Colors.green.withOpacity(0.8),
-                                        'Custom place deleted successfully!');
-                                  }));
-                                },
+                              const SizedBox(
+                                width: 7,
                               ),
-                            )
-                          ],
+                              CustomContainer(
+                                w: 40,
+                                h: 40,
+                                child: IconButton(
+                                  icon: const Icon(Icons.delete,
+                                      color: Colors.red),
+                                  onPressed: () {
+                                    _confirmDelete(
+                                        context, documentId, data['name'], (() {
+                                      BlocProvider.of<CustomPlacesBloc>(context)
+                                          .add(DeleteCustomPlace(documentId));
+                                      Navigator.pop(context);
+                                      setState(() {
+                                        _usersStream = _getUserCustomPlaces();
+                                      });
+                                      AppMessages().sendVerification(
+                                          (context),
+                                          Colors.green.withOpacity(0.8),
+                                          'Custom place deleted successfully!');
+                                    }));
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );

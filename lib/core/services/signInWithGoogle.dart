@@ -204,14 +204,12 @@ Future<void> signInWithGoogle(BuildContext context) async {
   //   setState(() {
   //     isLoading = true;
   //   });
-
   //   if (!await checkConnection()) {
   //     setState(() {
   //       isLoading = false;
   //     });
   //     return;
   //   }
-
   //   try {
   //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
   //     if (googleUser == null) {
@@ -220,20 +218,17 @@ Future<void> signInWithGoogle(BuildContext context) async {
   //       });
   //       return;
   //     }
-
   //     final GoogleSignInAuthentication? googleAuth =
   //         await googleUser.authentication;
   //     final credential = GoogleAuthProvider.credential(
   //       accessToken: googleAuth?.accessToken,
   //       idToken: googleAuth?.idToken,
   //     );
-
   //     UserCredential user =
   //         await FirebaseAuth.instance.signInWithCredential(credential);
   //     print(user.additionalUserInfo!.username);
   //     // Navigator.pushNamed(context, HomeScreen.homeScreenKey);
   //     Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
-
   //     await addUserToFirestore(user, context);
   //   } on FirebaseException catch (e) {
   //     print('FirebaseException: $e');

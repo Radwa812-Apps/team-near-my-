@@ -34,6 +34,7 @@ import 'Features/Map_After_SignUp/Screens/map1.dart';
 import 'Features/Permissions/Screens/permission_location.dart';
 import 'Features/Permissions/Screens/permissions.dart';
 import 'Features/auth/Forgot_password/Screens/confirm_password.dart';
+import 'Features/auth/Forgot_password/Screens/send_email_for_pass.dart';
 import 'Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import 'components/mainScaffold.dart';
 import 'core/data/bloc/custom_places/custom_places_bloc.dart';
@@ -148,6 +149,8 @@ class NearMeApp extends StatelessWidget {
                   SelectPlaceScreen.selectPlaceScreenKey: ((context) =>
                       SelectPlaceScreen()),
                   MediaScreen.mediaScreenKey: (context) => MediaScreen(),
+                  PasswordResetPage.passwordResetPageKey: (context) =>
+                      PasswordResetPage(),
                   // '/': (context) => MainScaffold(),
                   // GroupChatScreen.groupChatScreenKey:((context) => GroupChatScreen())
                 },

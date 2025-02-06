@@ -7,9 +7,34 @@
 
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need access to your location to provide location-based services.</string>
-
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photos to upload images.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone to record audio.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to capture photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to save images.</string>
+	<!-- Permission options for the `location` group -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need location when in use</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Always and when in use!</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Older devices need location.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Can I have location always?</string>
+	<!-- Permission options for the `calendar` group -->
+    <key>NSCalendarsUsageDescription</key>
+    <string>Calendars</string>
+    <key>NSCalendarsFullAccessUsageDescription</key>
+    <string>Calendar full access</string>
+	<!-- Permission options for the `contacts` group -->
+    <key>NSContactsUsageDescription</key>
+    <string>contacts</string>
+	 <!-- Permission options for the `microphone` group -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>microphone</string>
 	
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
