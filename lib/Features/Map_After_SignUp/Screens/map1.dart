@@ -860,75 +860,32 @@ class _Map1State extends State<Map1> {
     }
   }
 
-  // Future<void> goToPlace(
-  //     double latitude, double longitude, String docId) async {
-  //   final GoogleMapController controller = await _controller.future;
-  //   await controller.animateCamera(
-  //     CameraUpdate.newCameraPosition(
-  //       CameraPosition(
-  //         target: LatLng(latitude, longitude),
-  //         zoom: 40.0,
-  //         //tilt: 60.0,
-  //       ),
-  //     ),
-  //   );
-  //   controller.showMarkerInfoWindow(MarkerId(docId));
-
-  //   setState(() {
-  //     circles.clear();
-  //     circles.add(
-  //       Circle(
-  //         circleId: CircleId(docId),
-  //         center: LatLng(latitude, longitude),
-  //         radius: 5,
-  //         fillColor: Colors.red.withOpacity(0.3),
-  //         strokeColor: Colors.black.withOpacity(0.3),
-  //         strokeWidth: 2,
-  //       ),
-  //     );
-  //   });
-  // }
-
   Future<void> goToPlace(
       double latitude, double longitude, String docId) async {
     final GoogleMapController controller = await _controller.future;
-
-    // إظهار الماركر بعد تأخير بسيط
-    controller.showMarkerInfoWindow(MarkerId(docId));
-
-    // تحريك الكاميرا مع أنيميشن
     await controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: LatLng(latitude, longitude),
           zoom: 40.0,
-          tilt: 60.0, // يمكن تعديل الميل لزيادة تأثير الأنيميشن
+          //tilt: 60.0,
         ),
       ),
     );
+    controller.showMarkerInfoWindow(MarkerId(docId));
 
     setState(() {
-      // إضافة دائرة حول الماركر مع تأثير الانيميشن
       circles.clear();
       circles.add(
         Circle(
           circleId: CircleId(docId),
+          radius: 2,
           center: LatLng(latitude, longitude),
-          radius: 5,
           fillColor: Colors.red.withOpacity(0.3),
-          strokeColor: Colors.black.withOpacity(0.3),
+          strokeColor: Colors.black.withOpacity(0.2),
           strokeWidth: 2,
         ),
       );
     });
-
-    // إذا أردت أن تغير حجم الماركر مع الأنيميشن يمكنك إضافة أنيميشن لتغيير الحجم هنا
-    await Future.delayed(Duration(milliseconds: 2000)); // تأخير بسيط
-    controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(
-        target: LatLng(latitude, longitude),
-        zoom: 19.0, // تقليل الزوم لجعل التأثير أكثر وضوحًا
-      ),
-    ));
   }
 }
