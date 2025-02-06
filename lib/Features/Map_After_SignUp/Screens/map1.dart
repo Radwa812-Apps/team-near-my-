@@ -599,6 +599,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -692,16 +693,14 @@ class _Map1State extends State<Map1> {
     bool serviceEnabled;
     LocationPermission permission;
 
-   
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       ScaffoldMessenger.of(context).showSnackBar(
-       const SnackBar(content: Text('GPS is not enabled, please turn it on!')),
+        const SnackBar(content: Text('GPS is not enabled, please turn it on!')),
       );
       return;
     }
 
-  
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -790,6 +789,7 @@ class _Map1State extends State<Map1> {
                       service: service,
                       GetSearchedPlace: getSearchedPlace,
                       controller: controller,
+                      goToPlace: goToPlace,
                     )),
                 const Positioned(
                     bottom: 20, left: 310, right: 10, child: SkipBtn()),
@@ -853,7 +853,7 @@ class _Map1State extends State<Map1> {
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: LatLng(latitude, longitude),
-          zoom: 17.0,
+          zoom: 20.0,
         ),
       ),
     );

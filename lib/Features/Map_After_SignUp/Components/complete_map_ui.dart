@@ -166,6 +166,7 @@
 
 // }
 
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -184,11 +185,12 @@ class CompleteMapUi extends StatefulWidget {
       {super.key,
       required this.service,
       required this.controller,
-      required this.GetSearchedPlace});
+      required this.GetSearchedPlace, required this.goToPlace});
 
   final MapServices service;
   final TextEditingController controller;
   final Function(String) GetSearchedPlace;
+  final Function(double,double) goToPlace;
   @override
   State<CompleteMapUi> createState() => _CompleteMapUiState();
 }
@@ -314,6 +316,7 @@ class _CompleteMapUiState extends State<CompleteMapUi> {
                         const SizedBox(height: 20),
                         CustomPlacesCrudOp(
                           searchQuery: searchQuery,
+                          goToPlace: widget.goToPlace,
                         ),
                         const SizedBox(height: 20),
                       ],

@@ -5,15 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Components/custom_container.dart';
+import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/core/data/bloc/custom_places/custom_places_bloc.dart';
 
 import '../../../core/services/customplace_crud_operation.dart';
 import '../../../core/messages.dart';
 
 class CustomPlacesCrudOp extends StatefulWidget {
-  const CustomPlacesCrudOp({super.key, required this.searchQuery});
+  const CustomPlacesCrudOp(
+      {super.key, required this.searchQuery, required this.goToPlace});
   final String searchQuery;
-
+  final Function(double, double) goToPlace;
   @override
   // ignore: library_private_types_in_public_api
   _CustomPlacesCrudOpState createState() => _CustomPlacesCrudOpState();
@@ -206,13 +208,10 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
 
                     return GestureDetector(
                       onTap: () {
-                        // final double latitude = data['latitude'];
-                        // final double longitude = data['longitude'];
-                        // Map1.mapKey.currentState
-                        //     ?.goToPlace(latitude, longitude);
-                        // widget.onNavigate?.call(latitude, longitude);
-
-                        // goToPlace(latitude, longitude);
+                        final double latitude = data['latitude'];
+                        final double longitude = data['longitude'];
+                        widget.goToPlace(latitude, longitude);
+                        Navigator.pop(context);
                       },
                       child: CustomContainer(
                         w: 70,
