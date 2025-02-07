@@ -35,15 +35,64 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     // on<DeleteUserEvent>((event, emit) async {
     //   try {
-    //     await Future.delayed(const Duration(seconds: 1));
     //     CollectionReference users =
     //         FirebaseFirestore.instance.collection('users');
-    //     await users.doc(event.userId).delete();
-    //     emit(UserDeletedState(message: 'User deleted successfully'));
+    //     String id = FirebaseAuth.instance.currentUser!.uid;
+    //     await users.doc(id).delete();
+    //     emit(UserDeletedSuccessState());
     //   } catch (e) {
-    //     emit(ProfileErrorState(error: 'Failed to delete user: $e'));
+    //     emit(UserDeleteErrorState(error: 'Failed to delete user: $e'));
     //   }
     // });
+
+    // on<DeleteUserEvent>((event, emit) async {
+    //  // try {
+    //     User? user = FirebaseAuth.instance.currentUser;
+
+    //     if (user != null) {
+    //       CollectionReference users =
+    //           FirebaseFirestore.instance.collection('users');
+    //       await users.doc(user.uid).delete();
+
+    //       await user.delete();
+
+    //       emit(UserDeletedSuccessState());
+    //     } else {
+    //       emit(UserDeleteErrorState(error: 'No user logged in'));
+    //     }
+    //   // } catch (e) {
+    //   //   emit(UserDeleteErrorState(error: 'Failed to delete user: $e'));
+    //   // }
+    // });
+
+    on<DeleteUserEvent>((event, emit) async {
+      try {
+        emit(UserDeleteLoadingState()); 
+
+        User? user = FirebaseAuth.instance.currentUser;
+
+        if (user != null) {
+          final authCredential = EmailAuthProvider.credential(
+            email: event.email,
+            password: event.password, 
+          );
+
+          await user.reauthenticateWithCredential(authCredential);
+
+          CollectionReference users =
+              FirebaseFirestore.instance.collection('users');
+          await users.doc(user.uid).delete();
+
+          await user.delete();
+
+          emit(UserDeletedSuccessState());
+        } else {
+          emit(UserDeleteErrorState(error: 'No user logged in'));
+        }
+      } catch (e) {
+        emit(UserDeleteErrorState(error: 'Failed to delete user: $e'));
+      }
+    });
 
     on<ShowUserInfoEvent>((event, emit) async {
       emit(UserInfoLoadingState());

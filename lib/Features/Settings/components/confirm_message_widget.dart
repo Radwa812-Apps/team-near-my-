@@ -18,7 +18,7 @@ class ConfirmMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: kBackgroundColor,
-      title: Text(
+      title: const Text(
         'Confirm',
         style: TextStyle(
           color: kFontColor,
@@ -36,7 +36,7 @@ class ConfirmMessageWidget extends StatelessWidget {
       ),
 
       content: Text(message,
-          style: TextStyle(
+          style: const TextStyle(
             color: kFontColor,
             fontFamily: kFontRegular,
             fontStyle: FontStyle.normal,
@@ -50,7 +50,7 @@ class ConfirmMessageWidget extends StatelessWidget {
               nameOfButton: 'Cancel',
               backgroundColor: kSpecialColor,
             ),
-            SizedBox(
+            const SizedBox(
               width: 50,
             ),
             Button(

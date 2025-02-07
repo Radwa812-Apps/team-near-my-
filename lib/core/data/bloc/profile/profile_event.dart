@@ -3,7 +3,6 @@ part of 'profile_bloc.dart';
 abstract class ProfileEvent {}
 
 class EditUserEvent extends ProfileEvent {
-  
   final String fName;
   final String lName;
   final String email;
@@ -19,11 +18,11 @@ class EditUserEvent extends ProfileEvent {
 
 // حدث لحذف المستخدم
 class DeleteUserEvent extends ProfileEvent {
-  final String userId;
+  final String email;
+  final String password;
 
-  DeleteUserEvent({required this.userId});
+  DeleteUserEvent(this.password, this.email);
 }
-
 
 class ShowUserInfoEvent extends ProfileEvent {
   // final String userId;

@@ -30,29 +30,66 @@ class _SplashPageState extends State<SplashPage>
     );
   }
 
+  // void _navigateToNextScreen() async {
+  //   await Future.delayed(Duration(seconds: 2));
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool? rememberMe = prefs.getBool('KeppUserLogIn');
+  //   User? currentUser = FirebaseAuth.instance.currentUser;
+  //   if (currentUser != null &&  rememberMe == true) {
+  //     Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
+  //     //Navigator.pushReplacementNamed(context, '/');
+  //   } else {
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => WelcomeView()),
+  //     );
+  //   }
+  //   // Navigator.pushReplacement(
+  //   //   context,
+  //   //   MaterialPageRoute(builder: (context) => WelcomeView()),
+  //   // );
+  // }
+
+  // void _navigateToNextScreen() async {
+  //   await Future.delayed(Duration(seconds: 2));
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool? rememberMe = prefs.getBool('KeppUserLogIn');
+  //   User? currentUser = FirebaseAuth.instance.currentUser;
+  //   if (currentUser != null) {
+  //     await currentUser.reload();
+  //     currentUser = FirebaseAuth.instance.currentUser;
+  //     if (currentUser != null && rememberMe == true) {
+  //       Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
+  //       return;
+  //     }
+  //   }
   void _navigateToNextScreen() async {
     await Future.delayed(Duration(seconds: 2));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? rememberMe = prefs.getBool('KeppUserLogIn');
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null &&  rememberMe == true) {
-      // إذا كان "Remember Me" مفعلًا، انتقل إلى HomeScreen
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
 
-      //Navigator.pushReplacementNamed(context, '/');
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      try {
+        await currentUser.reload();
+        currentUser = FirebaseAuth.instance.currentUser;
+      } catch (e) {
+        if (e is FirebaseAuthException && e.code == 'user-not-found') {
+          currentUser = null;
+        }
+      }
+    }
+
+    if (currentUser != null && rememberMe == true) {
+      Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
     } else {
-      // إذا لم يكن "Remember Me" مفعلًا، انتقل إلى WelcomeView
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => WelcomeView()),
       );
     }
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => WelcomeView()),
-    // );
   }
 
   @override
