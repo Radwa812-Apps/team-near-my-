@@ -77,6 +77,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       const SizedBox(height: 100),
                       TextFormFieldWidget(
+                        lineFocusColor: Colors.white,
+                        hintColor: Colors.white, lineColor: Colors.white,
                         controller: _emailController,
                         hint: 'Email',
                         prefixIcon: const Icon(Icons.email_outlined,
@@ -94,6 +96,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       const SizedBox(height: 30),
                       TextFormFieldWidget(
+                        lineFocusColor: Colors.white,
+                        hintColor: Colors.white, lineColor: Colors.white,
                         controller: _passwordController,
                         hint: 'Password',
                         prefixIcon:

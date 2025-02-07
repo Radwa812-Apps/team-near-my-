@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/Features/User_Profile/components/button_widget.dart';
 import 'package:nearme_app/Features/User_Profile/components/edit_user_widget.dart';
 import 'package:nearme_app/Features/User_Profile/screens/edit_screen.dart';
+import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
+import 'package:nearme_app/core/data/models/user.dart';
 import '../../../../core/constants.dart';
 import '../../Home/Home/components/round_image_widget.dart';
 import 'user_profile_info_widget.dart';
@@ -10,30 +13,33 @@ import 'user_profile_info_widget.dart';
 class UserProfileAll_InfoWidget extends StatelessWidget {
   const UserProfileAll_InfoWidget({
     super.key,
-    required this.firstName,
+    // required this.firstName,
     required this.spaceWithRows,
-    required this.lastName,
-    required this.phoneNumber,
-    required this.email,
-    required this.birthDate,
+    // required this.lastName,
+    // required this.phoneNumber,
+    // required this.email,
+    // required this.birthDate,
     required this.imagePositionTop,
     required this.paddingTopContainer,
+    required this.userModel,
   });
 
-  final String? firstName;
+  // final String? firstName;
   final double spaceWithRows;
-  final String? lastName;
-  final String? phoneNumber;
-  final String? email;
-  final String? birthDate;
+  // final String? lastName;
+  // final String? phoneNumber;
+  // final String? email;
+  // final String? birthDate;
   final double? imagePositionTop;
   final double? paddingTopContainer;
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
+    //UserModel userModel = BlocProvider.of<ProfileBloc>(context).userModel!;
     return Center(
       child: Stack(
         clipBehavior: Clip.none, // Allow the image to overflow
@@ -53,7 +59,7 @@ class UserProfileAll_InfoWidget extends StatelessWidget {
                       height: screenWidth *
                           0.13), // Leave space for the image overflow
                   Text(
-                    'Welcome ${firstName![0].toUpperCase()}${firstName!.substring(1)}',
+                    'Welcome ${userModel.fName[0].toUpperCase()}${userModel.fName.substring(1)}',
                     style: const TextStyle(
                       color: kFontColor,
                       fontFamily: kFontBold,
@@ -63,28 +69,30 @@ class UserProfileAll_InfoWidget extends StatelessWidget {
                   ),
                   SizedBox(height: screenWidth * 0.08),
                   UserProfileInfoWidget(
-                    info: firstName,
+                    info: userModel.fName,
                     iconData: Icons.person_outlined,
                     size: 25,
                   ),
                   SizedBox(height: spaceWithRows),
 
                   UserProfileInfoWidget(
-                    info: lastName,
+                    info: userModel.lName,
                     iconData: Icons.person_outlined,
                     size: 25,
                   ),
                   SizedBox(height: spaceWithRows),
 
                   UserProfileInfoWidget(
-                    info: phoneNumber,
+                    info: userModel.phoneNumber
+                        .split("number: ")[1]
+                        .replaceAll(")", ""),
                     iconData: Icons.phone_outlined,
                     size: 25,
                   ),
 
                   SizedBox(height: spaceWithRows),
                   UserProfileInfoWidget(
-                    info: email,
+                    info: userModel.email,
                     iconData: Icons.email_outlined,
                     size: 25,
                   ),
@@ -92,7 +100,7 @@ class UserProfileAll_InfoWidget extends StatelessWidget {
                   SizedBox(height: spaceWithRows),
 
                   UserProfileInfoWidget(
-                    info: birthDate,
+                    info: userModel.dateOfBirth,
                     iconData: Icons.calendar_month_outlined,
                     size: 25,
                   ),
@@ -101,6 +109,8 @@ class UserProfileAll_InfoWidget extends StatelessWidget {
                     name: 'Edit',
                     fontSize: 30,
                     onTap: () {
+                      BlocProvider.of<ProfileBloc>(context)
+                          .add(EditUserEvent());
                       Navigator.pushNamed(context, EditScreen.editScreenKey);
                     },
                     size: Size(screenWidth * 0.7, screenHeight * .01),

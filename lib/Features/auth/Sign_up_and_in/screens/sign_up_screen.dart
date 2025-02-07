@@ -29,7 +29,7 @@ import 'signUp_verifiy_email.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
-    static const String signUpScreenKey = '/SignUpScreen';
+  static const String signUpScreenKey = '/SignUpScreen';
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -47,6 +47,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isload = false;
   String? fName, lName, password, email, phoneNumber, dateOfBirth;
+  final TextEditingController _phoneNumberController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneNumberController.clear(); // ✅ امسح أي رقم قديم عند تحميل الصفحة
+  }
 
   @override
   void dispose() {
@@ -108,20 +115,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           const SizedBox(height: 20),
                           TextFormFieldWidget(
+                            hintColor: Colors.white,
+                            lineColor: Colors.white,
                             controller: _fnameController,
                             hint: 'First Name',
                             prefixIcon: const Icon(Icons.person_outline,
                                 color: Colors.white),
                             keyboardType: TextInputType.text,
-                            
                             validatior: ((p0) =>
                                 Validator.validateEmptyField('First Name', p0)),
                             onchange: ((p0) {
                               fName = p0;
                             }),
+                            lineFocusColor: Colors.white,
                           ),
                           const SizedBox(height: 30),
                           TextFormFieldWidget(
+                            lineFocusColor: Colors.white,
+                            hintColor: Colors.white,
+                            lineColor: Colors.white,
                             controller: _lnameController,
                             hint: 'Last Name',
                             prefixIcon: const Icon(Icons.people_outline,
@@ -135,6 +147,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           const SizedBox(height: 30),
                           TextFormFieldWidget(
+                            lineFocusColor: Colors.white,
+                            hintColor: Colors.white,
+                            lineColor: Colors.white,
                             controller: _emailController,
                             hint: 'Email',
                             prefixIcon: const Icon(Icons.email_outlined,
@@ -147,6 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           const SizedBox(height: 30),
                           TextFormFieldWidget(
+                            lineFocusColor: Colors.white,
                             validatior: ((p0) {
                               if (p0 == null || p0.isEmail) {
                                 return "Date of birth is required.";
@@ -176,13 +192,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               });
                             }),
                             onchange: ((p0) {}),
+                            hintColor: Colors.white,
+                            lineColor: Colors.white,
                           ),
                           const SizedBox(height: 30),
-                          PhoneNumberWidget(onchange: ((p0) {
-                            phoneNumber = p0.toString();
-                          })),
+                          PhoneNumberWidget(
+                              phoneNumberController: _phoneNumberController,
+                              hint: 'Phone Number',
+                              dropdownIconColor: Colors.white,
+                              dropdownTextStyleColor: Colors.white,
+                              enabledBorderColor: Colors.white,
+                              focusedBorderColor: Colors.white,
+                              hintStyleColor: Colors.white,
+                              onchange: ((p0) {
+                                setState(() {
+                                  phoneNumber = p0.toString();
+                                });
+                              })),
                           const SizedBox(height: 20),
                           TextFormFieldWidget(
+                            lineFocusColor: Colors.white,
+                            hintColor: Colors.white,
+                            lineColor: Colors.white,
                             controller: _passwordController,
                             hint: 'Password',
                             prefixIcon: const Icon(Icons.lock_outline,
@@ -197,6 +228,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           const SizedBox(height: 30),
                           TextFormFieldWidget(
+                            lineFocusColor: Colors.white,
+                            hintColor: Colors.white,
+                            lineColor: Colors.white,
                             controller: _confirmPasswordController,
                             hint: 'Confirm Password',
                             prefixIcon: const Icon(Icons.lock_outline,
@@ -213,7 +247,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SubmitButton(
                             name: 'Sign Up',
                             onTap: () {
-                            
                               if (_formKey.currentState!.validate()) {
                                 if (phoneNumber == null) {
                                   AppMessages().sendVerification(

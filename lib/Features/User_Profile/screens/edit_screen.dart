@@ -14,7 +14,7 @@ class EditScreen extends StatelessWidget {
     // double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    double spaceWithRows = screenWidth * 0.07;
+    double spaceWithRows = screenWidth * 0.05;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: kBackgroundColor,

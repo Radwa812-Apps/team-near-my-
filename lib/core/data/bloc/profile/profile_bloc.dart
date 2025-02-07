@@ -4,113 +4,59 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
+import '../../models/user.dart';
+
 part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+  UserModel? userModel;
   ProfileBloc() : super(ProfileInitial()) {
-    // معالجة حدث تعديل المستخدم
     on<EditUserEvent>((event, emit) async {
+      emit(UserEditeLoadingState());
       try {
-        await Future.delayed(const Duration(seconds: 1));
         CollectionReference users =
             FirebaseFirestore.instance.collection('users');
-
+        String id = FirebaseAuth.instance.currentUser!.uid;
         Map<String, dynamic> updateData = {};
 
-        updateData['firstName'] = event.fName;
+        updateData['fName'] = userModel!.fName;
+        updateData['lName'] = userModel!.lName;
+        updateData['phoneNumber'] = userModel!.phoneNumber;
+        updateData['dateOfBirth'] = userModel!.dateOfBirth;
+        updateData['email'] = userModel!.email;
+         await users.doc(id).update(updateData);
 
-        updateData['lastName'] = event.lName;
-
-        updateData['phoneNumber'] = event.phoneNumber;
-        updateData['dateOfBirth'] = event.dateOfBirth;
-        updateData['email'] = event.email;
-        String id = FirebaseAuth.instance.currentUser!.uid;
-
-        await users.doc(id).update(updateData);
-
-        emit(UserEditedState(message: 'User updated successfully'));
+        emit(UserEditedSuccessState(userModel: userModel!));
       } catch (e) {
-        emit(ProfileErrorState(error: 'Failed to edit user: $e'));
+        emit(UserEditeErrorState(error: 'Failed to edit user: $e'));
       }
     });
 
-    on<DeleteUserEvent>((event, emit) async {
-      try {
-        await Future.delayed(const Duration(seconds: 1));
-        CollectionReference users =
-            FirebaseFirestore.instance.collection('users');
-
-        await users.doc(event.userId).delete();
-        emit(UserDeletedState(message: 'User deleted successfully'));
-      } catch (e) {
-        emit(ProfileErrorState(error: 'Failed to delete user: $e'));
-      }
-    });
-
-    // on<ShowUserInfoEvent>((event, emit) async {
-    //   print('ddddddddddddddddddddddddddddddddddddddddddd');
-    //   emit(UserInfoLoadingState());
+    // on<DeleteUserEvent>((event, emit) async {
     //   try {
-    //     final User? user = FirebaseAuth.instance.currentUser;
-
-    //     if (user == null) {
-    //       emit(ProfileErrorState(error: "No user logged in"));
-    //       return;
-    //     }
-
-    //     final DocumentSnapshot userDoc = await FirebaseFirestore.instance
-    //         .collection('users')
-    //         .doc(user.uid)
-    //         .get();
-
-    //     if (!userDoc.exists) {
-    //       emit(ProfileErrorState(error: "User data not found"));
-    //       return;
-    //     }
-
-    //     final data = userDoc.data() as Map<String, dynamic>;
-
-    //     final String firstName = data['firstName'] ?? 'No Name';
-    //     final String lastName = data['lastName'] ?? 'No Last Name';
-    //     final String phoneNumber = data['phoneNumber'] ?? 'No Phone';
-    //     final DateTime dateOfBirth =
-    //         (data['dateOfBirth'] as Timestamp).toDate();
-    //     final String email = data['email'] ?? user.email ?? 'No Email';
-
-    //     emit(UserInfoLoadedState(
-    //       fName: firstName,
-    //       lName: lastName,
-    //       phoneNumber: phoneNumber,
-    //       dateOfBirth: dateOfBirth.toString(),
-    //       email: email,
-    //     ));
-    //     print('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
-    //     print(firstName);
-    //     print(lastName);
-    //     print(phoneNumber);
-    //     print(dateOfBirth);
-    //     print(email);
-    //     print('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+    //     await Future.delayed(const Duration(seconds: 1));
+    //     CollectionReference users =
+    //         FirebaseFirestore.instance.collection('users');
+    //     await users.doc(event.userId).delete();
+    //     emit(UserDeletedState(message: 'User deleted successfully'));
     //   } catch (e) {
-    //     emit(ProfileErrorState(error: 'Failed to load user info: $e'));
+    //     emit(ProfileErrorState(error: 'Failed to delete user: $e'));
     //   }
     // });
-    on<ShowUserInfoEvent>((event, emit) async {
-      print('🔄 Fetching user info...');
-      emit(UserInfoLoadingState());
 
+    on<ShowUserInfoEvent>((event, emit) async {
+      emit(UserInfoLoadingState());
       try {
         final User? user = FirebaseAuth.instance.currentUser;
         print('suer id                                : ${user!.uid}');
 
+        // ignore: unnecessary_null_comparison
         if (user == null) {
-          print("❌ No user is logged in!");
-          emit(ProfileErrorState(error: "No user logged in"));
+          emit(UserInfoErrorState(error: "No user logged in"));
           return;
         }
 
-        print("🔄 Searching for user in Firestore...");
         QuerySnapshot querySnapshot = await FirebaseFirestore.instance
             .collection('users')
             .where('authUid', isEqualTo: user.uid)
@@ -118,50 +64,43 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             .get();
 
         if (querySnapshot.docs.isEmpty) {
-          print("❌ No user document found!");
-          emit(ProfileErrorState(error: "User data not found"));
+          emit(UserInfoErrorState(error: "User data not found"));
           return;
         }
 
         final DocumentSnapshot userDoc = querySnapshot.docs.first;
         final String documentId = userDoc.id;
-        print("✅ User document found! Document ID: $documentId");
 
         final data = userDoc.data() as Map<String, dynamic>;
-        print("📄 Firestore Data: $data");
 
-        final String firstName = data['fName'] ?? 'No Name';
-        final String lastName = data['lName'] ?? 'No Last Name';
-        final String rawPhoneNumber = data['phoneNumber'] ?? 'No Phone';
+        // final String firstName = data['fName'] ?? 'No Name';
+        // final String lastName = data['lName'] ?? 'No Last Name';
+        // final String rawPhoneNumber = data['phoneNumber'] ?? 'No Phone';
+        // final RegExp regex = RegExp(r'number:\s*(\d+)');
+        // final match = regex.firstMatch(rawPhoneNumber);
+        // final String phoneNumber = match != null ? match.group(1)! : 'No Phone';
+        // String dateOfBirth = data['dateOfBirth'];
+        // final String email = data['email'] ?? user.email ?? 'No Email';
 
-        final RegExp regex = RegExp(r'number:\s*(\d+)');
-        final match = regex.firstMatch(rawPhoneNumber);
-
-        final String phoneNumber = match != null ? match.group(1)! : 'No Phone';
-
-        String dateOfBirth = data['dateOfBirth'];
-
-        final String email = data['email'] ?? user.email ?? 'No Email';
-
+        userModel = UserModel.fromJson(data, user.uid);
         print("✅ User info loaded successfully!");
-        emit(UserInfoLoadedState(
-          fName: firstName,
-          lName: lastName,
-          phoneNumber: phoneNumber,
-          dateOfBirth: dateOfBirth.toString(),
-          email: email,
-        ));
+        emit(UserInfoLoadedSuccessState(userModel: userModel!
+            // fName: firstName,
+            // lName: lastName,
+            // phoneNumber: phoneNumber,
+            // dateOfBirth: dateOfBirth.toString(),
+            // email: email,
+            ));
 
-        print('🔹 First Name: $firstName');
-        print('🔹 Last Name: $lastName');
-        print('🔹 Phone Number: $phoneNumber');
-        print('🔹 Date of Birth: ${data['dateOfBirth']}');
-        print('🔹 Email: $email');
-        print(
-            '🔹 Firestore Doc ID: $documentId'); 
+        print('🔹 First Name: ${userModel!.fName}');
+        print('🔹 Last Name: ${userModel!.lName}');
+        print('🔹 Phone Number: ${userModel!.phoneNumber}');
+        print('🔹 Date of Birth: ${userModel!.dateOfBirth}');
+        print('🔹 Email: ${userModel!.email}');
+        print('🔹 Firestore Doc ID: $documentId');
       } catch (e) {
         print("❌ Error loading user info: $e");
-        emit(ProfileErrorState(error: 'Failed to load user info: $e'));
+        emit(UserInfoErrorState(error: 'Failed to load user info: $e'));
       }
     });
   }

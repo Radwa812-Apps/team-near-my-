@@ -90,27 +90,28 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return BlocConsumer<ProfileBloc, ProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if (state is UserInfoLoadedState) {
+        if (state is UserInfoLoadedSuccessState) {
           return Scaffold(
               backgroundColor: kBackgroundColor,
               body: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    const SizedBox(height: 90),
+                  children:  [
+                    SizedBox(height: 90),
                     UserProfileAll_InfoWidget(
-                      firstName: state.fName,
+                      
+                      // firstName: state.fName,
                       spaceWithRows: 30,
-                      lastName: state.lName,
-                      phoneNumber: state.phoneNumber,
-                      email: state.email,
-                      birthDate: state.dateOfBirth,
+                      // lastName: state.lName,
+                      // phoneNumber: state.phoneNumber,
+                      // email: state.email,
+                      // birthDate: state.dateOfBirth,
                       paddingTopContainer: 40,
-                      imagePositionTop: -20,
+                      imagePositionTop: -20, userModel:state.userModel ,
                     ),
                   ],
                 ),
               ));
-        } else if (state is ProfileErrorState) {
+        } else if (state is UserInfoErrorState) {
           return Center(child: Text('Something went wrong: ${state.error}'));
         } else {
           return const Center(child: CircularProgressIndicator());

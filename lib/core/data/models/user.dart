@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl_phone_field/phone_number.dart';
 
 class UserModel {
   final String id;
-  final String name;
+  final String fName;
+  final String lName;
   final String email;
   final String phoneNumber;
   final String dateOfBirth;
@@ -11,7 +13,8 @@ class UserModel {
 
   UserModel(
       {required this.id,
-      required this.name,
+      required this.fName,
+      required this.lName,
       required this.email,
       required this.phoneNumber,
       required this.dateOfBirth,
@@ -19,9 +22,15 @@ class UserModel {
       required this.role});
 
   factory UserModel.fromJson(Map<String, dynamic> json, String id) {
+    //final String rawPhoneNumber = json['phoneNumber'];
+    // final RegExp regex = RegExp(r'\s*(\d+)');
+    // final match = regex.firstMatch(rawPhoneNumber);
+    // final String phoneNumberString = match != null ? match.group(0)! : '';
+
     return UserModel(
       id: id,
-      name: json['name'],
+      fName: json['fName'],
+      lName: json['lName'],
       email: json['email'],
       phoneNumber: json['phoneNumber'],
       dateOfBirth: json['dateOfBirth'],
@@ -39,18 +48,19 @@ class UserModel {
     }
     return UserModel(
         id: user.uid,
-        name: user.displayName ?? '',
+        fName: user.displayName ?? '',
         email: user.email ?? '',
         phoneNumber: user.phoneNumber ?? '',
         dateOfBirth: '',
         profilPicture: user.photoURL ?? '',
-        role: 'not admin');
+        role: 'not admin',
+        lName: '');
   }
 
   Map<String, dynamic> toJson() {
     return {
       'uid': this.id,
-      'name': this.name,
+      'name': this.fName,
       'email': this.email,
       'phone': this.phoneNumber,
       'dateOfBirth': this.dateOfBirth,

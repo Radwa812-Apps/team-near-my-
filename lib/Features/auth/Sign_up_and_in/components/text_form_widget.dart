@@ -7,11 +7,13 @@ class TextFormFieldWidget extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool isPassword;
   final bool isBirthDate;
-  final TextEditingController? controller; 
-  final VoidCallback? onTap; 
+  final TextEditingController? controller;
+  final VoidCallback? onTap;
   final String? Function(String?) validatior;
-  final Function (String) onchange;
-
+  final Function(String) onchange;
+  final Color lineColor;
+  final Color hintColor;
+  final Color lineFocusColor;
   const TextFormFieldWidget({
     super.key,
     this.hint,
@@ -20,8 +22,11 @@ class TextFormFieldWidget extends StatefulWidget {
     this.isPassword = false,
     this.isBirthDate = false,
     this.controller,
-    this.onTap, required this.validatior, required this.onchange,
-    
+    this.onTap,
+    required this.validatior,
+    required this.onchange,
+    required this.lineColor,
+    required this.hintColor, required this.lineFocusColor,
   });
 
   @override
@@ -29,9 +34,8 @@ class TextFormFieldWidget extends StatefulWidget {
 }
 
 class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
-  bool _obscureText = true; 
+  bool _obscureText = true;
   @override
- 
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,22 +43,18 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
         horizontal: 20.0,
       ),
       child: TextFormField(
-       onChanged: widget.onchange,
+        onChanged: widget.onchange,
         validator: widget.validatior,
-        controller: widget.controller, 
+        controller: widget.controller,
         style: const TextStyle(
-          color: Colors.white, 
+          color: Colors.white,
           fontSize: 20,
           fontFamily: kFontRegular,
         ),
         keyboardType: widget.keyboardType,
-        obscureText: widget.isPassword
-            ? _obscureText
-            : false, 
-        readOnly: widget.isBirthDate, 
-        onTap: widget.isBirthDate
-            ? widget.onTap
-            : null, 
+        obscureText: widget.isPassword ? _obscureText : false,
+        readOnly: widget.isBirthDate,
+        onTap: widget.isBirthDate ? widget.onTap : null,
         decoration: InputDecoration(
           hintText: widget.hint,
           prefixIcon: widget.prefixIcon,
@@ -71,26 +71,25 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
                   ),
                   onPressed: () {
                     setState(() {
-                      _obscureText =
-                          !_obscureText; 
+                      _obscureText = !_obscureText;
                     });
                   },
                 )
-              : null, 
-          hintStyle: const TextStyle(
-            color: Colors.white,
+              : null,
+          hintStyle: TextStyle(
+            color: widget.hintColor,
             fontSize: 20,
             fontFamily: kFontRegular,
           ),
-          focusedBorder: const UnderlineInputBorder(
+          focusedBorder:  UnderlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.white,
+              color: widget.lineFocusColor,
               width: 1.5,
             ),
           ),
-          enabledBorder: const UnderlineInputBorder(
+          enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.white,
+              color: widget.lineColor,
               width: 1.5,
             ),
           ),

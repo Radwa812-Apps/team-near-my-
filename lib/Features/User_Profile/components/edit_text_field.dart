@@ -8,6 +8,7 @@ class EditTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final Function(String)? onChanged;
+  // final String Function(String?)? validate;
 
   const EditTextField({
     super.key,
@@ -17,13 +18,15 @@ class EditTextField extends StatelessWidget {
     this.controller,
     this.keyboardType = TextInputType.text, // Default to normal text input
     this.onChanged,
+    //  required this.validate,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 28),
-      child: TextField(
+      child: TextFormField(
+       // validator:validate ,
         controller: controller,
         readOnly: readOnly!,
         keyboardType: keyboardType,
@@ -44,7 +47,7 @@ class EditTextField extends StatelessWidget {
             color: kPrimaryColor1,
             size: 22,
           ),
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontSize: 20,
             fontFamily: kFontRegular,
             color: kFontColor,
@@ -62,7 +65,7 @@ class EditTextField extends StatelessWidget {
             ),
           ),
         ),
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 20,
           fontFamily: kFontRegular,
           color: kFontColor,

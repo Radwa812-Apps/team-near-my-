@@ -4,37 +4,51 @@ abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {}
 
-class UserInfoLoadedState extends ProfileState {
-  final String fName;
-  final String lName;
-  final String email;
-  final String phoneNumber;
-  final String dateOfBirth;
-  UserInfoLoadedState(
-      {required this.fName,
-      required this.lName,
-      required this.email,
-      required this.phoneNumber,
-      required this.dateOfBirth});
-}
-class UserInfoLoadingState extends ProfileState {
- 
-}
+class UserInfoLoadedSuccessState extends ProfileState {
+  final UserModel userModel;
 
-class UserEditedState extends ProfileState {
-  final String message;
-
-  UserEditedState({required this.message});
+  UserInfoLoadedSuccessState({required this.userModel});
+  // final String fName;
+  // final String lName;
+  // final String email;
+  // final String phoneNumber;
+  // final String dateOfBirth;
+  // UserInfoLoadedSuccessState(
+  //     {required this.fName,
+  //     required this.lName,
+  //     required this.email,
+  //     required this.phoneNumber,
+  //     required this.dateOfBirth});
 }
 
-class UserDeletedState extends ProfileState {
-  final String message;
+class UserInfoLoadingState extends ProfileState {}
 
-  UserDeletedState({required this.message});
-}
-
-class ProfileErrorState extends ProfileState {
+class UserInfoErrorState extends ProfileState {
   final String error;
 
-  ProfileErrorState({required this.error});
+  UserInfoErrorState({required this.error});
 }
+
+class UserEditedSuccessState extends ProfileState {
+  final UserModel userModel;
+
+  UserEditedSuccessState({required this.userModel});
+}
+
+class UserEditeErrorState extends ProfileState {
+  final String error;
+
+  UserEditeErrorState({required this.error});
+}
+
+class UserEditeLoadingState extends ProfileState {}
+
+class UserDeletedSuccessState extends ProfileState {}
+
+class UserDeleteErrorState extends ProfileState {
+  final String error;
+
+  UserDeleteErrorState({required this.error});
+}
+
+class UserDeleteLoadingState extends ProfileState {}

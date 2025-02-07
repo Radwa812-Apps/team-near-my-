@@ -2,11 +2,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
 class Validator {
+  static String? validateEditNameField(String? fieldName, String? value) {
+    if (value != null) {
+      if (value.contains(' ')) {
+        return "$fieldName should not contain any spaces.";
+      }
+
+      if (value.length > 50) {
+        return "$fieldName must be at most 50 characters long.";
+      }
+    }
+
+    return null;
+  }
+
   static String? validateEmptyField(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
       return "$fieldName is required.";
     }
-       
+
     if (value.contains(' ')) {
       return "$fieldName should not contain any spaces.";
     }

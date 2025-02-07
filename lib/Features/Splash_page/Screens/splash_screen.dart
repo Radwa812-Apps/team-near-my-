@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Splash_page/Screens/after_splash.dart';
 
@@ -9,7 +10,7 @@ import '../../../components/mainScaffold.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
-  static const String splashPageKey = '/SplashPage';
+  static const String splashPageKey = '/';
 
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -33,8 +34,8 @@ class _SplashPageState extends State<SplashPage>
     await Future.delayed(Duration(seconds: 2));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? rememberMe = prefs.getBool('KeppUserLogIn');
-
-    if (rememberMe == true) {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null &&  rememberMe == true) {
       // إذا كان "Remember Me" مفعلًا، انتقل إلى HomeScreen
       // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);

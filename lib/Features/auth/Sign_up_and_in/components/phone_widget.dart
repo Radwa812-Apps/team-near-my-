@@ -6,49 +6,63 @@ import '../../../../core/constants.dart';
 import '../../../../core/services/validator.dart';
 
 class PhoneNumberWidget extends StatelessWidget {
-  PhoneNumberWidget({super.key, required this.onchange});
-  final TextEditingController _phoneNumberController = TextEditingController();
+  PhoneNumberWidget(
+      {super.key,
+      required this.onchange,
+      required this.dropdownTextStyleColor,
+      required this.dropdownIconColor,
+      required this.hintStyleColor,
+      required this.focusedBorderColor,
+      required this.enabledBorderColor, required this.hint, required this.phoneNumberController});
+  final TextEditingController phoneNumberController;
   final Function(PhoneNumber) onchange;
+  final Color dropdownTextStyleColor;
+  final Color dropdownIconColor;
+  final Color hintStyleColor;
+  final Color focusedBorderColor;
+  final Color enabledBorderColor;
+
+  final String hint;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: IntlPhoneField(
-          controller: _phoneNumberController,
+          controller: phoneNumberController,
           validator: ((p0) {
             return Validator.validatePhoneNumber(p0);
           }),
-          dropdownTextStyle: const TextStyle(color: Colors.white),
+          dropdownTextStyle: TextStyle(color: dropdownTextStyleColor),
           keyboardType: TextInputType.phone,
-          dropdownIcon: const Icon(
+          dropdownIcon: Icon(
             Icons.arrow_drop_down,
-            color: Colors.white, 
+            color: dropdownIconColor,
           ),
-          style: const TextStyle(color: Colors.white),
-          decoration: const InputDecoration(
-            hintText: 'Phone Number',
-            labelStyle: TextStyle(color: Colors.white),
-            prefixIcon: Icon(
+          style: const TextStyle(color: kFontColor),
+          decoration: InputDecoration(
+            hintText: hint,
+            labelStyle: const TextStyle(color: Colors.white),
+            prefixIcon: const Icon(
               Icons.phone_outlined,
               color: Colors.white,
             ),
-            prefixIconConstraints: BoxConstraints(
+            prefixIconConstraints: const BoxConstraints(
               minWidth: 35,
             ),
             hintStyle: TextStyle(
-              color: Colors.white,
+              color: hintStyleColor,
               fontSize: 20,
               fontFamily: kFontRegular,
             ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.white,
+                color: focusedBorderColor,
                 width: 1.5,
               ),
             ),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.white,
+                color: enabledBorderColor,
                 width: 1.5,
               ),
             ),
