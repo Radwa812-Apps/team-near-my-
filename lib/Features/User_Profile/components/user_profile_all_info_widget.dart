@@ -41,7 +41,7 @@ class UserProfileAll_InfoWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: paddingTopContainer!),
             child: Container(
-              width: screenWidth * 0.85, // 80% of screen width
+              width: screenWidth * 0.90, // 80% of screen width
               height: screenHeight * 0.7,
               decoration: BoxDecoration(
                 color: kPrimaryColor1.withOpacity(.20),
@@ -53,7 +53,7 @@ class UserProfileAll_InfoWidget extends StatelessWidget {
                       height: screenWidth *
                           0.13), // Leave space for the image overflow
                   Text(
-                    'Welcome $firstName',
+                    'Welcome ${firstName![0].toUpperCase()}${firstName!.substring(1)}',
                     style: const TextStyle(
                       color: kFontColor,
                       fontFamily: kFontBold,

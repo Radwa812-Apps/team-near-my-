@@ -1,0 +1,31 @@
+part of 'profile_bloc.dart';
+
+abstract class ProfileEvent {}
+
+class EditUserEvent extends ProfileEvent {
+  final String fName;
+  final String lName;
+  final String email;
+  final String phoneNumber;
+  final String dateOfBirth;
+  EditUserEvent(
+      {required this.fName,
+      required this.lName,
+      required this.email,
+      required this.phoneNumber,
+      required this.dateOfBirth});
+}
+
+// حدث لحذف المستخدم
+class DeleteUserEvent extends ProfileEvent {
+  final String userId;
+
+  DeleteUserEvent({required this.userId});
+}
+
+
+class ShowUserInfoEvent extends ProfileEvent {
+  // final String userId;
+
+  // ShowUserInfoEvent({required this.userId});
+}

@@ -62,6 +62,7 @@ dependencies:
   video_player_control_panel: ^1.1.0
   geolocator: ^11.1.0
   fluttertoast: ^8.2.5
+  intl: ^0.18.1
 
  
 

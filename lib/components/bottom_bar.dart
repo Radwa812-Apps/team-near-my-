@@ -1,4 +1,8 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
 
 import '../../../core/constants.dart';
 import '../Features/Home/Home/components/icon_button_widegt.dart';
@@ -36,9 +40,12 @@ class BottomContainerWithIcons extends StatelessWidget {
             size: 35,
           ),
           SizedBox(width: space),
+
           // User Profile Icon (Index 1)
           IconButtonWidegt(
             onPressed: () {
+              BlocProvider.of<ProfileBloc>(context)
+                  .add(ShowUserInfoEvent());
               onIconPressed(1); // UserProfileScreen is at index 1
             },
             icon: selectedIndex == 1 ? Icons.person : Icons.person_outlined,

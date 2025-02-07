@@ -25,6 +25,7 @@ import 'package:nearme_app/Features/group_profile/screens/add_members_screen.dar
 import 'package:nearme_app/Features/group_profile/screens/media.dart';
 import 'package:nearme_app/Features/select_place/screens/select_place_screen.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
+import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
 import 'package:nearme_app/core/data/models/chat_model_temp.dart';
 import 'package:nearme_app/core/services/Auth_functions.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ import 'Features/Home/Home/Screens/home_screen.dart';
 import 'Features/Map_After_SignUp/Screens/map1.dart';
 import 'Features/Permissions/Screens/permission_location.dart';
 import 'Features/Permissions/Screens/permissions.dart';
+import 'Features/User_Profile/screens/user_profile_screen.dart';
 import 'Features/auth/Forgot_password/Screens/confirm_password.dart';
 import 'Features/auth/Forgot_password/Screens/send_email_for_pass.dart';
 import 'Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
@@ -85,6 +87,10 @@ class NearMeApp extends StatelessWidget {
                 BlocProvider(
                   create: (context) => CustomPlacesBloc(Services()),
                   child: Container(),
+                ),
+                BlocProvider(
+                  create: (context) => ProfileBloc(),
+                  child: UserProfileScreen(),
                 )
               ],
               child: MaterialApp(

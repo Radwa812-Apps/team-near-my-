@@ -189,6 +189,9 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
                 if (snapshot.data!.isEmpty) {
                   return const Center(child: Text("No custom places found"));
                 }
+
+
+                
                 final filteredDate = snapshot.data!.where(((element) {
                   final data = element.data() as Map<String, dynamic>?;
 
