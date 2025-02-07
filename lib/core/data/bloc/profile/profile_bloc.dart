@@ -20,12 +20,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         String id = FirebaseAuth.instance.currentUser!.uid;
         Map<String, dynamic> updateData = {};
 
-        updateData['fName'] = userModel!.fName;
-        updateData['lName'] = userModel!.lName;
-        updateData['phoneNumber'] = userModel!.phoneNumber;
-        updateData['dateOfBirth'] = userModel!.dateOfBirth;
-        updateData['email'] = userModel!.email;
-         await users.doc(id).update(updateData);
+        updateData['fName'] = event.fName;
+        updateData['lName'] = event.lName;
+        updateData['phoneNumber'] = event.phoneNumber;
+        updateData['dateOfBirth'] = event.dateOfBirth;
+        updateData['email'] = event.email;
+        await users.doc(id).update(updateData);
 
         emit(UserEditedSuccessState(userModel: userModel!));
       } catch (e) {

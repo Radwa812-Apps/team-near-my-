@@ -109,8 +109,12 @@ class UserProfileAll_InfoWidget extends StatelessWidget {
                     name: 'Edit',
                     fontSize: 30,
                     onTap: () {
-                      BlocProvider.of<ProfileBloc>(context)
-                          .add(EditUserEvent());
+                      BlocProvider.of<ProfileBloc>(context).add(EditUserEvent(
+                          dateOfBirth: userModel.dateOfBirth,
+                          email: userModel.email,
+                          lName: userModel.lName,
+                          fName: userModel.fName,
+                          phoneNumber: userModel.phoneNumber));
                       Navigator.pushNamed(context, EditScreen.editScreenKey);
                     },
                     size: Size(screenWidth * 0.7, screenHeight * .01),

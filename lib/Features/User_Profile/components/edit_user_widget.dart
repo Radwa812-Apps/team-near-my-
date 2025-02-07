@@ -61,10 +61,10 @@ class _EditUserWidgetState extends State<EditUserWidget> {
               clipBehavior: Clip.none,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: widget.paddingTopContainer!),
+                  padding: EdgeInsets.only(top: widget.paddingTopContainer),
                   child: Container(
                     width: screenWidth * 0.85,
-                    height: screenHeight * 0.75,
+                    height: screenHeight * 0.70,
                     decoration: BoxDecoration(
                       color: kPrimaryColor1.withOpacity(.20),
                       borderRadius: BorderRadius.circular(20),
@@ -88,7 +88,10 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                           hintText: state.userModel.fName,
                           iconData: Icons.person_outlined,
                           controller: firstNameController,
-                          onChanged: ((p0) => fName = p0),
+                          onChanged: ((p0) {
+                            onFieldChanged(p0);
+                            fName = p0;
+                          }),
                         ),
                         SizedBox(height: widget.spaceWithRows),
 
@@ -97,17 +100,23 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                           hintText: state.userModel.lName,
                           iconData: Icons.person_outlined,
                           controller: lastNameController,
-                          onChanged: ((p0) => lName = p0),
+                          onChanged: ((p0) {
+                            onFieldChanged(p0);
+                            lName = p0;
+                          }),
                         ),
-                        SizedBox(height: widget.spaceWithRows),
-                        // Email Field
-                        EditTextField(
-                          hintText: state.userModel.email,
-                          iconData: Icons.email_outlined,
-                          controller: emailController,
-                          onChanged: ((p0) => email = p0),
-                          keyboardType: TextInputType.emailAddress,
-                        ),
+                        // SizedBox(height: widget.spaceWithRows),
+                        // // Email Field
+                        // EditTextField(
+                        //   hintText: state.userModel.email,
+                        //   iconData: Icons.email_outlined,
+                        //   controller: emailController,
+                        //   onChanged: ((p0) {
+                        //     onFieldChanged(p0);
+                        //     email = p0;
+                        //   }),
+                        //   keyboardType: TextInputType.emailAddress,
+                        // ),
                         SizedBox(height: widget.spaceWithRows),
 
                         // Phone Number Field
@@ -116,7 +125,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                               .split("number: ")[1]
                               .replaceAll(")", ""),
                           onchange: ((p0) {
-                            onFieldChanged;
+                            onFieldChanged(p0.toString());
                             setState(() {
                               phoneNumber = p0.toString();
                             });
@@ -129,8 +138,9 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                           phoneNumberController: _phoneNumberController,
                         ),
 
-                        SizedBox(height: widget.spaceWithRows),
+                        //SizedBox(height: widget.spaceWithRows),
                         // Birth Date Field
+
                         TextFormFieldWidget(
                           lineFocusColor: kFontColor,
                           validatior: ((p0) {
@@ -161,9 +171,10 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                               dateOfBirth = selectedDate;
                               birthDateController.text = selectedDate;
                             });
+                            onFieldChanged(dateOfBirth.toString());
                           }),
                           onchange: ((p0) {
-                            onFieldChanged;
+                            onFieldChanged(p0);
                             dateOfBirth = p0;
                           }),
                           hintColor: kFontColor,
@@ -181,25 +192,24 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                               fontSize: 20,
                               onTap: isChanged
                                   ? () {
-                                      // Handle save logic here
+                                      BlocProvider.of<ProfileBloc>(context).add(
+                                          EditUserEvent(
+                                              fName: fName ??
+                                                  state.userModel.fName,
+                                              lName: lName ??
+                                                  state.userModel.lName,
+                                              email: email ??
+                                                  state.userModel.email,
+                                              phoneNumber: phoneNumber ??
+                                                  state.userModel.phoneNumber,
+                                              dateOfBirth: dateOfBirth ??
+                                                  state.userModel.dateOfBirth));
+
                                       setState(() {
                                         isChanged = false;
                                       });
-                                      //Navigator.pop(context);
                                     }
                                   : null,
-
-                              // BlocProvider.of<ProfileBloc>(context).add(
-                              //     EditUserEvent(
-                              //         fName: fName ?? state.userModel.fName,
-                              //         lName: lName ?? state.userModel.lName,
-                              //         email: email ?? state.userModel.email,
-                              //         phoneNumber: phoneNumber ??
-                              //             state.userModel.phoneNumber,
-                              //         dateOfBirth: dateOfBirth ??
-                              //             state.userModel.dateOfBirth));
-                              //},
-
                               size: const Size(100, 65),
                               isEnabled: isChanged,
                             ),
