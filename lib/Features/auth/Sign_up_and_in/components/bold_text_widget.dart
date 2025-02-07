@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants.dart';
 
 class BoldTextWidget extends StatelessWidget {
@@ -9,12 +9,12 @@ class BoldTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 50.0,
+      padding: EdgeInsets.only(
+        top: 50.h,
       ),
       child: Text(name!,
-          style: const TextStyle(
-            fontSize: 40,
+          style: TextStyle(
+            fontSize: 40.sp,
             color: Colors.white,
             fontFamily: kFontBold,
             fontWeight: FontWeight.bold,

@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/Group_Profile/screens/group_profile_screen.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Screens/MapSearchWidget.dart';
 import 'package:nearme_app/Features/Notifications/Screens/general_notifications.dart';
@@ -50,9 +51,13 @@ void main() async {
   }
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ChatModelTemp(),
-      child: NearMeApp(),
+    ScreenUtilInit(
+      builder: (BuildContext context, Widget? child) {
+        return NearMeApp();
+      },
+      child: ChangeNotifierProvider(
+        create: (_) => ChatModelTemp(),
+      ),
     ),
   );
 }

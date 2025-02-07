@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/core/constants.dart';
 
 class TextFormFieldWidget extends StatefulWidget {
@@ -26,7 +27,8 @@ class TextFormFieldWidget extends StatefulWidget {
     required this.validatior,
     required this.onchange,
     required this.lineColor,
-    required this.hintColor, required this.lineFocusColor,
+    required this.hintColor,
+    required this.lineFocusColor,
   });
 
   @override
@@ -39,16 +41,16 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.w,
       ),
       child: TextFormField(
         onChanged: widget.onchange,
         validator: widget.validatior,
         controller: widget.controller,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: 20.sp,
           fontFamily: kFontRegular,
         ),
         keyboardType: widget.keyboardType,
@@ -58,8 +60,8 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
         decoration: InputDecoration(
           hintText: widget.hint,
           prefixIcon: widget.prefixIcon,
-          prefixIconConstraints: const BoxConstraints(
-            minWidth: 35,
+          prefixIconConstraints: BoxConstraints(
+            minWidth: 35.w,
           ),
           suffixIcon: widget.isPassword
               ? IconButton(
@@ -78,19 +80,19 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
               : null,
           hintStyle: TextStyle(
             color: widget.hintColor,
-            fontSize: 20,
+            fontSize: 20.sp,
             fontFamily: kFontRegular,
           ),
-          focusedBorder:  UnderlineInputBorder(
+          focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: widget.lineFocusColor,
-              width: 1.5,
+              width: 1.5.w,
             ),
           ),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: widget.lineColor,
-              width: 1.5,
+              width: 1.5.w,
             ),
           ),
         ),

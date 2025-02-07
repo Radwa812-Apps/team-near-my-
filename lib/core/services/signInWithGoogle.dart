@@ -120,6 +120,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -127,6 +128,7 @@ import 'package:nearme_app/Features/Home/Home/Screens/home_screen.dart';
 import 'package:nearme_app/core/data/models/user.dart';
 import 'package:nearme_app/core/messages.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 import '../../components/mainScaffold.dart';
 import '../constants.dart';
@@ -141,23 +143,12 @@ class SocialAuthWidget extends StatefulWidget {
 class _SocialAuthWidgetState extends State<SocialAuthWidget> {
   bool isLoading = false;
 
-Future<void> signInWithGoogle(BuildContext context) async {
-  setState(() {
-    isLoading = true;
-  });
+  Future<void> signInWithGoogle(BuildContext context) async {
+    setState(() {
+      isLoading = true;
+    });
 
-  if (!await checkConnection()) {
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
-    }
-    return;
-  }
-
-  try {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) {
+    if (!await checkConnection()) {
       if (mounted) {
         setState(() {
           isLoading = false;
@@ -166,39 +157,51 @@ Future<void> signInWithGoogle(BuildContext context) async {
       return;
     }
 
-    final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        if (mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
+        return;
+      }
 
-    UserCredential user = await FirebaseAuth.instance.signInWithCredential(credential);
-    print(user.additionalUserInfo!.username);
-    // Navigator.pushNamed(context, HomeScreen.homeScreenKey);
-         Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
 
-    await addUserToFirestore(user, context);
+      UserCredential user =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      print(user.additionalUserInfo!.username);
+      // Navigator.pushNamed(context, HomeScreen.homeScreenKey);
+      Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
 
-  } on FirebaseException catch (e) {
-    print('FirebaseException: $e');
-    handleFirebaseException(e, context);
-  } on FirebaseAuthException catch (e) {
-    print('FirebaseAuthException: $e');
-    handleFirebaseAuthException(e, context);
-  } on PlatformException catch (e) {
-    print('PlatformException: $e');
-    handlePlatformException(e, context);
-  } catch (e) {
-    print('Unknown Exception: $e');
-    handleUnknownException(e, context);
-  } finally {
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
+      await addUserToFirestore(user, context);
+    } on FirebaseException catch (e) {
+      print('FirebaseException: $e');
+      handleFirebaseException(e, context);
+    } on FirebaseAuthException catch (e) {
+      print('FirebaseAuthException: $e');
+      handleFirebaseAuthException(e, context);
+    } on PlatformException catch (e) {
+      print('PlatformException: $e');
+      handlePlatformException(e, context);
+    } catch (e) {
+      print('Unknown Exception: $e');
+      handleUnknownException(e, context);
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
-}
 
   // Future<void> signInWithGoogle(BuildContext context) async {
   //   setState(() {
@@ -275,25 +278,44 @@ Future<void> signInWithGoogle(BuildContext context) async {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GestureDetector(
-          onTap: () => signInWithGoogle(context),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const SizedBox(
-                width: 55, // Set desired width
-                height: 55, // Set desired height
-                child: Image(
-                  image: AssetImage('assets/images/google.png'),
-                  fit: BoxFit.contain, // Adjust the image fit
-                ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            // SizedBox(
+            //   width: 55.w,
+            //   height: 55.h,
+            //   child: const Image(
+            //     image: AssetImage('assets/images/google.png'),
+            //     fit: BoxFit.contain,
+            //   ),
+            // ),
+            // SignInButton(
+            //   Buttons.google,
+            //   onPressed: () {
+            //     signInWithGoogle(context);
+            //   },
+            //   mini: false,
+            // ),
+            SizedBox(
+              width: 220.w,
+              height: 45.h,
+              child: SignInButton(
+                Buttons.google,
+                onPressed: () {
+                  signInWithGoogle(context);
+                },
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: BorderRadius.circular(10),
+                // ),
+                elevation: 5,
               ),
-              if (isLoading) // عرض Loading Indicator إذا كان التحميل جاريًا
-                const CircularProgressIndicator(
-                  color: kPrimaryColor1, // لون الـ Loading Indicator
-                ),
-            ],
-          ),
+            ),
+
+            if (isLoading)
+              const CircularProgressIndicator(
+                color: kPrimaryColor1,
+              ),
+          ],
         ),
       ],
     );

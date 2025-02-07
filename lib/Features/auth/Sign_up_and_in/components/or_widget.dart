@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants.dart';
 
@@ -13,12 +14,12 @@ class ORWediget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          height: 1.0, 
+          height: 1.h,
           color: Colors.white,
-          width: lineWidth, 
+          width: lineWidth,
         ),
-        const SizedBox(
-          width: 10,
+        SizedBox(
+          width: 10.w,
         ),
         Text(
           'OR',
@@ -28,13 +29,13 @@ class ORWediget extends StatelessWidget {
             fontFamily: kFontRegular,
           ),
         ),
-        const SizedBox(
-          width: 10,
+        SizedBox(
+          width: 10.w,
         ),
         Container(
-          height: 1.0, 
+          height: 1.h,
           color: Colors.white,
-          width: lineWidth, 
+          width: lineWidth,
         ),
       ],
     );

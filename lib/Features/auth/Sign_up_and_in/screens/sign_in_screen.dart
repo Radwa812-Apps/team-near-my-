@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:nearme_app/Features/Home/Home/Screens/home_screen.dart';
-import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/Features/Permissions/Screens/permissions.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/forgot_password.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_up_screen.dart';
-import 'package:nearme_app/components/mainScaffold.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../core/constants.dart';
 import '../../../../core/services/signInWithGoogle.dart';
 import '../../../../core/messages.dart';
@@ -22,23 +19,16 @@ import '../components/text_form_widget.dart';
 class SignInScreen extends StatefulWidget {
   @override
   State<SignInScreen> createState() => _SignInScreenState();
-
   static const String signInScreenKey = '/SignInScreen';
 }
 
 class _SignInScreenState extends State<SignInScreen> {
   double space = 30;
-
-  TextEditingController _emailController = TextEditingController();
-
-  TextEditingController _passwordController = TextEditingController();
-
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   String? email, password;
-
   bool isload = false;
-
   bool? rememberMe = false;
 
   @override
@@ -46,9 +36,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          // Navigator.pushNamed(context, Map1.map1Key);
-          // Navigator.pushNamed(context, '/shimass');
-          Navigator.pushNamed(context,Permissions.permissionsKey);
+          Navigator.pushNamed(context, Permissions.permissionsKey);
         } else if (state is LoginError) {
           isload = false;
           AppMessages().sendVerification(
@@ -69,16 +57,17 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       const Center(
                         child: BoldTextWidget(
                           name: 'Sign In',
                         ),
                       ),
-                      const SizedBox(height: 100),
+                      SizedBox(height: 100.h),
                       TextFormFieldWidget(
                         lineFocusColor: Colors.white,
-                        hintColor: Colors.white, lineColor: Colors.white,
+                        hintColor: Colors.white,
+                        lineColor: Colors.white,
                         controller: _emailController,
                         hint: 'Email',
                         prefixIcon: const Icon(Icons.email_outlined,
@@ -94,10 +83,11 @@ class _SignInScreenState extends State<SignInScreen> {
                           email = p0;
                         }),
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30.h),
                       TextFormFieldWidget(
                         lineFocusColor: Colors.white,
-                        hintColor: Colors.white, lineColor: Colors.white,
+                        hintColor: Colors.white,
+                        lineColor: Colors.white,
                         controller: _passwordController,
                         hint: 'Password',
                         prefixIcon:
@@ -114,52 +104,86 @@ class _SignInScreenState extends State<SignInScreen> {
                           password = p0;
                         }),
                       ),
-                      const SizedBox(height: 10),
-                      CheckboxListTile(
-                        title: const Text(
-                          'Remember Me',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontFamily: kFontBold,
-                          ),
-                        ),
-                        value: rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            rememberMe = value;
-                          });
-                          keppUserLogIn(value ?? false);
-                        },
-                        controlAffinity: ListTileControlAffinity.leading,
-                        activeColor: kSpecialColor,
-                        checkColor: Colors.white,
-                        side: const BorderSide(
-                          color: Colors.white,
-                          width: 2,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
+                      SizedBox(height: 10.h),
+                      // CheckboxListTile(
+                      //   title: Text(
+                      //     'Remember Me',
+                      //     style: TextStyle(
+                      //       color: Colors.white,
+                      //       fontSize: 16.sp,
+                      //       fontFamily: kFontBold,
+                      //     ),
+                      //   ),
+                      //   value: rememberMe,
+                      //   onChanged: (value) {
+                      //     setState(() {
+                      //       rememberMe = value;
+                      //     });
+                      //     keppUserLogIn(value ?? false);
+                      //   },
+                      //   controlAffinity: ListTileControlAffinity.leading,
+                      //   activeColor: kSpecialColor,
+                      //   checkColor: Colors.white,
+                      //   side: BorderSide(
+                      //     color: Colors.white,
+                      //     width: 2.w,
+                      //   ),
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(4),
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.w),
+                        child: Row(
+                          children: [
+                            Checkbox(
+                              value: rememberMe,
+                              onChanged: (value) {
+                                setState(() {
+                                  rememberMe = value;
+                                });
+                                keppUserLogIn(value ?? false);
+                              },
+                              activeColor: kSpecialColor,
+                              checkColor: Colors.white,
+                              side: BorderSide(
+                                color: Colors.white,
+                                width: 2.w,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                            // SizedBox(width: 1.w),
+                            Text(
+                              'Remember Me',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontFamily: kFontBold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 200),
+                        padding: EdgeInsets.only(left: 200.w),
                         child: TextButton(
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, ForgotPassword.forgotPasswordKey);
                           },
-                          child: const Text(
+                          child: Text(
                             "Forget Password?",
                             style: TextStyle(
                               color: kSpecialColor,
-                              fontSize: 20,
+                              fontSize: 17.sp,
                               fontFamily: kFontBold,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30.h),
                       SubmitButton(
                         name: 'Sign In',
                         onTap: () {
@@ -173,21 +197,22 @@ class _SignInScreenState extends State<SignInScreen> {
                           } else {}
                         },
                       ),
-                      const SizedBox(height: 10),
-                      const ORWediget(
-                        oRsize: 20,
-                        lineWidth: 80,
+                      SizedBox(height: 10.h),
+                      ORWediget(
+                        oRsize: 13.sp,
+                        lineWidth: 80.w,
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 10.h),
                       SocialAuthWidget(),
+                      SizedBox(height: 10.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             "Don't have an account?",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               fontFamily: kFontBold,
                               fontWeight: FontWeight.bold,
                             ),
@@ -197,11 +222,11 @@ class _SignInScreenState extends State<SignInScreen> {
                               Navigator.pushNamed(
                                   context, SignUpScreen.signUpScreenKey);
                             },
-                            child: const Text(
+                            child: Text(
                               "Sign Up",
                               style: TextStyle(
                                 color: kSpecialColor,
-                                fontSize: 18,
+                                fontSize: 18.sp,
                                 fontFamily: kFontBold,
                               ),
                             ),
@@ -224,37 +249,3 @@ class _SignInScreenState extends State<SignInScreen> {
     await prefs.setBool('KeppUserLogIn', value);
   }
 }
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter/cupertino.dart';
-
-// class GetUserName extends StatelessWidget {
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     CollectionReference users = FirebaseFirestore.instance.collection('customPlaces');
-
-//     return FutureBuilder<DocumentSnapshot>(
-//       future: users.doc('r0zgKcay7O1tO7RS8fXM').get(),
-//       builder:
-//           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
-//         if (snapshot.hasError) {
-//           return Text("Something went wrong");
-//         }
-
-//         if (snapshot.hasData && !snapshot.data!.exists) {
-//           return Text("Document does not exist");
-//         }
-
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-//           return Text("latitude: ${data['latitude']} longitude: ${data['longitude']}");
-//         }
-
-//         return Text("loading");
-//       },
-//     );
-//   }
-// }

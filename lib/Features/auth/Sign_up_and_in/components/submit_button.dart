@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants.dart';
 
@@ -11,14 +12,13 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50.0),
+      padding: EdgeInsets.symmetric(horizontal: 50.w),
       child: InkWell(
         onTap: onTap,
-        borderRadius:
-            BorderRadius.circular(30), 
+        borderRadius: BorderRadius.circular(30),
         child: Container(
-          height: 51,
-          width: 200,
+          height: 51.h,
+          width: 200.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: kSpecialColor,
@@ -26,9 +26,10 @@ class SubmitButton extends StatelessWidget {
           child: Center(
             child: Text(
               name!,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: 29,
+                fontSize: 29.sp,
+                fontWeight: FontWeight.bold,
                 fontFamily: kFontSemiBold,
               ),
             ),
