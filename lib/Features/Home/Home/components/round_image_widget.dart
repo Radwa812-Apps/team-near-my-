@@ -18,7 +18,7 @@ class RoundImageWidget extends StatelessWidget {
         name!,
         width: width,
         height: height,
-        fit: BoxFit.cover, // Ensures the image covers the circular area
+        fit: BoxFit.cover, 
       ),
     );
   }

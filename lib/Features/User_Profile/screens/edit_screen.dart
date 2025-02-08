@@ -4,17 +4,19 @@ import 'package:nearme_app/core/constants.dart';
 import '../../../../core/data/models/userRadwa.dart';
 import '../components/edit_user_widget.dart';
 
+// ignore: must_be_immutable
 class EditScreen extends StatelessWidget {
   static String editScreenKey = '/EditScreen';
   @override
   User user = User();
 
+  EditScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    // double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
     double spaceWithRows = screenWidth * 0.05;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: kBackgroundColor,

@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../components/after_splash_pages.dart';
 import '../controller/pages_controller.dart';
-
 class WelcomeView extends StatelessWidget {
   WelcomeView({super.key});
   static String welcomeViewKey = '/WelcomeView';

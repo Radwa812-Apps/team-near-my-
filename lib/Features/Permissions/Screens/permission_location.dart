@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/button.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
-import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -11,7 +10,10 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../core/services/permission_handler.dart';
 
 class PermissionLocation extends StatefulWidget {
+  const PermissionLocation({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _PermissionLocationState createState() => _PermissionLocationState();
   static String permissionLocationKey = '/PermissionLocation';
 }
@@ -36,6 +38,7 @@ class _PermissionLocationState extends State<PermissionLocation> {
       });
 
       if (!permissionGranted) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
@@ -159,15 +162,13 @@ class _PermissionLocationState extends State<PermissionLocation> {
                   ),
                 ),
               ),
-              // Use Row and Spacer to position the button
               if (isSwitchOn)
                 Row(
                   children: [
-                    Spacer(), // Pushes the button to the right
+                    const Spacer(),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, Map1.map1Key);
-                        //  Navigator.pushNamed(context, '/shimass');
                       },
                       style: AppButtonStyles.elevatedButtonStyle(),
                       child: const Text(

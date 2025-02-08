@@ -18,38 +18,36 @@ class PersonalNotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // استخدام SizedBox لتحديد حجم ثابت
-      width: 300.w, // تحديد عرض ثابت
+      width: 300.w,
       height: 86.h,
       child: Container(
         margin: EdgeInsets.only(bottom: 10.h),
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.w), // الزاوية العلوية اليسرى
-            topRight: Radius.circular(20.w), // الزاوية العلوية اليمنى
-            bottomLeft: Radius.circular(10.w), // الزاوية السفلية اليسرى
-            bottomRight: Radius.circular(10.w), // الزاوية السفلية اليمنى
+            topLeft: Radius.circular(20.w),
+            topRight: Radius.circular(20.w),
+            bottomLeft: Radius.circular(10.w),
+            bottomRight: Radius.circular(10.w),
           ),
           color: Color.fromRGBO(181, 158, 90, 0.675).withOpacity(0.5),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2), // لون الظل
-              blurRadius: 10.0, // درجة تموج الظل
-              spreadRadius: 2.0, // انتشار الظل
-              offset: Offset(0, 4), // اتجاه الظل (x, y)
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+              offset: Offset(0, 4),
             ),
           ],
           border: Border.all(
-            color: Colors.white.withOpacity(0.5), // لون الحدود
-            width: 1.0, // سمك الحدود
+            color: Colors.white.withOpacity(0.5),
+            width: 1.0,
           ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(
-              // استبدال Expanded بـ Flexible
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +55,6 @@ class PersonalNotificationItem extends StatelessWidget {
                   Row(
                     children: [
                       Flexible(
-                        // استبدال Expanded بـ Flexible
                         child: Text(
                           message,
                           style: TextStyle(

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants.dart';
 
-
 class UserProfileInfoWidget extends StatelessWidget {
   final String? info;
   final IconData? iconData;
@@ -12,7 +11,6 @@ class UserProfileInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Column(
@@ -27,12 +25,14 @@ class UserProfileInfoWidget extends StatelessWidget {
                 size: size,
               ),
               const SizedBox(width: 10),
-              Text(info!,
-                  style: const TextStyle(
-                    color: kFontColor,
-                    fontFamily: kFontRegular,
-                    fontSize: 20,
-                  )),
+              Text(
+                info!,
+                style: const TextStyle(
+                  color: kFontColor,
+                  fontFamily: kFontRegular,
+                  fontSize: 20,
+                ),
+              ),
             ],
           ),
         ),

@@ -43,13 +43,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } on FirebaseAuthException catch (e) {
           final error = AuthError(e.code);
           emit(LoginError(error.message));
-          // if (e.code == 'invalid-email') {
-          //   emit(LoginError('User not found'));
-          // } else if (e.code == 'wrong-password') {
-          //   emit(LoginError('wrong-password'));
-          // } else {
-          //   emit(LoginError(e.toString()));
-          // }
         } catch (e, stackTrace) {
           log("Unknown error occurred", error: e, stackTrace: stackTrace);
           emit(LoginError('An unknown error occurred. Please try again.'));
@@ -86,15 +79,4 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
   }
-
-  // Future<void> waitForEmailVerification(User user) async {
-  //   while (true) {
-  //     await user.reload(); // إعادة تحميل بيانات المستخدم
-  //     if (user.emailVerified) {
-  //       break; // الخروج من الحلقة إذا تم التحقق من البريد الإلكتروني
-  //     }
-  //     await Future.delayed(
-  //         const Duration(seconds: 5)); // الانتظار لمدة 5 ثواني قبل التحقق مرة أخرى
-  //   }
-  // }
 }

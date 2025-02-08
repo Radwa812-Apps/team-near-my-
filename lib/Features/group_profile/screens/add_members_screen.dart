@@ -71,18 +71,14 @@ class _AddMembersScreenState extends State<AddMembersScreen> {
                     userName: 'Hassan',
                     onChanged: onCheckboxChanged,
                   ),
-
-                  //const SizedBox(height: 10),
                   RowCheckbox(
                     userName: 'Amira',
                     onChanged: onCheckboxChanged,
                   ),
-                  // Add more RowCheckbox widgets if needed
                 ],
               ),
             ),
           ),
-          // Floating Icon at the Bottom
           FloatingAddIcon(
               screenWidth: screenWidth, isCheckboxSelected: isCheckboxSelected),
         ],

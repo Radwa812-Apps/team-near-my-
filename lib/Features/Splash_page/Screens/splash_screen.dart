@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Splash_page/Screens/after_splash.dart';
-
 import 'package:nearme_app/Features/Splash_page/components/animation_controller.dart';
 import 'package:nearme_app/Features/Splash_page/components/gradient_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../components/mainScaffold.dart';
 
 class SplashPage extends StatefulWidget {
@@ -17,7 +15,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
-  // تغيير هنا
   late SplashAnimationController _splashAnimationController;
   late AnimationController _controller;
   late Animation<double> _translateYAnimation;
@@ -30,19 +27,15 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       this,
       _navigateToNextScreen,
     );
-
-    // تهيئة AnimationController
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(seconds: 3)); // مدة الحرك
-    // إنشاء Tween للحركة من الأسفل إلى الأعلى
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
     _translateYAnimation = Tween<double>(begin: 100, end: 0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Curves.easeOut, // نوع الحركة
+        curve: Curves.easeOut,
       ),
     );
 
-    // بدء الحركة
     _controller.forward();
   }
 
@@ -50,7 +43,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     _splashAnimationController.dispose();
-    // التخلص من الـ AnimationController
     super.dispose();
   }
 
@@ -73,9 +65,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     }
 
     if (currentUser != null && rememberMe == true) {
-       Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
+      Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
     } else {
-     // ignore: use_build_context_synchronously
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => WelcomeView()),
@@ -89,14 +81,10 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     return Scaffold(
       body: Stack(
         children: [
-          const GradientBackground(), // الخلفية التدرجية
-
-          // صورة logo.png
+          const GradientBackground(),
           Positioned(
-            top: MediaQuery.of(context).size.height / 2 -
-                60, // منتصف الشاشة عموديًا
-            left: MediaQuery.of(context).size.width / 2 -
-                200, // منتصف الشاشة أفقيًا مع تعديل
+            top: MediaQuery.of(context).size.height / 2 - 60,
+            left: MediaQuery.of(context).size.width / 2 - 200,
             child: Image.asset(
               'assets/images/logo.png',
               width: 300,
@@ -104,23 +92,19 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
               fit: BoxFit.contain,
             ),
           ),
-
-          // صورة logo_name.png مع الحركة
           Positioned(
-            top: MediaQuery.of(context).size.height / 2 -
-                54.5, // منتصف الشاشة عموديًا
-            left: MediaQuery.of(context).size.width / 2 +
-                20, // منتصف الشاشة أفقيًا مع تعديل
+            top: MediaQuery.of(context).size.height / 2 - 54.5,
+            left: MediaQuery.of(context).size.width / 2 + 20,
             child: AnimatedBuilder(
               animation: _controller,
               builder: (context, child) {
                 return Transform.translate(
                   offset: Offset(
                     0,
-                    _translateYAnimation.value, // الحركة الرأسية
+                    _translateYAnimation.value,
                   ),
                   child: Image.asset(
-                    'assets/images/logo_name.png', // الصورة الجديدة
+                    'assets/images/logo_name.png',
                     width: 100,
                     height: 100,
                     fit: BoxFit.contain,

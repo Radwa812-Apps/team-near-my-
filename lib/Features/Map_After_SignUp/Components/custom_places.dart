@@ -1,11 +1,9 @@
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/Features/Map_After_SignUp/Components/custom_container.dart';
-import 'package:nearme_app/Features/Map_After_SignUp/Screens/map1.dart';
 import 'package:nearme_app/core/data/bloc/custom_places/custom_places_bloc.dart';
 
 import '../../../core/services/customplace_crud_operation.dart';
@@ -140,18 +138,6 @@ class _CustomPlacesCrudOpState extends State<CustomPlacesCrudOp> {
       ),
     );
   }
-
-//  () {
-//               // deleteUser(context, documentId);
-//               Navigator.pop(context);
-//               setState(() {
-//                 _usersStream = _getUserCustomPlaces();
-//               });
-//               AppMessages().sendVerification(
-//                   (context),
-//                   Colors.green.withOpacity(0.8),
-//                   'Custom place deleted successfully!');
-//             },
 
   @override
   Widget build(BuildContext context) {

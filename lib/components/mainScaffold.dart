@@ -16,17 +16,14 @@ class MainScaffold extends StatefulWidget {
 }
 
 class _MainScaffoldState extends State<MainScaffold> with RouteAware {
-  int _selectedIndex = 0; // Home icon is selected by default
+  int _selectedIndex = 0;
   bool _showBottomBar = true;
 
-  // Reorder the pages so HomeScreen is at index 0
   final List<Widget> _pages = [
-    HomeScreen(), // Index 0: Home
-    UserProfileScreen(), // Index 1: User Profile
-    const GeneralNotifications(
-        title:
-            'Notifications'), // Index 2: Notifications (assuming this is for notifications)
-    SettingsScreen(), // Index 3: Settings
+    HomeScreen(),
+    UserProfileScreen(),
+    const GeneralNotifications(title: 'Notifications'),
+    SettingsScreen(),
   ];
 
   void _onIconPressed(int index) {
@@ -57,13 +54,6 @@ class _MainScaffoldState extends State<MainScaffold> with RouteAware {
     _updateBottomBarVisibility();
   }
 
-  // void _updateBottomBarVisibility() {
-  //   final currentRoute = ModalRoute.of(context)?.settings.name;
-  //   setState(() {
-  //     _showBottomBar =
-  //         !(currentRoute == '/signin' || currentRoute == '/signup');
-  //   });
-  // }
   void _updateBottomBarVisibility() {
     final currentRoute = ModalRoute.of(context)?.settings.name;
     setState(() {
@@ -78,7 +68,7 @@ class _MainScaffoldState extends State<MainScaffold> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex], // Display the current page
+      body: _pages[_selectedIndex],
       bottomNavigationBar: _showBottomBar
           ? BottomContainerWithIcons(
               selectedIndex: _selectedIndex,

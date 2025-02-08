@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
-
 import '../components/change_password_textfield.dart';
 import '../components/forgot_password_button.dart';
 import '../components/password_field.dart';
-
-
 class ChangePassword2 extends StatefulWidget {
   const ChangePassword2({super.key});
   static const changePassword2Key = '/ChangePassword2';

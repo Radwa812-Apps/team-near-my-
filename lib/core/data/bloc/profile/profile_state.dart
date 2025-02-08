@@ -8,17 +8,7 @@ class UserInfoLoadedSuccessState extends ProfileState {
   final UserModel userModel;
 
   UserInfoLoadedSuccessState({required this.userModel});
-  // final String fName;
-  // final String lName;
-  // final String email;
-  // final String phoneNumber;
-  // final String dateOfBirth;
-  // UserInfoLoadedSuccessState(
-  //     {required this.fName,
-  //     required this.lName,
-  //     required this.email,
-  //     required this.phoneNumber,
-  //     required this.dateOfBirth});
+
 }
 
 class UserInfoLoadingState extends ProfileState {}

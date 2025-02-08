@@ -105,33 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         }), editIcon: null,
                       ),
                       SizedBox(height: 10.h),
-                      // CheckboxListTile(
-                      //   title: Text(
-                      //     'Remember Me',
-                      //     style: TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 16.sp,
-                      //       fontFamily: kFontBold,
-                      //     ),
-                      //   ),
-                      //   value: rememberMe,
-                      //   onChanged: (value) {
-                      //     setState(() {
-                      //       rememberMe = value;
-                      //     });
-                      //     keppUserLogIn(value ?? false);
-                      //   },
-                      //   controlAffinity: ListTileControlAffinity.leading,
-                      //   activeColor: kSpecialColor,
-                      //   checkColor: Colors.white,
-                      //   side: BorderSide(
-                      //     color: Colors.white,
-                      //     width: 2.w,
-                      //   ),
-                      //   shape: RoundedRectangleBorder(
-                      //     borderRadius: BorderRadius.circular(4),
-                      //   ),
-                      // ),
+                      
                       Padding(
                         padding: EdgeInsets.only(left: 10.w),
                         child: Row(

@@ -9,14 +9,15 @@ class HeaderNotifications extends StatefulWidget {
   final VoidCallback? onBackPressed;
   final bool showCircleAvatar;
   final String? circleAvatarImage;
-final String image;
+  final String image;
   const HeaderNotifications({
     Key? key,
     required this.title,
     this.backArrow,
     this.onBackPressed,
     this.showCircleAvatar = true,
-    this.circleAvatarImage, required this.image,
+    this.circleAvatarImage,
+    required this.image,
   }) : super(key: key);
 
   @override
@@ -35,7 +36,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
 
   @override
   Widget build(BuildContext context) {
-    final Widget defaultBackArrow = const Icon(
+    const Widget defaultBackArrow = Icon(
       Icons.arrow_back_ios,
       color: kPrimaryColor1,
       size: 25,
@@ -58,12 +59,8 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
           child: _showSearchBar
               ? SearchIcon(
                   controller: _searchController,
-                  onSearch: () {
-                    // Handle search action
-                  },
-                  onChanged: (value) {
-                    // Handle text change
-                  },
+                  onSearch: () {},
+                  onChanged: (value) {},
                   onClose: _toggleSearchBar,
                 )
               : Row(
@@ -84,7 +81,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
                       CircleAvatar(
                         backgroundImage: widget.circleAvatarImage != null
                             ? AssetImage(widget.circleAvatarImage!)
-                            :  AssetImage(widget.image),
+                            : AssetImage(widget.image),
                         radius: 20,
                       ),
                     if (widget.showCircleAvatar) const SizedBox(width: 10),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:nearme_app/Features/Notifications/Components/date_label.dart';
 import 'package:nearme_app/Features/Notifications/Components/header_notifications.dart';
-import 'package:nearme_app/Features/Notifications/Components/notification_item.dart';
 import 'package:nearme_app/Features/Notifications/Screens/group_notifications.dart';
 import 'package:nearme_app/core/constants.dart';
 
@@ -32,16 +30,13 @@ class PersonalNotifications extends StatelessWidget {
           ),
           child: Column(
             children: [
-              // Header
               HeaderNotifications(
                 title: title,
                 onBackPressed: () {
                   Navigator.pop(context);
                 }, image: "assets/images/user.jpg",
               ),
-              // Date Label
               const DateLabel(dateText: 'Yesterday'),
-              // Notifications List
               Expanded(
                 child: ListView(
                   shrinkWrap: true,

@@ -10,7 +10,7 @@ class IconsTextSwitchWidget extends StatelessWidget {
     this.showSwitch = true,
     required this.featureName,
     required this.iconData,
-  }) : assert(showSwitch != null);
+  });
 
   final bool showSwitch;
   final String? featureName;
@@ -43,7 +43,7 @@ class IconsTextSwitchWidget extends StatelessWidget {
             ],
           ),
           if (showSwitch)
-            const SwitchWidget(), // Use an if condition to include the switch only if showSwitch is true
+            const SwitchWidget(), 
         ],
       ),
     );

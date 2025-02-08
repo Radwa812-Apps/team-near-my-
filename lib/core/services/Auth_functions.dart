@@ -7,31 +7,6 @@ import 'package:nearme_app/core/data/models/custom_places.dart';
 class Services {
   CollectionReference customPlace =
       FirebaseFirestore.instance.collection('users');
-  //final User? userid = FirebaseAuth.instance.currentUser;
-
-  // Future<void> addUser(
-  //     {required String fName,
-  //     required String lName,
-  //     required String email,
-  //     required String phoneNumber,
-  //     required String dateOfBirth,
-  //     required String profilPicture,
-  //     required String role}) {
-  //   CollectionReference user = FirebaseFirestore.instance.collection('users');
-  //   return user
-  //       .doc(userid!.uid)
-  //       .set({
-  //         'fName': fName,
-  //         'lName': lName,
-  //         'email': email,
-  //         'phoneNumber': phoneNumber,
-  //         'dateOfBirth': dateOfBirth,
-  //         'profilPicture': profilPicture,
-  //         'role': role
-  //       })
-  //       .then((value) => print("user added successfuly"))
-  //       .catchError((error) => print("Failed to add user: $error"));
-  // }
 
   Future<void> addUser({
     required String fName,
@@ -49,13 +24,13 @@ class Services {
         return;
       }
 
-      String userId = user.uid; // 🔥 استخدم uid كمعرّف الوثيقة
+      String userId = user.uid;
 
       CollectionReference usersCollection =
           FirebaseFirestore.instance.collection('users');
 
       await usersCollection.doc(userId).set({
-        'authUid': userId, 
+        'authUid': userId,
         'fName': fName,
         'lName': lName,
         'email': email,
@@ -89,13 +64,6 @@ class Services {
     querySnapshot.docs.forEach((doc) {
       customPlace.add(CustomPlace.fromJson(doc.data(), doc.id));
     });
-    // customPlace.snapshots().listen((event) {
-    //   // customplacesList = [];
-    //   for (int i = 0; i < event.docs.length; i++) {
-    //     customplacesList.add(CustomPlace.fromJson(event.docs[i]));
-    //   }
-    // });
-
     return customplacesList;
   }
 }

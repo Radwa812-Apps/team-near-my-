@@ -33,7 +33,7 @@ class CustomPlacesBloc extends Bloc<CustomPlacesEvent, CustomPlacesState> {
               'latitude': event.latitude,
               'longitude': event.longitude,
               'radius': event.raduis,
-              // 'timeStapm': Timestamp.now()
+             
             });
             try {
               final userCustomPlacesRef =
@@ -60,7 +60,7 @@ class CustomPlacesBloc extends Bloc<CustomPlacesEvent, CustomPlacesState> {
           emit(ShowCustomPlacesLoading());
           try {
             myList = await services.ShowCustomPlaceMethod(event.uId);
-            print('ssssssssssssssssssssssssssss 😉😉😉😉😉😉' + event.uId);
+            print('ssssssssssssssssssssssssssss 😉😉😉😉' + event.uId);
             print(myList.length);
 
             emit(ShowCustomPlacesSuccess(myList));

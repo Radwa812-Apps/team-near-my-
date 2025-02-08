@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/core/constants.dart';
-
 import 'button_widget.dart';
 
 class ConfirmMessageWidget extends StatelessWidget {
@@ -26,15 +25,11 @@ class ConfirmMessageWidget extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      elevation: 10.0, 
-      
-      // shadowColor: Colors.black54, 
+      elevation: 10.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0), 
-        side: BorderSide(
-            color: Colors.grey.shade300, width: 1), 
+        borderRadius: BorderRadius.circular(16.0),
+        side: BorderSide(color: Colors.grey.shade300, width: 1),
       ),
-
       content: Text(message,
           style: const TextStyle(
             color: kFontColor,
@@ -60,8 +55,6 @@ class ConfirmMessageWidget extends StatelessWidget {
             ),
           ],
         ),
-
-        // Confirm Button
       ],
     );
   }

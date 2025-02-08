@@ -1,31 +1,18 @@
-import 'dart:math';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:nearme_app/Features/Auth/Sign_up_and_in/components/phone_widget.dart';
-import 'package:nearme_app/Features/Auth/Sign_up_and_in/screens/add_user_success.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
-import 'package:nearme_app/core/data/models/user.dart';
-import 'package:nearme_app/core/services/Auth_functions.dart';
 import 'package:nearme_app/core/services/validator.dart';
-
-import '../../../../core/constants.dart';
 import '../../../../core/messages.dart';
 import '../components/bold_text_widget.dart';
-
-import '../components/facebook_google_widget.dart';
 import '../components/functions.dart';
 import '../components/have_an_account_widget.dart';
 import '../components/linear_gradient_widget.dart';
-import '../components/or_widget.dart';
 import '../components/submit_button.dart';
-
 import '../components/text_form_widget.dart';
-import 'sign_in_screen.dart';
 import 'signUp_verifiy_email.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -253,10 +240,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     p0, _passwordController.text)),
                             onchange: ((p0) {}),
                           ),
-
-                          //  const SizedBox(height: 40.h),
                           SizedBox(height: 60.h),
-
                           SubmitButton(
                             name: 'Sign Up',
                             onTap: () {
@@ -275,13 +259,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             },
                           ),
                           SizedBox(height: 10.h),
-
-                          // ORWediget(
-                          //   oRsize: 13.43.sp,
-                          //   lineWidth: 80.w,
-                          // ),
-                          //SizedBox(height: 10.h),
-                          //  FacebookGoogleWidget(),
                           SizedBox(height: 5.h),
                           HaveAnAccountWidget(),
                         ],

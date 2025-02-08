@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password.dart';
-import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
-import 'package:nearme_app/core/font_style.dart';
-
 import '../components/circle_indicator.dart';
 import '../components/custom_text_field.dart';
 import '../components/forgot_password_button.dart';

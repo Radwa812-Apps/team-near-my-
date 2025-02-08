@@ -12,7 +12,7 @@ class ForwardIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_forward_ios,
         color: kPrimaryColor1, 
         size: 16,

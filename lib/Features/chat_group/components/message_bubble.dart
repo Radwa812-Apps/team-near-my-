@@ -21,8 +21,8 @@ class MessageBubble extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.7, 
         ),
-        decoration: BoxDecoration(
-          color: const Color(0xFFD0D8BA), 
+        decoration: const BoxDecoration(
+          color: Color(0xFFD0D8BA), 
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
@@ -34,12 +34,12 @@ class MessageBubble extends StatelessWidget {
           children: [
             Text(
               message,
-              style: TextStyle(fontSize: 16, color: textColor,fontFamily: 'OpenSans-Regular',fontWeight:FontWeight.w400),
+              style: const TextStyle(fontSize: 16, color: textColor,fontFamily: 'OpenSans-Regular',fontWeight:FontWeight.w400),
             ),
             const SizedBox(height: 5),
             Text(
               time,
-              style: TextStyle(fontSize: 12, color: textColor,fontFamily:  'OpenSans-Regular',fontWeight:FontWeight.w400),
+              style: const TextStyle(fontSize: 12, color: textColor,fontFamily:  'OpenSans-Regular',fontWeight:FontWeight.w400),
             ),
           ],
         ),

@@ -279,7 +279,6 @@ class _HomeScreenState extends State<HomeScreen> {
           SafeArea(
             child: Column(
               children: [
-                // Row below the app bar for "Chats" or "Groups"
                 RowAfterBarChatsGroups(
                   selectedTab: _selectedTab,
                   onTabSelected: _selectTab,
@@ -287,8 +286,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 20.h,
                 ),
-
-                // Main content: Show groups or chats
                 Expanded(
                     child: _selectedTab == 'Groups'
                         ? (_groups.isEmpty
@@ -316,15 +313,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: screenWidth * .8.w,
                                 height: screenHeight * .8.h),
                           )),
-
-                // Bottom container with icons
               ],
             ),
           ),
-
-          // Show draggable sheet and floating icon only for "Groups" tab
           if (_selectedTab == 'Groups') ...[
-            // Draggable sheet for adding a group
             if (_isDraggableSheetVisible)
               GestureDetector(
                 onTap: _toggleDraggableSheet,
@@ -332,12 +324,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTextFieldFocus: _expandDraggableSheet,
                   draggableScrollableController: _draggableScrollableController,
                   onSubmitted: (groupName) {
-                    _addGroup(groupName); // Add the group when submitted
+                    _addGroup(groupName);
                   },
                 ),
               ),
-
-            // Floating yellow icon for opening the draggable sheet
             if (!_isDraggableSheetVisible)
               FloatingYellowIcon(toggleDraggableSheet: _toggleDraggableSheet),
           ],

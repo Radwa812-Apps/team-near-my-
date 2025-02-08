@@ -9,7 +9,6 @@ class EditTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final Function(String)? onChanged;
-  // final String Function(String?)? validate;
 
   const EditTextField({
     super.key,
@@ -17,9 +16,8 @@ class EditTextField extends StatelessWidget {
     required this.iconData,
     this.readOnly = false,
     this.controller,
-    this.keyboardType = TextInputType.text, // Default to normal text input
+    this.keyboardType = TextInputType.text,
     this.onChanged,
-    //  required this.validate,
   });
 
   @override
@@ -27,7 +25,6 @@ class EditTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: TextFormField(
-        // validator:validate ,
         controller: controller,
         readOnly: readOnly!,
         keyboardType: keyboardType,

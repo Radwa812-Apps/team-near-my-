@@ -46,7 +46,7 @@ class RowAddMember extends StatelessWidget {
           ),
           const Spacer(
             flex: 1,
-          ), // Use Spacer to take up remaining space
+          ),
           IconButton(
               icon: const Icon(Icons.search, size: 28, color: kPrimaryColor1),
               onPressed: (() =>

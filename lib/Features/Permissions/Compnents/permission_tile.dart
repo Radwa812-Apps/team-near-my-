@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/core/constants.dart';
-
 class PermissionTile extends StatelessWidget {
   final IconData icon;
   final String title;

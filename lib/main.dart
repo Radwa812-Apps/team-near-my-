@@ -1,18 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/Group_Profile/screens/group_profile_screen.dart';
-import 'package:nearme_app/Features/Map_After_SignUp/Screens/MapSearchWidget.dart';
 import 'package:nearme_app/Features/Notifications/Screens/general_notifications.dart';
 import 'package:nearme_app/Features/Notifications/Screens/group_notifications.dart';
 import 'package:nearme_app/Features/Notifications/Screens/personal_notifications.dart';
 import 'package:nearme_app/Features/Private_chat/screens/private_chat_screen.dart';
 import 'package:nearme_app/Features/Settings/screens/settings_screen.dart';
 import 'package:nearme_app/Features/Splash_page/Screens/after_splash.dart';
-import 'package:nearme_app/Features/User_Profile/components/edit_user_widget.dart';
 import 'package:nearme_app/Features/User_Profile/screens/edit_screen.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/change_password2.dart';
@@ -64,6 +60,7 @@ void main() async {
   );
 }
 
+// ignore: must_be_immutable
 class NearMeApp extends StatelessWidget {
   NearMeApp({super.key});
   bool isUserLoggedIn = false;
@@ -104,14 +101,6 @@ class NearMeApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 navigatorObservers: [routeObserver],
                 initialRoute: SplashPage.splashPageKey,
-                //  isUserLoggedIn
-                // ? SignInScreen.signInScreenKey
-                // : SplashPage.splashPageKey,
-                // // FirebaseAuth.instance.currentUser != null &&
-                // //         FirebaseAuth.instance.currentUser!.emailVerified
-                // //     ? MainScaffold.mainScaffoldKey  :
-                // SplashPage.splashPageKey,
-
                 routes: {
                   '/': (context) => HomeScreen(),
                   SplashPage.splashPageKey: (context) => const SplashPage(),
@@ -155,7 +144,7 @@ class NearMeApp extends StatelessWidget {
                       ),
                   PersonalNotifications.personalNotificationsKey: (context) =>
                       PermissionLocation(),
-                  PrivateChatScreen.PrivateChatScreenKey: (context) =>
+                  PrivateChatScreen.privateChatScreenKey: (context) =>
                       const PrivateChatScreen(
                         recipient: 'Radwa',
                       ),
@@ -166,11 +155,8 @@ class NearMeApp extends StatelessWidget {
                   MediaScreen.mediaScreenKey: (context) => const MediaScreen(),
                   PasswordResetPage.passwordResetPageKey: (context) =>
                       const PasswordResetPage(),
-
                   GroupInsideScreen.groupInsideScreenKey: (context) =>
                       GroupInsideScreen(),
-                  // '/': (context) => MainScaffold(),
-                  // GroupChatScreen.groupChatScreenKey:((context) => GroupChatScreen())
                 },
               ),
             );
@@ -178,11 +164,3 @@ class NearMeApp extends StatelessWidget {
         }));
   }
 }
-
-
-  //  routes: {
-                  // '/': (context) =>
-                  //     (FirebaseAuth.instance.currentUser != null &&
-                  //             FirebaseAuth.instance.currentUser!.emailVerified)
-                  //         ? SignInScreen()
-                  //         : HomeScreen(),

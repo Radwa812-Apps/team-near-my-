@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/User_Profile/components/button_widget.dart';
 import 'package:nearme_app/Features/User_Profile/screens/edit_screen.dart';
 import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
-import 'package:nearme_app/core/data/models/user.dart';
 import '../../../../core/constants.dart';
 import '../../Home/Home/components/round_image_widget.dart';
 import 'user_profile_info_widget.dart';
@@ -12,22 +11,12 @@ import 'user_profile_info_widget.dart';
 class UserProfileAll_InfoWidget extends StatefulWidget {
   const UserProfileAll_InfoWidget({
     super.key,
-    // required this.firstName,
     required this.spaceWithRows,
-    // required this.lastName,
-    // required this.phoneNumber,
-    // required this.email,
-    // required this.birthDate,
     required this.imagePositionTop,
     required this.paddingTopContainer,
   });
 
-  // final String? firstName;
   final double spaceWithRows;
-  // final String? lastName;
-  // final String? phoneNumber;
-  // final String? email;
-  // final String? birthDate;
   final double? imagePositionTop;
   final double? paddingTopContainer;
 
@@ -41,22 +30,18 @@ class _UserProfileAll_InfoWidgetState extends State<UserProfileAll_InfoWidget> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
-    //UserModel userModel = BlocProvider.of<ProfileBloc>(context).userModel!;
     return Center(
       child: Stack(
-        clipBehavior: Clip.none, // Allow the image to overflow
+        clipBehavior: Clip.none,
         children: [
           Padding(
             padding: EdgeInsets.only(top: widget.paddingTopContainer!),
             child: BlocConsumer<ProfileBloc, ProfileState>(
-              listener: (context, state) {
-                // TODO: implement listener
-              },
+              listener: (context, state) {},
               builder: (context, state) {
                 if (state is UserInfoLoadedSuccessState) {
                   return Container(
-                    width: screenWidth * 0.80.w, // 80% of screen width
+                    width: screenWidth * 0.80.w,
                     height: screenHeight * 0.64.h,
                     decoration: BoxDecoration(
                       color: kPrimaryColor1.withOpacity(.20),
@@ -64,9 +49,7 @@ class _UserProfileAll_InfoWidgetState extends State<UserProfileAll_InfoWidget> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
-                            height: screenWidth *
-                                0.13.w), // Leave space for the image overflow
+                        SizedBox(height: screenWidth * 0.13.w),
                         Text(
                           'Welcome ${state.userModel.fName[0].toUpperCase()}${state.userModel.fName.substring(1)}',
                           style: TextStyle(
@@ -83,14 +66,12 @@ class _UserProfileAll_InfoWidgetState extends State<UserProfileAll_InfoWidget> {
                           size: 25.sp,
                         ),
                         SizedBox(height: widget.spaceWithRows),
-
                         UserProfileInfoWidget(
                           info: state.userModel.lName,
                           iconData: Icons.group_outlined,
                           size: 25.sp,
                         ),
                         SizedBox(height: widget.spaceWithRows),
-
                         UserProfileInfoWidget(
                           info: state.userModel.phoneNumber
                               .split("number: ")[1]
@@ -98,16 +79,13 @@ class _UserProfileAll_InfoWidgetState extends State<UserProfileAll_InfoWidget> {
                           iconData: Icons.phone_outlined,
                           size: 25.sp,
                         ),
-
                         SizedBox(height: widget.spaceWithRows),
                         UserProfileInfoWidget(
                           info: state.userModel.email,
                           iconData: Icons.email_outlined,
                           size: 25.sp,
                         ),
-
                         SizedBox(height: widget.spaceWithRows),
-
                         UserProfileInfoWidget(
                           info: state.userModel.dateOfBirth,
                           iconData: Icons.calendar_month_outlined,
@@ -143,9 +121,8 @@ class _UserProfileAll_InfoWidgetState extends State<UserProfileAll_InfoWidget> {
             ),
           ),
           Positioned(
-            top: widget
-                .imagePositionTop, // Moves the image outside the container
-            left: 120, // Centers the image horizontally within the container
+            top: widget.imagePositionTop,
+            left: 120,
             child: const RoundImageWidget(
               name: kDefaultUserImge,
               width: 110,

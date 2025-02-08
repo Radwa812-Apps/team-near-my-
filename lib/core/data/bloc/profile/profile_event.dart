@@ -16,7 +16,6 @@ class EditUserEvent extends ProfileEvent {
       required this.dateOfBirth});
 }
 
-// حدث لحذف المستخدم
 class DeleteUserEvent extends ProfileEvent {
   final String email;
   final String password;
@@ -25,7 +24,5 @@ class DeleteUserEvent extends ProfileEvent {
 }
 
 class ShowUserInfoEvent extends ProfileEvent {
-  // final String userId;
 
-  // ShowUserInfoEvent({required this.userId});
 }

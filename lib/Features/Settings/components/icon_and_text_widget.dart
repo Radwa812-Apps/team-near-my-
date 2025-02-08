@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/constants.dart';
 
 class IconAndTextWidget extends StatefulWidget {
@@ -75,15 +74,14 @@ class _IconAndTextWidgetState extends State<IconAndTextWidget>
                   children: [
                     Icon(
                       widget.iconData,
-                      color:
-                          kPrimaryColor1, // Replace with your `kPrimaryColor1`
+                      color: kPrimaryColor1,
                       size: widget.iconSize,
                     ),
                     const SizedBox(width: 10),
                     Text(
                       widget.text!,
                       style: TextStyle(
-                        color: kFontColor, // Replace with your `kFontColor`
+                        color: kFontColor,
                         fontSize: widget.fontSize,
                       ),
                     ),
@@ -94,8 +92,7 @@ class _IconAndTextWidgetState extends State<IconAndTextWidget>
                     turns: _iconRotation,
                     child: const Icon(
                       Icons.expand_more,
-                      color:
-                          kPrimaryColor1, // Replace with your `kPrimaryColor1`
+                      color: kPrimaryColor1,
                     ),
                   ),
               ],

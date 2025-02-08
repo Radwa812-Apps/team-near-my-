@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
@@ -7,7 +6,6 @@ import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.d
 import 'package:nearme_app/core/messages.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/services/internet_connection.dart';
-
 class PasswordResetPage extends StatefulWidget {
   static const String passwordResetPageKey = '/PasswordResetPage';
 
@@ -43,12 +41,9 @@ class _PasswordResetPageState extends State<PasswordResetPage>
     );
 
     _controller.repeat(reverse: true);
-
-    // الاستماع إلى تغييرات حالة المستخدم
     _authStateSubscription =
         FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
-        // إذا تم تغيير كلمة المرور بنجاح، انتقل إلى صفحة تسجيل الدخول بعد فترة
         _redirectTimer = Timer(const Duration(seconds: 5), () {
           if (mounted) {
             Navigator.pushReplacementNamed(
@@ -63,8 +58,8 @@ class _PasswordResetPageState extends State<PasswordResetPage>
   void dispose() {
     _controller.dispose();
     _emailController.dispose();
-    _authStateSubscription?.cancel(); // إلغاء الاشتراك عند التخلص من الـ Widget
-    _redirectTimer?.cancel(); // إلغاء الـ Timer عند التخلص من الـ Widget
+    _authStateSubscription?.cancel(); 
+    _redirectTimer?.cancel();
     super.dispose();
   }
 

@@ -17,19 +17,18 @@ class Button extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor, // Background color of the button
-        foregroundColor: Colors.white, // Text color
+        backgroundColor: backgroundColor, 
+        foregroundColor: Colors.white, 
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40.0),
-          // Rounded corners
         ),
-        minimumSize: Size(70, 10),
+        minimumSize: const Size(70, 10),
         padding:
-            EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // Padding
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       ),
       child: Text(
         nameOfButton!,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: kFontRegular,
           fontStyle: FontStyle.normal,
         ),

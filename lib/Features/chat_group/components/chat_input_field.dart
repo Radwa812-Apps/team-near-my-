@@ -26,7 +26,7 @@ class ChatInputField extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.emoji_emotions_outlined, color: Colors.black54),
+                  const Icon(Icons.emoji_emotions_outlined, color: Colors.black54),
                   const SizedBox(width: 8),
                   Expanded(
                     child: TextField(
@@ -37,9 +37,9 @@ class ChatInputField extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Icon(Icons.attach_file, color: Colors.black54),
+                  const Icon(Icons.attach_file, color: Colors.black54),
                   const SizedBox(width: 8),
-                  Icon(Icons.camera_alt_outlined, color: Colors.black54),
+                  const Icon(Icons.camera_alt_outlined, color: Colors.black54),
                 ],
               ),
             ),
@@ -47,7 +47,7 @@ class ChatInputField extends StatelessWidget {
           const SizedBox(width: 8),
           GestureDetector(
             onTap: onSend, 
-            child: CircleAvatar(
+            child: const CircleAvatar(
               radius: 21,
               backgroundColor: kPrimaryColor1,
               child: Icon(

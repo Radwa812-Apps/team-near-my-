@@ -11,17 +11,13 @@ class OnBoardingController extends GetxController {
   }
 
   void skip() {
-    if (controller != null) {
-      controller.jumpToPage(page: 2);
-    }
+    controller.jumpToPage(page: 2);
   }
 
   void animateToNextSlid() {
-    if (controller != null) {
-      int nextPage = controller.currentPage + 1;
-      if (nextPage < 3) {
-        controller.animateToPage(page: nextPage, duration: 100);
-      }
+    int nextPage = controller.currentPage + 1;
+    if (nextPage < 3) {
+      controller.animateToPage(page: nextPage, duration: 100);
     }
   }
 }

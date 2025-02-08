@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
-import 'package:nearme_app/core/services/validator.dart';
 import 'package:nearme_app/core/messages.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/services/Auth_functions.dart';
@@ -87,6 +85,7 @@ class _SignUpVerificationEmailPageState
     bool isConnected = await checkConnection();
     {
       if (!isConnected) {
+        // ignore: use_build_context_synchronously
         AppMessages().sendVerification(context, Colors.red.withOpacity(0.8),
             'No internet connection. Please check your network.');
         return;
@@ -128,6 +127,7 @@ class _SignUpVerificationEmailPageState
     bool isConnected = await checkConnection();
     {
       if (!isConnected) {
+        // ignore: use_build_context_synchronously
         AppMessages().sendVerification(context, Colors.red.withOpacity(0.8),
             'No internet connection. Please check your network.');
         return;
@@ -144,6 +144,7 @@ class _SignUpVerificationEmailPageState
       await Future.delayed(const Duration(seconds: 5));
       setState(() => canResentEmail = true);
     } catch (e) {
+      // ignore: use_build_context_synchronously
       AppMessages()
           .sendVerification(context, Colors.red.withOpacity(0.8), e.toString());
     }

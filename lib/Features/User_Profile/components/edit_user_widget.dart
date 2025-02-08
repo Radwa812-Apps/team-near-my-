@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
 import 'package:nearme_app/core/services/validator.dart';
 import '../../../../core/constants.dart';
 import '../../Auth/Sign_up_and_in/components/phone_widget.dart';
 import '../../Home/Home/components/round_image_widget.dart';
 import '../../auth/Sign_up_and_in/components/functions.dart';
-import '../../auth/Sign_up_and_in/components/text_form_widget.dart';
 import 'edit_text_field.dart';
 import 'button_widget.dart';
 
@@ -27,12 +25,12 @@ class EditUserWidget extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _EditUserWidgetState createState() => _EditUserWidgetState();
 }
 
 class _EditUserWidgetState extends State<EditUserWidget> {
   final TextEditingController _dateController = TextEditingController();
-
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
@@ -106,18 +104,6 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                             lName = p0;
                           }),
                         ),
-                        // SizedBox(height: widget.spaceWithRows),
-                        // // Email Field
-                        // EditTextField(
-                        //   hintText: state.userModel.email,
-                        //   iconData: Icons.email_outlined,
-                        //   controller: emailController,
-                        //   onChanged: ((p0) {
-                        //     onFieldChanged(p0);
-                        //     email = p0;
-                        //   }),
-                        //   keyboardType: TextInputType.emailAddress,
-                        // ),
                         SizedBox(height: widget.spaceWithRows),
 
                         // Phone Number Field
@@ -143,51 +129,6 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                           ),
                           textColor: kFontColor,
                         ),
-
-                        //SizedBox(height: widget.spaceWithRows),
-                        // Birth Date Field
-
-                        // TextFormFieldWidget(
-                        //   lineFocusColor: kFontColor,
-                        //   validatior: ((p0) {
-                        //     if (p0 == null || p0.isEmpty) {
-                        //       return "Date of birth is required.";
-                        //     }
-                        //     final parts = p0.split('/');
-                        //     if (parts.length == 3) {
-                        //       final formattedDate =
-                        //           "${parts[2]}-${parts[1]}-${parts[0]}";
-                        //       final date = DateTime.tryParse(formattedDate);
-                        //       if (date == null) {
-                        //         return "Invalid date format.";
-                        //       }
-                        //       return Validator.validateDateOfBirth(date);
-                        //     } else {
-                        //       return "Invalid date format.";
-                        //     }
-                        //   }),
-                        //   hint: state.userModel.dateOfBirth,
-                        //   prefixIcon: const Icon(Icons.edit_calendar_rounded,
-                        //       color: kPrimaryColor1),
-                        //   isBirthDate: true,
-                        //   controller: birthDateController,
-                        //   onTap: (() async {
-                        //     await selectDate(context, _dateController,
-                        //         (selectedDate) {
-                        //       dateOfBirth = selectedDate;
-                        //       birthDateController.text = selectedDate;
-                        //     });
-                        //     onFieldChanged(dateOfBirth.toString());
-                        //   }),
-                        //   onchange: ((p0) {
-                        //     onFieldChanged(p0);
-                        //     dateOfBirth = p0;
-                        //   }),
-                        //   hintColor: kFontColor,
-                        //   lineColor: kPrimaryColor1,
-                        //   editIcon: Icons.edit,
-                        // ),
-
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.w),
                           child: TextFormField(

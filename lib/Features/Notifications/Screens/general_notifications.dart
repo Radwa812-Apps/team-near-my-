@@ -34,11 +34,7 @@ class GeneralNotifications extends StatelessWidget {
                 backArrow: null,
                 showCircleAvatar: false, image: "assets/images/group.jpg",
               ),
-
-              // Date Label
               const DateLabel(dateText: 'Yesterday'),
-
-              // Notifications List
               Expanded(
                 child: Padding(
                   padding:

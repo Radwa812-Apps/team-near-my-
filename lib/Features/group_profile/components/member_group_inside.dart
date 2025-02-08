@@ -20,25 +20,25 @@ class MemberGroupInside extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      width: double.infinity, // Make the container take full width
+      width: double.infinity, 
       decoration: BoxDecoration(
         border: Border.all(
-          color: kPrimaryColor1, // Border color
-          width: 1, // Border width
+          color: kPrimaryColor1, 
+          width: 1, 
         ),
-        borderRadius: BorderRadius.circular(30), // Rounded corners
+        borderRadius: BorderRadius.circular(30), 
         boxShadow: const [
           BoxShadow(
-            color: kBackgroundColor, // Shadow color
-            blurRadius: 10, // Shadow blur
-            spreadRadius: 2, // Shadow spread
-            offset: Offset(0, 0), // Shadow position
+            color: kBackgroundColor, 
+            blurRadius: 10, 
+            spreadRadius: 2,
+            offset: Offset(0, 0), 
           ),
         ],
       ),
       child: Row(
         crossAxisAlignment:
-            CrossAxisAlignment.center, // Align items vertically in the center
+            CrossAxisAlignment.center, 
         children: [
           const Padding(
             padding: EdgeInsets.only(left: 16),
@@ -52,7 +52,7 @@ class MemberGroupInside extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment
-                  .center, // Align text vertically in the center
+                  .center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -77,7 +77,7 @@ class MemberGroupInside extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(), // Add space between the text and the distance
+          const Spacer(), 
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Text(

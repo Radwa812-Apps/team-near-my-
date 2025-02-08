@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
@@ -23,7 +21,7 @@ class BottomContainerWithIcons extends StatelessWidget {
       height: 65,
       decoration: BoxDecoration(
         color: kPrimaryColor1.withOpacity(.20),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(18),
           topRight: Radius.circular(18),
         ),
@@ -31,31 +29,26 @@ class BottomContainerWithIcons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Home Icon (Index 0)
           IconButtonWidegt(
             onPressed: () {
-              onIconPressed(0); // HomeScreen is at index 0
+              onIconPressed(0);
             },
             icon: selectedIndex == 0 ? Icons.home : Icons.home_outlined,
             size: 35,
           ),
           SizedBox(width: space),
-
-          // User Profile Icon (Index 1)
           IconButtonWidegt(
             onPressed: () {
-              BlocProvider.of<ProfileBloc>(context)
-                  .add(ShowUserInfoEvent());
-              onIconPressed(1); // UserProfileScreen is at index 1
+              BlocProvider.of<ProfileBloc>(context).add(ShowUserInfoEvent());
+              onIconPressed(1);
             },
             icon: selectedIndex == 1 ? Icons.person : Icons.person_outlined,
             size: 30,
           ),
           SizedBox(width: space),
-          // Notifications Icon (Index 2)
           IconButtonWidegt(
             onPressed: () {
-              onIconPressed(2); // Notifications screen is at index 2
+              onIconPressed(2); 
             },
             icon: selectedIndex == 2
                 ? Icons.notifications
@@ -66,7 +59,7 @@ class BottomContainerWithIcons extends StatelessWidget {
           // Settings Icon (Index 3)
           IconButtonWidegt(
             onPressed: () {
-              onIconPressed(3); // SettingsScreen is at index 3
+              onIconPressed(3);
             },
             icon: selectedIndex == 3 ? Icons.settings : Icons.settings_outlined,
             size: 30,

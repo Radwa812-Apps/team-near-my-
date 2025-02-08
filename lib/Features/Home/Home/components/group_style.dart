@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/Notifications/Screens/group_notifications.dart';
 import 'package:nearme_app/core/constants.dart';
-
-import '../../../Group_Profile/screens/group_profile_screen.dart';
 import '../../../group_profile/screens/group_inside.dart';
 import 'round_image_widget.dart';
 
@@ -26,10 +23,10 @@ class GroupStyle extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Color.fromARGB(255, 74, 72, 72)
-                .withOpacity(0.2), // لون الظل (خفيف جدًا)
-            blurRadius: 6, // مقدار التمويه
-            spreadRadius: 2, // مدى انتشار الظل
-            offset: const Offset(0, 3), // إزاحة الظل للأسفل قليلاً
+                .withOpacity(0.2), 
+            blurRadius: 6, 
+            spreadRadius: 2, 
+            offset: const Offset(0, 3), 
           ),
         ],
       ),
@@ -63,7 +60,7 @@ class GroupStyle extends StatelessWidget {
                       color: kFontColor,
                     ),
                     overflow:
-                        TextOverflow.ellipsis, // Ensures text doesn't overflow
+                        TextOverflow.ellipsis, 
                   ),
                 ),
                 SizedBox(width: 8.w),

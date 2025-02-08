@@ -11,7 +11,6 @@ import '../components/row_add_member.dart';
 
 class GroupProfileScreen extends StatefulWidget {
   static String groupProfileScreenKey = '/groupProfileScreen';
-  
 
   const GroupProfileScreen({super.key});
 
@@ -36,7 +35,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
     _overlayEntry = OverlayEntry(
       builder: (context) => GestureDetector(
         onTap: () {
-          _overlayEntry?.remove(); // Close the overlay when tapping outside
+          _overlayEntry?.remove();
           _overlayEntry = null;
         },
         behavior: HitTestBehavior.translucent,
@@ -45,13 +44,12 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
           child: Stack(
             children: [
               Positioned(
-                top: 100, // Adjust based on your layout
-                left: 200, // Adjust based on your layout
+                top: 100,
+                left: 200,
                 child: Material(
                   color: Colors.transparent,
                   child: LeaveGroup(
                     onLeaveGroupPressed: () {
-                      // Show the ConfirmMessageWidget when "Leave Group" is pressed
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -59,11 +57,10 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                             message:
                                 'Are you sure you want to leave the group?',
                             onCancel: () {
-                              Navigator.of(context).pop(); // Close the dialog
+                              Navigator.of(context).pop();
                             },
                             onConfirm: () {
-                              Navigator.of(context).pop(); // Close the dialog
-                              // Add your logic here for leaving the group
+                              Navigator.of(context).pop();
                               print('User confirmed leaving the group');
                             },
                           );
@@ -108,7 +105,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                       ? Row(
                           children: [
                             const CircleAvatar(
-                              radius: 20, // Increased size when collapsed
+                              radius: 20,
                               backgroundImage: AssetImage(kDefaultGroupImge),
                             ),
                             const SizedBox(width: 10),
@@ -116,7 +113,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                               padding:
                                   const EdgeInsets.only(bottom: 3, left: 5),
                               child: Text(
-                                groupNameR! ,
+                                groupNameR!,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: kFontBold,
@@ -127,8 +124,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                             ),
                           ],
                         )
-                      : null, // Hide title when expanded
-
+                      : null,
                   background: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -141,7 +137,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                          groupNameR!,
+                            groupNameR!,
                             style: const TextStyle(
                               fontSize: 30,
                               fontFamily: kFontBold,
@@ -153,9 +149,9 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                       ),
                       if (isCollapsed)
                         const Positioned(
-                          left: 10, // Adjusted position to move it to the left
+                          left: 10,
                           child: CircleAvatar(
-                            radius: 20, // Increased size when collapsed
+                            radius: 20,
                             backgroundImage: AssetImage(kDefaultGroupImge),
                           ),
                         ),
@@ -227,7 +223,8 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, GroupChat.groupChatKey,arguments: groupNameR);
+          Navigator.pushNamed(context, GroupChat.groupChatKey,
+              arguments: groupNameR);
         },
         backgroundColor: kPrimaryColor1,
         shape: RoundedRectangleBorder(

@@ -4,17 +4,6 @@ import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.d
 import 'package:nearme_app/core/services/internet_connection.dart';
 import '../messages.dart';
 
-// Future resetPassword(
-//     {required BuildContext context, required String email}) async {
-//   final _auth = FirebaseAuth.instance;
-//   await _auth.sendPasswordResetEmail(email: email).then((value) {
-//     AppMessages().sendVerification(context, Colors.green.withOpacity(0.8),
-//         'A password reset link has been sent to your email. Please check your inbox.');
-//     Navigator.pushNamed(context, SignInScreen.signInScreenKey);
-//   }).catchError((e) {
-//     throw e.toString();
-//   });
-// }
 Future<void> sendPasswordResetEmail({
   required BuildContext context,
   required String emailController,

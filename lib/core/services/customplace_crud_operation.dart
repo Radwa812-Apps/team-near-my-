@@ -1,11 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:nearme_app/core/messages.dart';
-
 import '../data/models/custom_places.dart';
-
 Future<void> deleteUser(String documentId) async {
   try {
     String? user = FirebaseAuth.instance.currentUser?.uid;
@@ -51,16 +46,13 @@ Future<void> updateUser(String documentId, String newName) async {
 
 Future<List<CustomPlace>> getUserCustomPlaces() async {
   final userId = FirebaseAuth.instance.currentUser?.uid;
-  if (userId == null) return []; // إذا لم يكن المستخدم مسجل الدخول
-
-  // جلب الـ user_customPlaces المرتبطة بالمستخدم
+  if (userId == null) return []; 
   final userCustomPlacesSnapshot = await FirebaseFirestore.instance
       .collection('user_customPlaces')
       .where('userId', isEqualTo: userId)
       .orderBy('createdAt', descending: true)
       .get();
 
-  // جلب تفاصيل كل custom place من مجموعة customPlaces
   final customPlaces =
       await Future.wait(userCustomPlacesSnapshot.docs.map((doc) async {
     final customPlaceId = doc['customPlaceId'];

@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../../../core/constants.dart';
 import '../../../core/data/bloc/custom_places/custom_places_bloc.dart';
 import '../../../core/messages.dart';
@@ -15,11 +11,9 @@ class ContainerAddCustom extends StatefulWidget {
     super.key,
     required this.selectedLatLng,
     required this.markers,
-    // required this.onPlaceAdded
   });
   final LatLng selectedLatLng;
   final Set<Marker> markers;
-  // final VoidCallback onPlaceAdded;
 
   @override
   State<ContainerAddCustom> createState() => _ContainerAddCustomState();
@@ -84,13 +78,8 @@ class _ContainerAddCustomState extends State<ContainerAddCustom> {
                   // uId: FirebaseAuth.instance.currentUser!.uid,
                 ),
               );
-
-              // _addMarker();
-
               Navigator.pop(context);
-              // setState(() {
-              //   widget.onPlaceAdded();
-              // });
+             
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: kSpecialColor,
@@ -110,23 +99,5 @@ class _ContainerAddCustomState extends State<ContainerAddCustom> {
     );
   }
 
-  // Future<void> _addMarker() async {
-  //   if (_textBarController.text.isNotEmpty && widget.selectedLatLng != null) {
-  //     setState(() {
-  //       widget.markers.add(
-  //         Marker(
-  //           markerId: MarkerId(widget.selectedLatLng.toString()),
-  //           position: widget.selectedLatLng,
-  //           icon:
-  //               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-  //           infoWindow: InfoWindow(
-  //             title: _textBarController.text,
-  //           ),
-  //         ),
-  //       );
-  //     });
-
-  //     _textBarController.clear();
-  //   }
-  // }
+  
 }

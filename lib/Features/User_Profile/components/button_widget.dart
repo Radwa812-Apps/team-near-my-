@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/constants.dart';
-
 
 class ButtonWidget extends StatelessWidget {
   final String name;
@@ -24,12 +22,12 @@ class ButtonWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        backgroundColor: kSpecialColor, // Set button background color
+        backgroundColor: kSpecialColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40), // Rounded corners
+          borderRadius: BorderRadius.circular(40),
         ),
-        padding: EdgeInsets.symmetric(vertical: 15), // Adjust padding
-        minimumSize: size, // Set button size
+        padding: EdgeInsets.symmetric(vertical: 15),
+        minimumSize: size,
       ),
       child: Text(
         name,

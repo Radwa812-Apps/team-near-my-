@@ -11,7 +11,6 @@ class ShowCustomPlacesEvent extends CustomPlacesEvent {
 
 class AddCustomPlaces extends CustomPlacesEvent {
   final String placeName;
-  // final String uId;
   final double latitude;
   final double longitude;
   final double raduis;
@@ -20,7 +19,6 @@ class AddCustomPlaces extends CustomPlacesEvent {
 
   AddCustomPlaces({
     required this.createdAt,
-    // required this.uId,
     required this.updatedAt,
     required this.raduis,
     required this.placeName,

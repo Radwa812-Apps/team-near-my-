@@ -26,7 +26,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: isSearching
           ? SearchBarWidget(
-              // Use CustomSearchBar here
               controller: searchController,
               onSearch: onSearch,
               onChanged: onSearchChanged,

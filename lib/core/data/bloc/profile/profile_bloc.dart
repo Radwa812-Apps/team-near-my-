@@ -33,48 +33,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
     });
 
-    // on<DeleteUserEvent>((event, emit) async {
-    //   try {
-    //     CollectionReference users =
-    //         FirebaseFirestore.instance.collection('users');
-    //     String id = FirebaseAuth.instance.currentUser!.uid;
-    //     await users.doc(id).delete();
-    //     emit(UserDeletedSuccessState());
-    //   } catch (e) {
-    //     emit(UserDeleteErrorState(error: 'Failed to delete user: $e'));
-    //   }
-    // });
-
-    // on<DeleteUserEvent>((event, emit) async {
-    //  // try {
-    //     User? user = FirebaseAuth.instance.currentUser;
-
-    //     if (user != null) {
-    //       CollectionReference users =
-    //           FirebaseFirestore.instance.collection('users');
-    //       await users.doc(user.uid).delete();
-
-    //       await user.delete();
-
-    //       emit(UserDeletedSuccessState());
-    //     } else {
-    //       emit(UserDeleteErrorState(error: 'No user logged in'));
-    //     }
-    //   // } catch (e) {
-    //   //   emit(UserDeleteErrorState(error: 'Failed to delete user: $e'));
-    //   // }
-    // });
-
     on<DeleteUserEvent>((event, emit) async {
       try {
-        emit(UserDeleteLoadingState()); 
+        emit(UserDeleteLoadingState());
 
         User? user = FirebaseAuth.instance.currentUser;
 
         if (user != null) {
           final authCredential = EmailAuthProvider.credential(
             email: event.email,
-            password: event.password, 
+            password: event.password,
           );
 
           await user.reauthenticateWithCredential(authCredential);
@@ -100,7 +68,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         final User? user = FirebaseAuth.instance.currentUser;
         print('suer id                                : ${user!.uid}');
 
-        // ignore: unnecessary_null_comparison
         if (user == null) {
           emit(UserInfoErrorState(error: "No user logged in"));
           return;
@@ -122,24 +89,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
         final data = userDoc.data() as Map<String, dynamic>;
 
-        // final String firstName = data['fName'] ?? 'No Name';
-        // final String lastName = data['lName'] ?? 'No Last Name';
-        // final String rawPhoneNumber = data['phoneNumber'] ?? 'No Phone';
-        // final RegExp regex = RegExp(r'number:\s*(\d+)');
-        // final match = regex.firstMatch(rawPhoneNumber);
-        // final String phoneNumber = match != null ? match.group(1)! : 'No Phone';
-        // String dateOfBirth = data['dateOfBirth'];
-        // final String email = data['email'] ?? user.email ?? 'No Email';
-
         userModel = UserModel.fromJson(data, user.uid);
         print("✅ User info loaded successfully!");
-        emit(UserInfoLoadedSuccessState(userModel: userModel!
-            // fName: firstName,
-            // lName: lastName,
-            // phoneNumber: phoneNumber,
-            // dateOfBirth: dateOfBirth.toString(),
-            // email: email,
-            ));
+        emit(UserInfoLoadedSuccessState(userModel: userModel!));
 
         print('🔹 First Name: ${userModel!.fName}');
         print('🔹 Last Name: ${userModel!.lName}');

@@ -9,17 +9,16 @@ import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
 import 'package:nearme_app/core/messages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../auth/Sign_up_and_in/components/text_form_widget.dart';
 import '../components/confirm_message_widget.dart';
 import '../components/icon_and_text_widget.dart';
-
-import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
   static String settingsScreenKey = '/SettingsScreen';
   double spaceBetweenRows = 40.h;
   String? email, pass;
+
+  SettingsScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +35,7 @@ class SettingsScreen extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-
               SizedBox(height: spaceBetweenRows),
-              // Non-expandable widget
               IconAndTextWidget(
                 iconData: Icons.location_on_outlined,
                 text: 'Add Place',
@@ -49,7 +46,6 @@ class SettingsScreen extends StatelessWidget {
                 },
               ),
               SizedBox(height: spaceBetweenRows),
-              // Expandable widget
               IconAndTextWidget(
                 iconData: Icons.warning_amber_outlined,
                 text: 'Quick Risk Alert',
@@ -66,17 +62,13 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: spaceBetweenRows),
-              // Non-expandable widget
               IconAndTextWidget(
                 iconData: Icons.share_outlined,
                 text: 'Share',
                 iconSize: 30.sp,
                 fontSize: 24.sp,
-                onTap: () {
-                  // Navigate to another screen
-                },
+                onTap: () {},
               ),
-
               SizedBox(height: spaceBetweenRows),
               IconAndTextWidget(
                 iconData: Icons.qr_code_2_outlined,
@@ -107,7 +99,6 @@ class SettingsScreen extends StatelessWidget {
                           await FirebaseAuth.instance.signOut();
 
                           GoogleSignIn googleSignIn = GoogleSignIn();
-                          // googleSignIn.disconnect();
                           FirebaseAuth.instance.signOut();
                           // ignore: use_build_context_synchronously
                           Navigator.popAndPushNamed(
@@ -118,7 +109,6 @@ class SettingsScreen extends StatelessWidget {
                   );
                 },
               ),
-
               SizedBox(height: spaceBetweenRows),
               IconAndTextWidget(
                 iconData: Icons.lock_outline,
@@ -168,34 +158,6 @@ class SettingsScreen extends StatelessWidget {
                     );
                   }
                 },
-                // builder: (context, state) {
-                //   return IconAndTextWidget(
-                //     iconData: Icons.delete_forever_outlined,
-                //     text: 'Delete Account',
-                //     iconSize: 30,
-                //     fontSize: 24,
-                //     onTap: () {
-                //       showDialog(
-                //         context: context,
-                //         builder: (BuildContext context) {
-                //           return ConfirmMessageWidget(
-                //             message:
-                //                 'Are you sure you want to delete your account forever?',
-                //             onCancel: () {
-                //               Navigator.of(context).pop(); // Close the dialog
-                //             },
-                //             onConfirm: () {
-                //               BlocProvider.of<ProfileBloc>(context)
-                //                   .add(DeleteUserEvent());
-                //               Navigator.pushNamed(
-                //                   context, SignInScreen.signInScreenKey);
-                //             },
-                //           );
-                //         },
-                //       );
-                //     },
-                //   );
-                // },
                 builder: (context, state) {
                   return IconAndTextWidget(
                     iconData: Icons.delete_forever_outlined,
@@ -220,32 +182,6 @@ class SettingsScreen extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  // TextFormField(
-                                  //   onChanged: (value) => email = value,
-                                  //   controller: emailController,
-                                  //   decoration:
-                                  //       const InputDecoration(labelText: "Email"),
-                                  //   validator: (value) {
-                                  //     if (value == null || value.isEmpty) {
-                                  //       return "Please enter your email";
-                                  //     }
-                                  //     return null;
-                                  //   },
-                                  // ),
-                                  // const SizedBox(height: 10),
-                                  // TextFormField(
-                                  //   controller: passwordController,
-                                  //   obscureText: true,
-                                  //   onChanged: (value) => pass = value,
-                                  //   decoration: const InputDecoration(
-                                  //       labelText: "Password"),
-                                  //   validator: (value) {
-                                  //     if (value == null || value.isEmpty) {
-                                  //       return "Please enter your password";
-                                  //     }
-                                  //     return null;
-                                  //   },
-                                  // ),
                                   TextFormFieldWidget(
                                     lineFocusColor: kFontColor,
                                     hintColor: Colors.grey,
@@ -291,22 +227,6 @@ class SettingsScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            // actions: [
-                            //   TextButton(
-                            //     onPressed: () => Navigator.of(context).pop(),
-                            //     child: const Text("Cancel"),
-                            //   ),
-                            //   TextButton(
-                            //     onPressed: () {
-                            //       if (formKey.currentState!.validate()) {
-                            //         BlocProvider.of<ProfileBloc>(context)
-                            //             .add(DeleteUserEvent(pass!, email!));
-                            //         Navigator.pop(context);
-                            //       }
-                            //     },
-                            //     child: const Text("Delete"),
-                            //   ),
-                            // ],
                             actions: [
                               Row(
                                 mainAxisAlignment:
@@ -317,8 +237,8 @@ class SettingsScreen extends StatelessWidget {
                                     width: 70.w,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(
-                                          40), // حدود مدورة
-                                      color: Colors.blue, // لون الكانسيل
+                                          40), 
+                                      color: Colors.blue, 
                                     ),
                                     child: TextButton(
                                       onPressed: () =>
@@ -327,7 +247,7 @@ class SettingsScreen extends StatelessWidget {
                                         "Cancel",
                                         style: TextStyle(
                                             color: Colors
-                                                .white), // لون النص أبيض ليكون واضحًا
+                                                .white), 
                                       ),
                                     ),
                                   ),
@@ -336,8 +256,8 @@ class SettingsScreen extends StatelessWidget {
                                     width: 70.w,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(
-                                          40), // حدود مدورة
-                                      color: Colors.red, // لون الحذف
+                                          40), 
+                                      color: Colors.red, 
                                     ),
                                     child: TextButton(
                                       onPressed: () {
@@ -352,7 +272,7 @@ class SettingsScreen extends StatelessWidget {
                                         "Delete",
                                         style: TextStyle(
                                             color: Colors
-                                                .white), // لون النص أبيض ليكون واضحًا
+                                                .white), 
                                       ),
                                     ),
                                   ),

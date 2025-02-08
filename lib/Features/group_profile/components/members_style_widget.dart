@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/Private_chat/screens/private_chat_screen.dart';
 import 'package:nearme_app/core/constants.dart';
-
 import '../../Home/Home/components/round_image_widget.dart';
-import '../../chat_group/screens/group_chat.dart';
 
 class MembersStyleWidget extends StatelessWidget {
   final String? userName;
@@ -16,7 +14,7 @@ class MembersStyleWidget extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: (() {
-        Navigator.pushNamed(context, PrivateChatScreen.PrivateChatScreenKey , arguments: userName);
+        Navigator.pushNamed(context, PrivateChatScreen.privateChatScreenKey , arguments: userName);
       }),
       child: Container(
         width: screenWidth * .96,

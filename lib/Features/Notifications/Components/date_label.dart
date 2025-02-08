@@ -30,7 +30,7 @@ class _DateLabelState extends State<DateLabel> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(
+            colorScheme: const ColorScheme.light(
               primary: kPrimaryColor1,
               onPrimary: Colors.white,
             ),
@@ -65,7 +65,7 @@ class _DateLabelState extends State<DateLabel> {
           child: Center(
             child: Text(
               _dateText,
-              style: TextStyle(
+              style: const TextStyle(
                 color: textColor,
                 fontFamily: 'Open Sans',
                 fontSize: 8,
