@@ -81,7 +81,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         }),
                         onchange: ((p0) {
                           email = p0;
-                        }),
+                        }), editIcon: null,
                       ),
                       SizedBox(height: 30.h),
                       TextFormFieldWidget(
@@ -102,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         }),
                         onchange: ((p0) {
                           password = p0;
-                        }),
+                        }), editIcon: null,
                       ),
                       SizedBox(height: 10.h),
                       // CheckboxListTile(

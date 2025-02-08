@@ -75,10 +75,10 @@ class _ContainerAddCustomState extends State<ContainerAddCustom> {
               }
               BlocProvider.of<CustomPlacesBloc>(context).add(
                 AddCustomPlaces(
-                  latitude: widget.selectedLatLng!.latitude,
+                  latitude: widget.selectedLatLng.latitude,
                   placeName: _textBarController.text,
                   raduis: 500,
-                  longitude: widget.selectedLatLng!.longitude,
+                  longitude: widget.selectedLatLng.longitude,
                   createdAt: Timestamp.now(),
                   updatedAt: Timestamp.now(),
                   // uId: FirebaseAuth.instance.currentUser!.uid,

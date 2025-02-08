@@ -304,9 +304,9 @@ class _SocialAuthWidgetState extends State<SocialAuthWidget> {
                 onPressed: () {
                   signInWithGoogle(context);
                 },
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(10),
-                // ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
                 elevation: 5,
               ),
             ),

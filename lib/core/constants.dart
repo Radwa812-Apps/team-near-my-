@@ -16,6 +16,6 @@ const background = Color.fromRGBO(255, 255, 255, 1);
 const spectialgreen = Color(0xFFB5C9A3);
 const anothergreen = Color(0xFF446E42);
 const kDefaultGroupImge = 'assets/images/group.jpg';
-const kDefaultUserImge = 'assets/images/group.jpg';
+const kDefaultUserImge = 'assets/images/user.jpg';
 const kGreenLogo = 'assets/images/GreenTransparent.png';
 const notificationColor = Color.fromRGBO(209, 177, 83, 0.68);

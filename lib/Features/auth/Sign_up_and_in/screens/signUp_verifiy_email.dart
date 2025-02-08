@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import 'package:nearme_app/core/services/validator.dart';
@@ -166,30 +167,30 @@ class _SignUpVerificationEmailPageState
                             scale: _scaleAnimation.value,
                             child: Image.network(
                               'https://img.freepik.com/free-vector/new-message-concept-illustration_114360-6007.jpg',
-                              height: 350,
-                              width: 350,
+                              height: 350.h,
+                              width: 350.w,
                             ),
                           );
                         },
                       ),
-                      const SizedBox(height: 20),
-                      const Text(
+                      SizedBox(height: 20.h),
+                      Text(
                         'Verify your email address!',
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25.sp, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 20),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: Text(
+                      SizedBox(height: 20.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30.w),
+                        child: const Text(
                           'A Verification email has been sent to your email ,  Please check your inbox to verify your account and get started!',
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                           maxLines: 3,
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30.h),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
@@ -198,7 +199,7 @@ class _SignUpVerificationEmailPageState
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            minimumSize: const Size(double.infinity, 50),
+                            minimumSize: Size(double.infinity, 50.h),
                           ),
                           onPressed: () {
                             if (isConnected) {
@@ -211,10 +212,10 @@ class _SignUpVerificationEmailPageState
                               );
                             }
                           },
-                          child: const Text(
+                          child: Text(
                             'Resend Email',
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 20.sp, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -225,8 +226,8 @@ class _SignUpVerificationEmailPageState
                   ontap: () {
                     //  FirebaseAuth.instance.signOut();
                     Navigator.pushNamed(context, SignInScreen.signInScreenKey);
-                  }, icon: Icons.close,
-                  
+                  },
+                  icon: Icons.close,
                 ),
               ],
             ),

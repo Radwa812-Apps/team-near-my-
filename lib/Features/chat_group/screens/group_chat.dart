@@ -88,6 +88,7 @@ class GroupChat extends StatefulWidget {
   static String groupChatKey = '/GroupChat';
   @override
   _GroupChatState createState() => _GroupChatState();
+  //final String title;
 }
 
 class _GroupChatState extends State<GroupChat> {
@@ -97,10 +98,9 @@ class _GroupChatState extends State<GroupChat> {
   @override
   void initState() {
     super.initState();
-    _loadMessages(); // تحميل الرسائل عند بدء التشغيل
+    _loadMessages();
   }
 
-  // تحميل الرسائل المحفوظة
   void _loadMessages() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? savedMessages = prefs.getStringList('group_chat_messages');
@@ -114,7 +114,6 @@ class _GroupChatState extends State<GroupChat> {
     }
   }
 
-  // حفظ الرسائل
   void _saveMessages() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> messagesToSave = _messages.map((message) {
@@ -131,14 +130,14 @@ class _GroupChatState extends State<GroupChat> {
           "time": "${DateTime.now().hour}:${DateTime.now().minute}",
         });
         _messageController.clear();
-        _saveMessages(); // حفظ الرسائل بعد الإضافة
+        _saveMessages();
       });
     }
   }
 
   void _clearChat() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('group_chat_messages'); // حذف الرسائل المحفوظة
+    prefs.remove('group_chat_messages');
     setState(() {
       _messages.clear();
     });
@@ -146,19 +145,22 @@ class _GroupChatState extends State<GroupChat> {
 
   @override
   Widget build(BuildContext context) {
+    final String groupName =
+        ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       backgroundColor: background,
       body: Column(
         children: [
           HeaderChat(
             onClearChatPressed: _clearChat,
-            title: 'Radwa',
+            title: groupName,
             backArrow: const Icon(
               Icons.arrow_back_ios,
               color: kPrimaryColor1,
               size: 25,
             ),
             showCircleAvatar: true,
+            image: "assets/images/group.jpg",
           ),
           const DateLabel(dateText: 'Yesterday'),
           Expanded(

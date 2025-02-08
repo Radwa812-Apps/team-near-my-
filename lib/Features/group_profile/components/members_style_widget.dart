@@ -16,7 +16,7 @@ class MembersStyleWidget extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: (() {
-        Navigator.pushNamed(context, PrivateChatScreen.PrivateChatScreenKey);
+        Navigator.pushNamed(context, PrivateChatScreen.PrivateChatScreenKey , arguments: userName);
       }),
       child: Container(
         width: screenWidth * .96,
@@ -32,7 +32,7 @@ class MembersStyleWidget extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.only(left: 10, top: 10),
                   child: RoundImageWidget(
-                    name: kDefaultGroupImge,
+                    name: kDefaultUserImge,
                     width: 50,
                     height: 50,
                   ),

@@ -161,6 +161,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nearme_app/Features/Home/Home/components/home_bar_widget.dart';
 import 'package:nearme_app/core/constants.dart';
@@ -282,8 +283,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 selectedTab: _selectedTab,
                 onTabSelected: _selectTab,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
 
               // Main content: Show groups or chats
@@ -293,15 +294,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? Padding(
                               padding: const EdgeInsets.only(bottom: 100),
                               child: Image.asset('assets/images/noGroups.png',
-                                  width: screenWidth * .8,
-                                  height: screenHeight * .8),
+                                  width: screenWidth * .8.w,
+                                  height: screenHeight * .8.h),
                             )
                           : ListView.builder(
                               itemCount: _groups.length,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 4.0),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 4.h),
                                   child: GroupStyle(
                                     groupName: _groups[index],
                                   ),
@@ -311,8 +312,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Padding(
                           padding: const EdgeInsets.only(bottom: 100),
                           child: Image.asset('assets/images/noChats.png',
-                              width: screenWidth * .8,
-                              height: screenHeight * .8),
+                              width: screenWidth * .8.w,
+                              height: screenHeight * .8.h),
                         )),
 
               // Bottom container with icons

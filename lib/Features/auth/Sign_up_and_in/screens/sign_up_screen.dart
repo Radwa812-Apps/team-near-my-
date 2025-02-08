@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:nearme_app/Features/Auth/Sign_up_and_in/components/phone_widget.dart';
@@ -52,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     super.initState();
-    _phoneNumberController.clear(); // ✅ امسح أي رقم قديم عند تحميل الصفحة
+    _phoneNumberController.clear();
   }
 
   @override
@@ -113,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               name: 'Sign Up',
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 30.h),
                           TextFormFieldWidget(
                             hintColor: Colors.white,
                             lineColor: Colors.white,
@@ -128,9 +129,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               fName = p0;
                             }),
                             lineFocusColor: Colors.white,
+                            editIcon: null,
                           ),
-                          const SizedBox(height: 30),
+                          SizedBox(height: 20.h),
                           TextFormFieldWidget(
+                            editIcon: null,
                             lineFocusColor: Colors.white,
                             hintColor: Colors.white,
                             lineColor: Colors.white,
@@ -145,8 +148,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               lName = p0;
                             }),
                           ),
-                          const SizedBox(height: 30),
+                          SizedBox(height: 20.h),
                           TextFormFieldWidget(
+                            editIcon: null,
                             lineFocusColor: Colors.white,
                             hintColor: Colors.white,
                             lineColor: Colors.white,
@@ -160,8 +164,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               email = p0;
                             }),
                           ),
-                          const SizedBox(height: 30),
+                          SizedBox(height: 20.h),
+                          PhoneNumberWidget(
+                            textColor: Colors.white,
+                            phoneNumberController: _phoneNumberController,
+                            hint: 'Phone Number',
+                            dropdownIconColor: Colors.white,
+                            dropdownTextStyleColor: Colors.white,
+                            enabledBorderColor: Colors.white,
+                            focusedBorderColor: Colors.white,
+                            hintStyleColor: Colors.white,
+                            onchange: ((p0) {
+                              setState(() {
+                                phoneNumber = p0.toString();
+                              });
+                            }),
+                            widget: null,
+                          ),
+
+                          SizedBox(height: 5.h),
                           TextFormFieldWidget(
+                            editIcon: null,
                             lineFocusColor: Colors.white,
                             validatior: ((p0) {
                               if (p0 == null || p0.isEmail) {
@@ -195,22 +218,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintColor: Colors.white,
                             lineColor: Colors.white,
                           ),
-                          const SizedBox(height: 30),
-                          PhoneNumberWidget(
-                              phoneNumberController: _phoneNumberController,
-                              hint: 'Phone Number',
-                              dropdownIconColor: Colors.white,
-                              dropdownTextStyleColor: Colors.white,
-                              enabledBorderColor: Colors.white,
-                              focusedBorderColor: Colors.white,
-                              hintStyleColor: Colors.white,
-                              onchange: ((p0) {
-                                setState(() {
-                                  phoneNumber = p0.toString();
-                                });
-                              })),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           TextFormFieldWidget(
+                            editIcon: null,
                             lineFocusColor: Colors.white,
                             hintColor: Colors.white,
                             lineColor: Colors.white,
@@ -226,8 +236,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               password = p0;
                             }),
                           ),
-                          const SizedBox(height: 30),
+                          SizedBox(height: 20.h),
                           TextFormFieldWidget(
+                            editIcon: null,
                             lineFocusColor: Colors.white,
                             hintColor: Colors.white,
                             lineColor: Colors.white,
@@ -242,8 +253,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     p0, _passwordController.text)),
                             onchange: ((p0) {}),
                           ),
-                          const SizedBox(height: 20),
-                          const SizedBox(height: 40),
+
+                          //  const SizedBox(height: 40.h),
+                          SizedBox(height: 60.h),
+
                           SubmitButton(
                             name: 'Sign Up',
                             onTap: () {
@@ -261,14 +274,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               }
                             },
                           ),
-                          const SizedBox(height: 10),
-                          const ORWediget(
-                            oRsize: 13.43,
-                            lineWidth: 80,
-                          ),
-                          const SizedBox(height: 10),
-                          FacebookGoogleWidget(),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 10.h),
+
+                          // ORWediget(
+                          //   oRsize: 13.43.sp,
+                          //   lineWidth: 80.w,
+                          // ),
+                          //SizedBox(height: 10.h),
+                          //  FacebookGoogleWidget(),
+                          SizedBox(height: 5.h),
                           HaveAnAccountWidget(),
                         ],
                       ),

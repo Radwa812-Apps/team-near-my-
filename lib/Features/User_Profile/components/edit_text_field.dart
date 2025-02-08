@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/core/constants.dart';
 
 class EditTextField extends StatelessWidget {
@@ -24,9 +25,9 @@ class EditTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: TextFormField(
-       // validator:validate ,
+        // validator:validate ,
         controller: controller,
         readOnly: readOnly!,
         keyboardType: keyboardType,
@@ -35,38 +36,38 @@ class EditTextField extends StatelessWidget {
           hintText: hintText,
           border: InputBorder.none,
           prefixIcon: Padding(
-            padding: const EdgeInsets.only(right: 12),
+            padding: EdgeInsets.only(right: 12.w),
             child: Icon(
               iconData,
               color: kPrimaryColor1,
-              size: 22,
+              size: 22.sp,
             ),
           ),
-          suffixIcon: const Icon(
+          suffixIcon: Icon(
             Icons.edit,
             color: kPrimaryColor1,
-            size: 22,
+            size: 22.sp,
           ),
-          hintStyle: const TextStyle(
-            fontSize: 20,
+          hintStyle: TextStyle(
+            fontSize: 20.sp,
             fontFamily: kFontRegular,
             color: kFontColor,
           ),
-          focusedBorder: const UnderlineInputBorder(
+          focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: kPrimaryColor1,
-              width: 1.5,
+              width: 1.5.w,
             ),
           ),
-          enabledBorder: const UnderlineInputBorder(
+          enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: kPrimaryColor1,
-              width: 1.5,
+              width: 1.5.w,
             ),
           ),
         ),
-        style: const TextStyle(
-          fontSize: 20,
+        style: TextStyle(
+          fontSize: 20.sp,
           fontFamily: kFontRegular,
           color: kFontColor,
         ),

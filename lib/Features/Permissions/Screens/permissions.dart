@@ -13,7 +13,6 @@
 //   @override
 //   _PermissionsState createState() => _PermissionsState();
 // }
-
 // class _PermissionsState extends State<Permissions> {
 //   Future<void> requestCamiraPermission() async {
 //     PermissionStatus status = await Permission.camera.request();
@@ -26,19 +25,15 @@
 //       openAppSettings();
 //     }
 //   }
-
 //   List<bool> switchStatus = [false, false, false, false, false];
-
 //   void updateSwitchStatus(int index, bool value) {
 //     setState(() {
 //       switchStatus[index] = value;
 //     });
 //   }
-
 //   @override
 //   Widget build(BuildContext context) {
 //     bool anySwitchActive = switchStatus.contains(true);
-
 //     return Scaffold(
 //       backgroundColor: background,
 //       body: SafeArea(
@@ -137,18 +132,14 @@
 // import 'package:nearme_app/core/font_style.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:permission_handler/permission_handler.dart';
-
 // class Permissions extends StatefulWidget {
 //   const Permissions({super.key});
 //   static String permissionsKey = '/Permissions';
-
 //   @override
 //   _PermissionsState createState() => _PermissionsState();
 // }
-
 // class _PermissionsState extends State<Permissions> {
 //   List<bool> switchStatus = [false, false, false, false, false];
-
 //   // Future<void> requestPermission(Permission permission, int index) async {
 //   //   PermissionStatus status = await permission.status;
 //   // //  PermissionStatus status = await permission.request();
@@ -168,7 +159,6 @@
 //   Future<void> requestPermission(Permission permission, int index) async {
 //     // التحقق من الصلاحية أولا قبل محاولة طلبها
 //     PermissionStatus status = await permission.status;
-
 //     if (status == PermissionStatus.granted) {
 //       Fluttertoast.showToast(
 //           msg:
@@ -195,7 +185,6 @@
 //       updateSwitchStatus(index, false);
 //     }
 //   }
-
 //   void togglePermission(int index) async {
 //     if (switchStatus[index]) {
 //       await requestPermission(Permission.camera,
@@ -204,17 +193,14 @@
 //       updateSwitchStatus(index, false);
 //     }
 //   }
-
 //   void updateSwitchStatus(int index, bool value) {
 //     setState(() {
 //       switchStatus[index] = value;
 //     });
 //   }
-
 //   @override
 //   Widget build(BuildContext context) {
 //     bool anySwitchActive = switchStatus.contains(true);
-
 //     return Scaffold(
 //       backgroundColor: background,
 //       body: SafeArea(
@@ -337,6 +323,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/button.dart';
 import 'package:nearme_app/Features/Permissions/Compnents/permission_tile.dart';
 import 'package:nearme_app/Features/Permissions/Screens/permission_location.dart';
@@ -452,11 +439,9 @@ class _PermissionsState extends State<Permissions> {
 //           break;
 //       }
 //     }
-
 //     setState(() {
 //       switchStatus[index] = permissionGranted;
 //     });
-
 //     if (!permissionGranted && value) {
 //       ScaffoldMessenger.of(context).showSnackBar(
 //         SnackBar(
@@ -582,11 +567,11 @@ class _PermissionsState extends State<Permissions> {
           padding: const EdgeInsets.all(18.0),
           child: Column(
             children: [
-              const Center(
+               Center(
                 child: Text(
                   'Permissions',
                   style: TextStyle(
-                    fontSize: 38,
+                    fontSize: 38.sp,
                     fontFamily: 'OpenSans-Regular',
                     fontWeight: FontWeight.w400,
                     color: textColor,
@@ -635,7 +620,7 @@ class _PermissionsState extends State<Permissions> {
                       switchValue: switchStatus[4],
                       onChanged: (value) => updateSwitchStatus(4, value),
                     ),
-                    const SizedBox(height: 20),
+                     SizedBox(height: 20.h),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,

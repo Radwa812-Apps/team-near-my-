@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
 import 'package:nearme_app/core/services/validator.dart';
@@ -71,7 +72,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                     ),
                     child: Column(
                       children: [
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 70),
                         const Text(
                           'Edit Your Profile',
                           style: TextStyle(
@@ -98,7 +99,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                         // Last Name Field
                         EditTextField(
                           hintText: state.userModel.lName,
-                          iconData: Icons.person_outlined,
+                          iconData: Icons.group_outlined,
                           controller: lastNameController,
                           onChanged: ((p0) {
                             onFieldChanged(p0);
@@ -132,64 +133,143 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                           }),
                           dropdownIconColor: kFontColor,
                           dropdownTextStyleColor: kFontColor,
-                          enabledBorderColor: kFontColor,
+                          enabledBorderColor: kPrimaryColor1,
                           focusedBorderColor: kFontColor,
                           hintStyleColor: kFontColor,
                           phoneNumberController: _phoneNumberController,
+                          widget: const Icon(
+                            Icons.edit,
+                            color: kPrimaryColor1,
+                          ),
+                          textColor: kFontColor,
                         ),
 
                         //SizedBox(height: widget.spaceWithRows),
                         // Birth Date Field
 
-                        TextFormFieldWidget(
-                          lineFocusColor: kFontColor,
-                          validatior: ((p0) {
-                            if (p0 == null || p0.isEmpty) {
-                              return "Date of birth is required.";
-                            }
-                            final parts = p0.split('/');
-                            if (parts.length == 3) {
-                              final formattedDate =
-                                  "${parts[2]}-${parts[1]}-${parts[0]}";
-                              final date = DateTime.tryParse(formattedDate);
-                              if (date == null) {
+                        // TextFormFieldWidget(
+                        //   lineFocusColor: kFontColor,
+                        //   validatior: ((p0) {
+                        //     if (p0 == null || p0.isEmpty) {
+                        //       return "Date of birth is required.";
+                        //     }
+                        //     final parts = p0.split('/');
+                        //     if (parts.length == 3) {
+                        //       final formattedDate =
+                        //           "${parts[2]}-${parts[1]}-${parts[0]}";
+                        //       final date = DateTime.tryParse(formattedDate);
+                        //       if (date == null) {
+                        //         return "Invalid date format.";
+                        //       }
+                        //       return Validator.validateDateOfBirth(date);
+                        //     } else {
+                        //       return "Invalid date format.";
+                        //     }
+                        //   }),
+                        //   hint: state.userModel.dateOfBirth,
+                        //   prefixIcon: const Icon(Icons.edit_calendar_rounded,
+                        //       color: kPrimaryColor1),
+                        //   isBirthDate: true,
+                        //   controller: birthDateController,
+                        //   onTap: (() async {
+                        //     await selectDate(context, _dateController,
+                        //         (selectedDate) {
+                        //       dateOfBirth = selectedDate;
+                        //       birthDateController.text = selectedDate;
+                        //     });
+                        //     onFieldChanged(dateOfBirth.toString());
+                        //   }),
+                        //   onchange: ((p0) {
+                        //     onFieldChanged(p0);
+                        //     dateOfBirth = p0;
+                        //   }),
+                        //   hintColor: kFontColor,
+                        //   lineColor: kPrimaryColor1,
+                        //   editIcon: Icons.edit,
+                        // ),
+
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          child: TextFormField(
+                            onChanged: ((p0) {
+                              onFieldChanged(p0);
+                              dateOfBirth = p0;
+                            }),
+                            validator: ((p0) {
+                              if (p0 == null || p0.isEmpty) {
+                                return "Date of birth is required.";
+                              }
+                              final parts = p0.split('/');
+                              if (parts.length == 3) {
+                                final formattedDate =
+                                    "${parts[2]}-${parts[1]}-${parts[0]}";
+                                final date = DateTime.tryParse(formattedDate);
+                                if (date == null) {
+                                  return "Invalid date format.";
+                                }
+                                return Validator.validateDateOfBirth(date);
+                              } else {
                                 return "Invalid date format.";
                               }
-                              return Validator.validateDateOfBirth(date);
-                            } else {
-                              return "Invalid date format.";
-                            }
-                          }),
-                          hint: state.userModel.dateOfBirth,
-                          prefixIcon: const Icon(Icons.edit_calendar_rounded,
-                              color: kPrimaryColor1),
-                          isBirthDate: true,
-                          controller: birthDateController,
-                          onTap: (() async {
-                            await selectDate(context, _dateController,
-                                (selectedDate) {
-                              dateOfBirth = selectedDate;
-                              birthDateController.text = selectedDate;
-                            });
-                            onFieldChanged(dateOfBirth.toString());
-                          }),
-                          onchange: ((p0) {
-                            onFieldChanged(p0);
-                            dateOfBirth = p0;
-                          }),
-                          hintColor: kFontColor,
-                          lineColor: kPrimaryColor1,
+                            }),
+                            controller: birthDateController,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.sp,
+                              fontFamily: kFontRegular,
+                            ),
+                            readOnly: true,
+                            onTap: (() async {
+                              await selectDate(context, _dateController,
+                                  (selectedDate) {
+                                dateOfBirth = selectedDate;
+                                birthDateController.text = selectedDate;
+                              });
+                              onFieldChanged(dateOfBirth.toString());
+                            }),
+                            decoration: InputDecoration(
+                              hintText: state.userModel.dateOfBirth,
+                              prefixIcon: const Icon(
+                                  Icons.edit_calendar_rounded,
+                                  color: kPrimaryColor1),
+                              prefixIconConstraints: BoxConstraints(
+                                minWidth: 35.w,
+                              ),
+                              suffixIcon: const Icon(
+                                Icons.edit,
+                                color: kPrimaryColor1,
+                              ),
+                              suffixIconColor: kPrimaryColor1,
+                              hintStyle: TextStyle(
+                                color: kFontColor,
+                                fontSize: 20.sp,
+                                fontFamily: kFontRegular,
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: kFontColor,
+                                  width: 1.5.w,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: kPrimaryColor1,
+                                  width: 1.5.w,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
 
                         SizedBox(height: widget.spaceWithRows),
 
-                        SizedBox(height: screenWidth * 0.1),
+                        SizedBox(height: screenWidth * 0.1.w),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ButtonWidget(
                               name: "Save",
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               onTap: isChanged
                                   ? () {
                                       BlocProvider.of<ProfileBloc>(context).add(
@@ -210,10 +290,10 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                       });
                                     }
                                   : null,
-                              size: const Size(100, 65),
+                              size: Size(100.w, 65.h),
                               isEnabled: isChanged,
                             ),
-                            const SizedBox(width: 70),
+                            SizedBox(width: 70.w),
                             ButtonWidget(
                               name: "Cancel",
                               fontSize: 20,
@@ -232,11 +312,11 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                 ),
                 Positioned(
                   top: widget.imagePositionTop,
-                  left: 120,
-                  child: const RoundImageWidget(
+                  left: 100.w,
+                  child: RoundImageWidget(
                     name: kDefaultUserImge,
-                    width: 110,
-                    height: 110,
+                    width: 110.w,
+                    height: 110.h,
                   ),
                 ),
               ],

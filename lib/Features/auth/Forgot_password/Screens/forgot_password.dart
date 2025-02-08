@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/auth/Forgot_password/Screens/confirm_password.dart';
 import 'package:nearme_app/core/Icons/arrow_back.dart';
 import 'package:nearme_app/core/constants.dart';
@@ -25,8 +26,7 @@ class ForgotPassword extends StatelessWidget {
         child: Stack(
           children: [
             Center(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 150, left: 10),
+              child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,33 +34,33 @@ class ForgotPassword extends StatelessWidget {
                     Center(
                       child: Image.asset(
                         'assets/images/image.png',
-                        height: 350,
-                        width: 350,
+                        height: 300.h,
+                        width: 300.w,
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
+                    SizedBox(height: 20.h),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.w),
                       child: Text(
                         'Forget Password?',
-                        style:
-                            TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 25.sp, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.start,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
+                    SizedBox(height: 10.h),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.w),
                       child: Text(
                         'Please enter your email or phone number to reset password',
-                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                        style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                         maxLines: 3,
                         textAlign: TextAlign.start,
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -72,27 +72,27 @@ class ForgotPassword extends StatelessWidget {
                           email = value;
                         }),
                         //  controller: ,
-                        decoration: const InputDecoration(
-                          hintText: 'Email / Phone',
+                        decoration: InputDecoration(
+                          hintText: 'Email',
                           hintStyle: TextStyles.forgotPasswordText,
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.grey,
-                              width: 0.25,
+                              width: 0.25.w,
                             ),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: kPrimaryColor1,
-                              width: 0.5,
+                              width: 0.5.w,
                             ),
                           ),
                         ),
                         style: TextStyles.forgotPasswordText,
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -102,13 +102,13 @@ class ForgotPassword extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          minimumSize: const Size(double.infinity, 50),
+                          minimumSize: Size(double.infinity, 45.h),
                         ),
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            //Navigator.pushNamed(context, 'ConfirmPassword');
                             try {
-                              resetPassword(context: context, email: email!);
+                              sendPasswordResetEmail(
+                                  context: context, emailController: email!);
                             } catch (e) {
                               print('lloooooooooooooooooooooog');
                               log(e.toString());
@@ -117,14 +117,14 @@ class ForgotPassword extends StatelessWidget {
                           } else {
                             print("Validation failed");
                           }
-                        //  // resetPassword(context: context, email: email!);
-                        //   Navigator.pushNamed(
-                        //       context, ConfirmPassword.confirmPasswordKey);
+                          //  // resetPassword(context: context, email: email!);
+                          //   Navigator.pushNamed(
+                          //       context, ConfirmPassword.confirmPasswordKey);
                         },
-                        child: const Text(
+                        child: Text(
                           'Send Code',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -135,7 +135,7 @@ class ForgotPassword extends StatelessWidget {
             CustomBackButton(
               ontap: () {
                 // FirebaseAuth.instance.signOut();
-      
+
                 Navigator.pushNamed(context, SignInScreen.signInScreenKey);
               },
               icon: Icons.arrow_back_ios_outlined,

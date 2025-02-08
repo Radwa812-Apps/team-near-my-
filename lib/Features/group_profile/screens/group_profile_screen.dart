@@ -11,7 +11,9 @@ import '../components/row_add_member.dart';
 
 class GroupProfileScreen extends StatefulWidget {
   static String groupProfileScreenKey = '/groupProfileScreen';
-  final String groupName = 'Alex Trip';
+  
+
+  const GroupProfileScreen({super.key});
 
   @override
   _GroupProfileScreenState createState() => _GroupProfileScreenState();
@@ -83,7 +85,8 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-
+    final String? groupNameR =
+        ModalRoute.of(context)!.settings.arguments as String?;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: kBackgroundColor,
@@ -113,7 +116,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                               padding:
                                   const EdgeInsets.only(bottom: 3, left: 5),
                               child: Text(
-                                widget.groupName,
+                                groupNameR! ,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: kFontBold,
@@ -138,7 +141,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            widget.groupName,
+                          groupNameR!,
                             style: const TextStyle(
                               fontSize: 30,
                               fontFamily: kFontBold,
@@ -224,7 +227,7 @@ class _GroupProfileScreenState extends State<GroupProfileScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, GroupChat.groupChatKey);
+          Navigator.pushNamed(context, GroupChat.groupChatKey,arguments: groupNameR);
         },
         backgroundColor: kPrimaryColor1,
         shape: RoundedRectangleBorder(

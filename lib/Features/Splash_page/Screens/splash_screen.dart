@@ -16,9 +16,11 @@ class SplashPage extends StatefulWidget {
   _SplashPageState createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage>
-    with SingleTickerProviderStateMixin {
+class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
+  // تغيير هنا
   late SplashAnimationController _splashAnimationController;
+  late AnimationController _controller;
+  late Animation<double> _translateYAnimation;
 
   @override
   void initState() {
@@ -28,41 +30,30 @@ class _SplashPageState extends State<SplashPage>
       this,
       _navigateToNextScreen,
     );
+
+    // تهيئة AnimationController
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(seconds: 3)); // مدة الحرك
+    // إنشاء Tween للحركة من الأسفل إلى الأعلى
+    _translateYAnimation = Tween<double>(begin: 100, end: 0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOut, // نوع الحركة
+      ),
+    );
+
+    // بدء الحركة
+    _controller.forward();
   }
 
-  // void _navigateToNextScreen() async {
-  //   await Future.delayed(Duration(seconds: 2));
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool? rememberMe = prefs.getBool('KeppUserLogIn');
-  //   User? currentUser = FirebaseAuth.instance.currentUser;
-  //   if (currentUser != null &&  rememberMe == true) {
-  //     Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
-  //     //Navigator.pushReplacementNamed(context, '/');
-  //   } else {
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => WelcomeView()),
-  //     );
-  //   }
-  //   // Navigator.pushReplacement(
-  //   //   context,
-  //   //   MaterialPageRoute(builder: (context) => WelcomeView()),
-  //   // );
-  // }
+  @override
+  void dispose() {
+    _controller.dispose();
+    _splashAnimationController.dispose();
+    // التخلص من الـ AnimationController
+    super.dispose();
+  }
 
-  // void _navigateToNextScreen() async {
-  //   await Future.delayed(Duration(seconds: 2));
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool? rememberMe = prefs.getBool('KeppUserLogIn');
-  //   User? currentUser = FirebaseAuth.instance.currentUser;
-  //   if (currentUser != null) {
-  //     await currentUser.reload();
-  //     currentUser = FirebaseAuth.instance.currentUser;
-  //     if (currentUser != null && rememberMe == true) {
-  //       Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
-  //       return;
-  //     }
-  //   }
   void _navigateToNextScreen() async {
     await Future.delayed(Duration(seconds: 2));
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -82,9 +73,9 @@ class _SplashPageState extends State<SplashPage>
     }
 
     if (currentUser != null && rememberMe == true) {
-      Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
+       Navigator.pushReplacementNamed(context, MainScaffold.mainScaffoldKey);
     } else {
-      // ignore: use_build_context_synchronously
+     // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => WelcomeView()),
@@ -93,47 +84,49 @@ class _SplashPageState extends State<SplashPage>
   }
 
   @override
-  void dispose() {
-    _splashAnimationController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          const GradientBackground(),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/Screenshot 2025-01-30 135647.png',
-                  width: 150,
-                  height: 150,
-                  fit: BoxFit.contain,
-                ),
-                const SizedBox(height: 20),
-                AnimatedBuilder(
-                  animation: _splashAnimationController.controller,
-                  builder: (context, child) {
-                    return Transform.translate(
-                      offset: Offset(
-                        0,
-                        _splashAnimationController.translateYAnimation.value,
-                      ),
-                      child: Image.asset(
-                        'assets/images/Screenshot 2025-01-30 135854.png',
-                        width: 200,
-                        height: 50,
-                        fit: BoxFit.contain,
-                      ),
-                    );
-                  },
-                ),
-              ],
+          const GradientBackground(), // الخلفية التدرجية
+
+          // صورة logo.png
+          Positioned(
+            top: MediaQuery.of(context).size.height / 2 -
+                60, // منتصف الشاشة عموديًا
+            left: MediaQuery.of(context).size.width / 2 -
+                200, // منتصف الشاشة أفقيًا مع تعديل
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: 300,
+              height: 100,
+              fit: BoxFit.contain,
+            ),
+          ),
+
+          // صورة logo_name.png مع الحركة
+          Positioned(
+            top: MediaQuery.of(context).size.height / 2 -
+                54.5, // منتصف الشاشة عموديًا
+            left: MediaQuery.of(context).size.width / 2 +
+                20, // منتصف الشاشة أفقيًا مع تعديل
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return Transform.translate(
+                  offset: Offset(
+                    0,
+                    _translateYAnimation.value, // الحركة الرأسية
+                  ),
+                  child: Image.asset(
+                    'assets/images/logo_name.png', // الصورة الجديدة
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.contain,
+                  ),
+                );
+              },
             ),
           ),
         ],

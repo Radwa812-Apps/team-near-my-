@@ -173,6 +173,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/constants.dart';
 import '../../../core/services/map.dart';
@@ -185,12 +186,13 @@ class CompleteMapUi extends StatefulWidget {
       {super.key,
       required this.service,
       required this.controller,
-      required this.GetSearchedPlace, required this.goToPlace});
+      required this.GetSearchedPlace,
+      required this.goToPlace});
 
   final MapServices service;
   final TextEditingController controller;
   final Function(String) GetSearchedPlace;
-  final Function(double,double,String) goToPlace;
+  final Function(double, double, String) goToPlace;
   @override
   State<CompleteMapUi> createState() => _CompleteMapUiState();
 }
@@ -202,13 +204,13 @@ class _CompleteMapUiState extends State<CompleteMapUi> {
   Widget build(BuildContext context) {
     return Row(children: [
       CustomContainer(
-        w: 44,
-        h: 44,
+        w: 44.w,
+        h: 44.h,
         child: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.location_on_outlined,
             color: kPrimaryColor1,
-            size: 30,
+            size: 30.sp,
           ),
           onPressed: () {
             _showCustomBottomSheet(context);
@@ -216,8 +218,8 @@ class _CompleteMapUiState extends State<CompleteMapUi> {
         ),
       ),
       CustomContainer(
-        w: 250,
-        h: 50,
+        w: 230.w,
+        h: 40.h,
         child: Center(
           child: AutoCompleteSearch(
             GetSearchedPlace: widget.GetSearchedPlace,
@@ -243,13 +245,13 @@ class _CompleteMapUiState extends State<CompleteMapUi> {
       // ),
 
       CustomContainer(
-        w: 44,
-        h: 44,
+        w: 44.w,
+        h: 44.h,
         child: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_forward_ios_rounded,
             color: kPrimaryColor1,
-            size: 25,
+            size: 25.sp,
           ),
           onPressed: () {},
         ),

@@ -4,7 +4,7 @@ class AppMessages {
   void sendVerification(BuildContext context, Color color, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 1),
+        duration: Duration(seconds: 3),
         backgroundColor: Colors.transparent,
         elevation: 0,
         content: Container(

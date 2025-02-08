@@ -9,7 +9,7 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 40,
+      top: 50,
       left: 20,
       child: GestureDetector(
         onTap: ontap,
@@ -27,7 +27,7 @@ class CustomBackButton extends StatelessWidget {
               ),
             ],
           ),
-          child:  Icon(
+          child: Icon(
             icon,
             color: Colors.black,
           ),

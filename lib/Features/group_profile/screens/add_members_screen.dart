@@ -28,6 +28,7 @@ class _AddMembersScreenState extends State<AddMembersScreen> {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
+        elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: kBackgroundColor,
         title: Row(
@@ -37,7 +38,7 @@ class _AddMembersScreenState extends State<AddMembersScreen> {
               child: IconButton(
                 icon: const Icon(
                   Icons.arrow_back_ios,
-                  color: kPrimaryColor1,
+                  color: kFontColor,
                   size: 28,
                 ),
                 onPressed: () {
@@ -46,10 +47,14 @@ class _AddMembersScreenState extends State<AddMembersScreen> {
               ),
             ),
             const SizedBox(width: 5),
-            Image.asset(
-              kGreenLogo,
-              height: 153,
-              width: 150,
+            const Text(
+              'Add Members',
+              style: TextStyle(
+                color: kFontColor,
+                fontSize: 20,
+                fontFamily: kFontRegular,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           ],
         ),
@@ -61,12 +66,13 @@ class _AddMembersScreenState extends State<AddMembersScreen> {
               child: Column(
                 children: [
                   const SearchTextWidget(),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   RowCheckbox(
                     userName: 'Hassan',
                     onChanged: onCheckboxChanged,
                   ),
-                  const SizedBox(height: 20),
+
+                  //const SizedBox(height: 10),
                   RowCheckbox(
                     userName: 'Amira',
                     onChanged: onCheckboxChanged,

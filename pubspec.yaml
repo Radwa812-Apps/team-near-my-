@@ -112,6 +112,9 @@ flutter:
     - assets/images/page1.png
     - assets/images/page3.jpg
     - assets/images/empty_media.png
+    - assets/images/user.jpg
+    - assets/images/logo.png
+    - assets/images/logo_name.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

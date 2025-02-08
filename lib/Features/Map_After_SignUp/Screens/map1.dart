@@ -604,6 +604,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -655,13 +656,11 @@ class _Map1State extends State<Map1> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller); // تأكد من إكمال الـ Completer
+    _controller.complete(controller);
     onCreatedmapController = controller;
 
-    // افتح الـ InfoWindow لكل marker بعد تحميل الخريطة
     markers.forEach((marker) async {
-      await Future.delayed(
-          Duration(milliseconds: 500)); // تأخير بسيط لتجنب التحميل الزائد
+      await Future.delayed(const Duration(milliseconds: 500));
       controller.showMarkerInfoWindow(marker.markerId);
     });
   }
@@ -791,21 +790,21 @@ class _Map1State extends State<Map1> {
                       myLocationButtonEnabled: true,
                       onMapCreated: _onMapCreated,
 
-                      //zooontrolsEnabled: false,
+                      zoomControlsEnabled: false,
                     ),
                   ),
                 ),
                 Positioned(
-                    left: 10,
-                    top: 40,
+                    left: 10.w,
+                    top: 40.h,
                     child: CompleteMapUi(
                       service: service,
                       GetSearchedPlace: getSearchedPlace,
                       controller: controller,
                       goToPlace: goToPlace,
                     )),
-                const Positioned(
-                    bottom: 20, left: 310, right: 10, child: SkipBtn()),
+                Positioned(
+                    bottom: 20.h, left: 270.w, right: 10.w, child: const SkipBtn()),
               ],
             ),
           ),

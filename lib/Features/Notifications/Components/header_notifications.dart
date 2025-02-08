@@ -35,7 +35,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
 
   @override
   Widget build(BuildContext context) {
-    final Widget defaultBackArrow = Icon(
+    final Widget defaultBackArrow = const Icon(
       Icons.arrow_back_ios,
       color: kPrimaryColor1,
       size: 25,
@@ -45,7 +45,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(18),
           bottomRight: Radius.circular(18),
         ),
@@ -84,7 +84,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
                       CircleAvatar(
                         backgroundImage: widget.circleAvatarImage != null
                             ? AssetImage(widget.circleAvatarImage!)
-                            : AssetImage("assets/images/Ellipse104.png"),
+                            : const AssetImage("assets/images/group.jpg"),
                         radius: 20,
                       ),
                     if (widget.showCircleAvatar) const SizedBox(width: 10),

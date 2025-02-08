@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
@@ -13,7 +14,11 @@ class PhoneNumberWidget extends StatelessWidget {
       required this.dropdownIconColor,
       required this.hintStyleColor,
       required this.focusedBorderColor,
-      required this.enabledBorderColor, required this.hint, required this.phoneNumberController});
+      required this.enabledBorderColor,
+      required this.hint,
+      required this.phoneNumberController,
+      required this.textColor,
+      required this.widget});
   final TextEditingController phoneNumberController;
   final Function(PhoneNumber) onchange;
   final Color dropdownTextStyleColor;
@@ -21,12 +26,14 @@ class PhoneNumberWidget extends StatelessWidget {
   final Color hintStyleColor;
   final Color focusedBorderColor;
   final Color enabledBorderColor;
+  Widget? widget;
+  final Color textColor;
 
   final String hint;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: IntlPhoneField(
           controller: phoneNumberController,
           validator: ((p0) {
@@ -38,7 +45,7 @@ class PhoneNumberWidget extends StatelessWidget {
             Icons.arrow_drop_down,
             color: dropdownIconColor,
           ),
-          style: const TextStyle(color: kFontColor),
+          style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: hint,
             labelStyle: const TextStyle(color: Colors.white),
@@ -49,25 +56,27 @@ class PhoneNumberWidget extends StatelessWidget {
             prefixIconConstraints: const BoxConstraints(
               minWidth: 35,
             ),
+            suffixIcon: widget,
+            suffixIconColor: focusedBorderColor,
             hintStyle: TextStyle(
               color: hintStyleColor,
-              fontSize: 20,
+              fontSize: 20.sp,
               fontFamily: kFontRegular,
             ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: focusedBorderColor,
-                width: 1.5,
+                width: 1.5.w,
               ),
             ),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: enabledBorderColor,
-                width: 1.5,
+                width: 1.5.w,
               ),
             ),
           ),
-          initialCountryCode: 'IN',
+          initialCountryCode: 'EG',
           onSaved: (phone) {
             Validator.validatePhoneNumber(phone);
           },

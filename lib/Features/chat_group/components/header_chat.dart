@@ -11,6 +11,7 @@ class HeaderChat extends StatefulWidget {
   final bool showCircleAvatar;
   final String? circleAvatarImage;
   final VoidCallback onClearChatPressed;
+  final String image;
 
   const HeaderChat({
     Key? key,
@@ -19,7 +20,7 @@ class HeaderChat extends StatefulWidget {
     this.onBackPressed,
     this.showCircleAvatar = true,
     this.circleAvatarImage,
-    required this.onClearChatPressed,
+    required this.onClearChatPressed, required this.image,
   }) : super(key: key);
 
   @override
@@ -88,7 +89,7 @@ class _HeaderChatState extends State<HeaderChat> {
                       CircleAvatar(
                         backgroundImage: widget.circleAvatarImage != null
                             ? AssetImage(widget.circleAvatarImage!)
-                            : const AssetImage("assets/images/Ellipse104.png"),
+                            :  AssetImage(widget.image),
                         radius: 20,
                       ),
                     if (widget.showCircleAvatar) const SizedBox(width: 10),

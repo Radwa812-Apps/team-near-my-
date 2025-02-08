@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/core/constants.dart';
 import 'package:video_player_control_panel/video_player_control_panel.dart';
 
 class MediaScreen extends StatefulWidget {
@@ -20,8 +21,22 @@ class _MediaScreenState extends State<MediaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Media Gallery'),
-        centerTitle: true,
+        elevation: 0.3,
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Media Gallery',
+          style: TextStyle(color: kFontColor),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kFontColor,
+            size: 28,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: _buildMediaGrid(),
     );

@@ -15,6 +15,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final Color lineColor;
   final Color hintColor;
   final Color lineFocusColor;
+  final IconData? editIcon;
   const TextFormFieldWidget({
     super.key,
     this.hint,
@@ -29,6 +30,7 @@ class TextFormFieldWidget extends StatefulWidget {
     required this.lineColor,
     required this.hintColor,
     required this.lineFocusColor,
+    required this.editIcon,
   });
 
   @override

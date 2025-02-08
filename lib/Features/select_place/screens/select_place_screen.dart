@@ -387,17 +387,17 @@ class _SelectPlaceScreenState extends State<SelectPlaceScreen> {
   final Map<String, bool> _selectedItems = {};
   String _searchQuery = '';
   final List<IconData> _orderedTypes = [
-    Icons.restaurant,
-    Icons.location_city,
     Icons.home,
+    Icons.location_city,
     Icons.work,
-    Icons.sunny
+    Icons.sunny,
+    Icons.restaurant,
   ];
   IconData _getIconForIndex(int index) {
     if (index >= 0 && index < _orderedTypes.length) {
       return _orderedTypes[index];
     }
-    return Icons.place; 
+    return Icons.place;
   }
 
   @override
@@ -434,25 +434,29 @@ class _SelectPlaceScreenState extends State<SelectPlaceScreen> {
   Widget build(BuildContext context) {
     int s = 0;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.3,
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Custom Places',
+          style: TextStyle(color: kFontColor),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kFontColor,
+            size: 28,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomBackButton(
-                  ontap: (() => Navigator.pop(context)),
-                  icon: Icons.arrow_back_ios_rounded),
-            ),
-            const Center(
-              child: Text(
-                'Custom Places',
-                style: TextStyle(
-                  fontSize: 24, // حجم الخط
-                  fontWeight: FontWeight.bold, // خط عريض
-                ),
-              ),
-            ),
             SizedBox(
               height: 20,
             ),
@@ -626,5 +630,4 @@ class _SelectPlaceScreenState extends State<SelectPlaceScreen> {
       ),
     );
   }
-
 }

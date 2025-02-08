@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 import '../../../../core/constants.dart';
@@ -72,14 +73,14 @@ class _SuccessPageState extends State<SuccessPage>
                         opacity: _opacityAnimation.value,
                         child: Image.network(
                           'https://img.freepik.com/free-vector/confirmed-concept-illustration_114360-5400.jpg',
-                          width: 350,
-                          height: 350,
+                          width: 350.w,
+                          height: 350.h,
                         ),
                       ),
                     );
                   },
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 AnimatedBuilder(
                   animation: _controller,
                   builder: (context, child) {
@@ -88,17 +89,17 @@ class _SuccessPageState extends State<SuccessPage>
                       child: Opacity(
                         opacity: _opacityAnimation.value,
                         child: Column(
-                          children: const [
+                          children: [
                             Text(
                               'Your account successfully',
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
                             Text(
                               'created!',
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -107,18 +108,18 @@ class _SuccessPageState extends State<SuccessPage>
                     );
                   },
                 ),
-                const SizedBox(height: 20),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
+                SizedBox(height: 20.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
                   child: Text(
                     'Welcome to Your Ultimate Tracking Solution: Your Account is Created! Start Exploring the Ease of Real-Time Location Sharing and Stay Connected with Your Group Seamlessly!',
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                    style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                     maxLines: 3,
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(height: 10),
-                const SizedBox(height: 30),
+                SizedBox(height: 10.h),
+                SizedBox(height: 30.h),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
@@ -127,28 +128,29 @@ class _SuccessPageState extends State<SuccessPage>
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      minimumSize: const Size(double.infinity, 50),
+                      minimumSize: Size(double.infinity, 50.h),
                     ),
                     onPressed: () {
                       Navigator.pushNamed(
                           context, SignInScreen.signInScreenKey);
                     },
-                    child: const Text(
+                    child: Text(
                       'Continue',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          CustomBackButton(ontap: (() {
-
-            FirebaseAuth.instance.signOut();
-            Navigator.pushNamed(context, SignInScreen.signInScreenKey);
-          }), icon:Icons.close,)
-          
+          CustomBackButton(
+            ontap: (() {
+              FirebaseAuth.instance.signOut();
+              Navigator.pushNamed(context, SignInScreen.signInScreenKey);
+            }),
+            icon: Icons.close,
+          )
         ],
       ),
     );

@@ -87,36 +87,19 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
     double spaceWithRows = screenWidth * 0.08;
 
-    return BlocConsumer<ProfileBloc, ProfileState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        if (state is UserInfoLoadedSuccessState) {
-          return Scaffold(
-              backgroundColor: kBackgroundColor,
-              body: SingleChildScrollView(
-                child: Column(
-                  children:  [
-                    SizedBox(height: 90),
-                    UserProfileAll_InfoWidget(
-                      
-                      // firstName: state.fName,
-                      spaceWithRows: 30,
-                      // lastName: state.lName,
-                      // phoneNumber: state.phoneNumber,
-                      // email: state.email,
-                      // birthDate: state.dateOfBirth,
-                      paddingTopContainer: 40,
-                      imagePositionTop: -20, userModel:state.userModel ,
-                    ),
-                  ],
-                ),
-              ));
-        } else if (state is UserInfoErrorState) {
-          return Center(child: Text('Something went wrong: ${state.error}'));
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
-    );
+    return Scaffold(
+        backgroundColor: kBackgroundColor,
+        body: SingleChildScrollView(
+          child: Column(
+            children: const [
+              SizedBox(height: 90),
+              UserProfileAll_InfoWidget(
+                spaceWithRows: 30,
+                paddingTopContainer: 40,
+                imagePositionTop: -20,
+              ),
+            ],
+          ),
+        ));
   }
 }

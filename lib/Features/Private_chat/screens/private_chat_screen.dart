@@ -216,19 +216,20 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String name = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       backgroundColor: background,
       body: Column(
         children: [
           HeaderChat(
             onClearChatPressed: _clearChat,
-            title: 'Radwa',
+            title: name,
             backArrow: const Icon(
               Icons.arrow_back_ios,
               color: kPrimaryColor1,
               size: 25,
             ),
-            showCircleAvatar: true,
+            showCircleAvatar: true, image: "assets/images/user.jpg",
           ),
           const DateLabel(dateText: 'Yesterday'),
           Expanded(

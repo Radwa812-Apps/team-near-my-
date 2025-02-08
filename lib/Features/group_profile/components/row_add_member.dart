@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nearme_app/Features/group_profile/screens/add_members_screen.dart';
 import '../../../core/constants.dart';
+import '../screens/search_member.dart';
 
 class RowAddMember extends StatelessWidget {
   const RowAddMember({
@@ -47,9 +48,9 @@ class RowAddMember extends StatelessWidget {
             flex: 1,
           ), // Use Spacer to take up remaining space
           IconButton(
-            icon: const Icon(Icons.search, size: 28, color: kPrimaryColor1),
-            onPressed: onSearchPressed,
-          ),
+              icon: const Icon(Icons.search, size: 28, color: kPrimaryColor1),
+              onPressed: (() =>
+                  Navigator.pushNamed(context, SearchMember.searchMemberKey))),
         ],
       ),
     );

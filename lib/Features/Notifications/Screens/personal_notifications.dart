@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:nearme_app/Features/Notifications/Components/date_label.dart';
 import 'package:nearme_app/Features/Notifications/Components/header_notifications.dart';
 import 'package:nearme_app/Features/Notifications/Components/notification_item.dart';
 import 'package:nearme_app/Features/Notifications/Screens/group_notifications.dart';
 import 'package:nearme_app/core/constants.dart';
+
+import '../Components/personal_notification.dart';
 
 class PersonalNotifications extends StatelessWidget {
   final String title;
@@ -42,11 +45,10 @@ class PersonalNotifications extends StatelessWidget {
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                   children: [
-                    NotificationItem(
+                    PersonalNotificationItem(
                       message: 'Aliaa just arrived home',
                       time: '12:00 PM',
                       onPressed: () {
@@ -61,7 +63,7 @@ class PersonalNotifications extends StatelessWidget {
                       },
                       showForwardIcon: false,
                     ),
-                    NotificationItem(
+                    PersonalNotificationItem(
                       message: 'Aliaa on her way to work',
                       time: '12:00 PM',
                       onPressed: () {
@@ -76,7 +78,7 @@ class PersonalNotifications extends StatelessWidget {
                       },
                       showForwardIcon: false,
                     ),
-                    NotificationItem(
+                    PersonalNotificationItem(
                       message: 'Aliaa at the gym',
                       time: '12:00 PM',
                       onPressed: () {
@@ -91,7 +93,7 @@ class PersonalNotifications extends StatelessWidget {
                       },
                       showForwardIcon: false,
                     ),
-                    NotificationItem(
+                    PersonalNotificationItem(
                       message: 'Aliaa on her way to Home',
                       time: '12:00 PM',
                       onPressed: () {
@@ -106,7 +108,7 @@ class PersonalNotifications extends StatelessWidget {
                       },
                       showForwardIcon: false,
                     ),
-                    NotificationItem(
+                    PersonalNotificationItem(
                       message: 'Aliaa At El-Hamed Supermarket',
                       time: '12:00 PM',
                       onPressed: () {

@@ -24,6 +24,7 @@ import 'package:nearme_app/Features/Splash_page/Screens/splash_screen.dart';
 import 'package:nearme_app/Features/chat_group/screens/group_chat.dart';
 import 'package:nearme_app/Features/group_profile/screens/add_members_screen.dart';
 import 'package:nearme_app/Features/group_profile/screens/media.dart';
+import 'package:nearme_app/Features/group_profile/screens/search_member.dart';
 import 'package:nearme_app/Features/select_place/screens/select_place_screen.dart';
 import 'package:nearme_app/core/data/bloc/Auth/auth_bloc.dart';
 import 'package:nearme_app/core/data/bloc/profile/profile_bloc.dart';
@@ -39,6 +40,7 @@ import 'Features/User_Profile/screens/user_profile_screen.dart';
 import 'Features/auth/Forgot_password/Screens/confirm_password.dart';
 import 'Features/auth/Forgot_password/Screens/send_email_for_pass.dart';
 import 'Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
+import 'Features/group_profile/screens/group_inside.dart';
 import 'components/mainScaffold.dart';
 import 'core/data/bloc/custom_places/custom_places_bloc.dart';
 // Use only one import path
@@ -157,11 +159,16 @@ class NearMeApp extends StatelessWidget {
                       const PrivateChatScreen(
                         recipient: 'Radwa',
                       ),
+                  SearchMember.searchMemberKey: (context) =>
+                      const SearchMember(),
                   SelectPlaceScreen.selectPlaceScreenKey: ((context) =>
-                      SelectPlaceScreen()),
-                  MediaScreen.mediaScreenKey: (context) => MediaScreen(),
+                      const SelectPlaceScreen()),
+                  MediaScreen.mediaScreenKey: (context) => const MediaScreen(),
                   PasswordResetPage.passwordResetPageKey: (context) =>
-                      PasswordResetPage(),
+                      const PasswordResetPage(),
+
+                  GroupInsideScreen.groupInsideScreenKey: (context) =>
+                      GroupInsideScreen(),
                   // '/': (context) => MainScaffold(),
                   // GroupChatScreen.groupChatScreenKey:((context) => GroupChatScreen())
                 },

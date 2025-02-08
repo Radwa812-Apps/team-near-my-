@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nearme_app/Features/auth/Sign_up_and_in/screens/sign_in_screen.dart';
 
 import '../../../../core/constants.dart';
 
@@ -19,12 +20,12 @@ class HaveAnAccountWidget extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, 'SignInScreen');
+            Navigator.pushNamed(context, SignInScreen.signInScreenKey);
           },
           child: const Text(
             "Sign In",
             style: TextStyle(
-              color: kSpecialColor, 
+              color: kSpecialColor,
               fontSize: 18,
               fontFamily: kFontBold,
             ),
