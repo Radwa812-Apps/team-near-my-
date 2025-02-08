@@ -276,48 +276,50 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: [
-          Column(
-            children: [
-              // Row below the app bar for "Chats" or "Groups"
-              RowAfterBarChatsGroups(
-                selectedTab: _selectedTab,
-                onTabSelected: _selectTab,
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
+          SafeArea(
+            child: Column(
+              children: [
+                // Row below the app bar for "Chats" or "Groups"
+                RowAfterBarChatsGroups(
+                  selectedTab: _selectedTab,
+                  onTabSelected: _selectTab,
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
 
-              // Main content: Show groups or chats
-              Expanded(
-                  child: _selectedTab == 'Groups'
-                      ? (_groups.isEmpty
-                          ? Padding(
-                              padding: const EdgeInsets.only(bottom: 100),
-                              child: Image.asset('assets/images/noGroups.png',
-                                  width: screenWidth * .8.w,
-                                  height: screenHeight * .8.h),
-                            )
-                          : ListView.builder(
-                              itemCount: _groups.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10.w, vertical: 4.h),
-                                  child: GroupStyle(
-                                    groupName: _groups[index],
-                                  ),
-                                );
-                              },
-                            ))
-                      : Padding(
-                          padding: const EdgeInsets.only(bottom: 100),
-                          child: Image.asset('assets/images/noChats.png',
-                              width: screenWidth * .8.w,
-                              height: screenHeight * .8.h),
-                        )),
+                // Main content: Show groups or chats
+                Expanded(
+                    child: _selectedTab == 'Groups'
+                        ? (_groups.isEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.only(bottom: 100),
+                                child: Image.asset('assets/images/noGroups.png',
+                                    width: screenWidth * .8.w,
+                                    height: screenHeight * .8.h),
+                              )
+                            : ListView.builder(
+                                itemCount: _groups.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10.w, vertical: 4.h),
+                                    child: GroupStyle(
+                                      groupName: _groups[index],
+                                    ),
+                                  );
+                                },
+                              ))
+                        : Padding(
+                            padding: const EdgeInsets.only(bottom: 100),
+                            child: Image.asset('assets/images/noChats.png',
+                                width: screenWidth * .8.w,
+                                height: screenHeight * .8.h),
+                          )),
 
-              // Bottom container with icons
-            ],
+                // Bottom container with icons
+              ],
+            ),
           ),
 
           // Show draggable sheet and floating icon only for "Groups" tab

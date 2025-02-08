@@ -37,7 +37,7 @@ class PersonalNotifications extends StatelessWidget {
                 title: title,
                 onBackPressed: () {
                   Navigator.pop(context);
-                },
+                }, image: "assets/images/user.jpg",
               ),
               // Date Label
               const DateLabel(dateText: 'Yesterday'),

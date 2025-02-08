@@ -288,10 +288,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
+import 'package:nearme_app/Features/group_profile/screens/group_profile_screen.dart';
 import 'package:nearme_app/Features/group_profile/screens/search_member.dart';
 
 import '../../../core/constants.dart';
 import '../../Home/Home/components/round_image_widget.dart';
+import '../../chat_group/screens/group_chat.dart';
 import '../components/member_group_inside.dart';
 
 class GroupInsideScreen extends StatelessWidget {
@@ -352,7 +354,7 @@ class GroupInsideScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(13.0),
             child: DraggableScrollableSheet(
-              initialChildSize: 0.15, // تقليل الحجم الافتراضي
+              initialChildSize: 0.53, // تقليل الحجم الافتراضي
               minChildSize: 0.1, // الحجم الأدنى
               maxChildSize: 0.85, // الحجم الأقصى
               builder: (context, scrollController) {
@@ -382,23 +384,11 @@ class GroupInsideScreen extends StatelessWidget {
                           size: 30,
                         ),
                       ),
-                      // TextButton(
-                      //   onPressed: () {},
-                      //   child: Text(
-                      //     name,
-                      //     style: const TextStyle(
-                      //       color: kFontColor,
-                      //       fontSize: 20,
-                      //       fontFamily: kFontRegular,
-                      //     ),
-                      //   ),
-                      // ),
 
                       Row(
                         children: [
                           Expanded(
                             child: Container(
-                              height: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                                 // boxShadow: [
@@ -413,7 +403,8 @@ class GroupInsideScreen extends StatelessWidget {
                               child: TextField(
                                 decoration: InputDecoration(
                                   hintText: 'Search...',
-                                  hintStyle: TextStyle(color: kPrimaryColor1),
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey.withOpacity(0.8)),
                                   suffixIcon: const Icon(Icons.search,
                                       color: kPrimaryColor1),
                                   border: OutlineInputBorder(
@@ -424,7 +415,7 @@ class GroupInsideScreen extends StatelessWidget {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
                                     borderSide: BorderSide(
-                                        color: Colors.white.withOpacity(0.5)),
+                                        color: Colors.grey.withOpacity(0.5)),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
@@ -439,7 +430,7 @@ class GroupInsideScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           InkWell(
@@ -481,11 +472,26 @@ class GroupInsideScreen extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
+          Positioned(
+            bottom: 380, // لجعل الصورة تظهر جزئيًا خارج الشيت
+            left: MediaQuery.of(context).size.width / 2 - 40,
+            child: GestureDetector(
+              onTap: (() {
+                Navigator.pushNamed(
+                    context, GroupProfileScreen.groupProfileScreenKey,
+                    arguments: name);
+              }),
+              child: const CircleAvatar(
+                radius: 40,
+                backgroundImage: AssetImage("assets/images/group.jpg"),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Navigator.pushNamed(context, GroupChat.groupChatKey);
+          Navigator.pushNamed(context, GroupChat.groupChatKey, arguments: name);
         },
         backgroundColor: kPrimaryColor1,
         shape: RoundedRectangleBorder(

@@ -35,8 +35,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.only(right: 16),
               child: Image.asset(
                 kGreenLogo,
-                height: 153,
-                width: 153,
+                height: 80,
+                width: 80,
               ),
             ),
       actions: isSearching
@@ -64,7 +64,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
       backgroundColor: kBackgroundColor,
-      elevation: 0,
+      elevation: 0.5,
     );
   }
 

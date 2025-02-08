@@ -35,7 +35,7 @@ class GroupNotifications extends StatelessWidget {
                 title: groupName!,
                 onBackPressed: () {
                   Navigator.pop(context);
-                },
+                }, image: "assets/images/group.jpg",
               ),
               const DateLabel(dateText: 'Yesterday'),
               Expanded(

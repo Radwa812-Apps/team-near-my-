@@ -50,7 +50,7 @@ class UserModel {
         id: user.uid,
         fName: user.displayName ?? '',
         email: user.email ?? '',
-        phoneNumber: user.phoneNumber ?? '',
+        phoneNumber: user.phoneNumber ?? '1100235445',
         dateOfBirth: '',
         profilPicture: user.photoURL ?? '',
         role: 'not admin',

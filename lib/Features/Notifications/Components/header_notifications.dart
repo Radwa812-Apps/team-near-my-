@@ -9,14 +9,14 @@ class HeaderNotifications extends StatefulWidget {
   final VoidCallback? onBackPressed;
   final bool showCircleAvatar;
   final String? circleAvatarImage;
-
+final String image;
   const HeaderNotifications({
     Key? key,
     required this.title,
     this.backArrow,
     this.onBackPressed,
     this.showCircleAvatar = true,
-    this.circleAvatarImage,
+    this.circleAvatarImage, required this.image,
   }) : super(key: key);
 
   @override
@@ -84,7 +84,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
                       CircleAvatar(
                         backgroundImage: widget.circleAvatarImage != null
                             ? AssetImage(widget.circleAvatarImage!)
-                            : const AssetImage("assets/images/group.jpg"),
+                            :  AssetImage(widget.image),
                         radius: 20,
                       ),
                     if (widget.showCircleAvatar) const SizedBox(width: 10),

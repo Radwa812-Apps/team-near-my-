@@ -55,51 +55,54 @@ class RowAfterBarChatsGroups extends StatelessWidget {
     //     ),
     //   ],
     // );
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
-          onTap: () => onTabSelected('Chats'),
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
-            decoration: BoxDecoration(
-              color: selectedTab == 'Chats'
-                  ? kPrimaryColor1.withOpacity(0.2) // لون عند التحديد
-                  : Colors.transparent, // شفاف عند عدم التحديد
-              borderRadius: BorderRadius.circular(10.r), // حواف دائرية
-            ),
-            child: Text(
-              'Chats',
-              style: TextStyle(
-                color: selectedTab == 'Chats' ? kPrimaryColor1 : kFontColor,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: () => onTabSelected('Chats'),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
+              decoration: BoxDecoration(
+                color: selectedTab == 'Chats'
+                    ? kPrimaryColor1.withOpacity(0.2) // لون عند التحديد
+                    : Colors.transparent, // شفاف عند عدم التحديد
+                borderRadius: BorderRadius.circular(10.r), // حواف دائرية
+              ),
+              child: Text(
+                'Chats',
+                style: TextStyle(
+                  color: selectedTab == 'Chats' ? kPrimaryColor1 : kFontColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(width: 40.w), // المسافة بين العناصر
-        GestureDetector(
-          onTap: () => onTabSelected('Groups'),
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
-            decoration: BoxDecoration(
-              color: selectedTab == 'Groups'
-                  ? kPrimaryColor1.withOpacity(0.2) // لون عند التحديد
-                  : Colors.transparent, // شفاف عند عدم التحديد
-              borderRadius: BorderRadius.circular(10.r), // حواف دائرية
-            ),
-            child: Text(
-              'Groups',
-              style: TextStyle(
-                color: selectedTab == 'Groups' ? kPrimaryColor1 : kFontColor,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
+          SizedBox(width: 40.w), // المسافة بين العناصر
+          GestureDetector(
+            onTap: () => onTabSelected('Groups'),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
+              decoration: BoxDecoration(
+                color: selectedTab == 'Groups'
+                    ? kPrimaryColor1.withOpacity(0.2) // لون عند التحديد
+                    : Colors.transparent, // شفاف عند عدم التحديد
+                borderRadius: BorderRadius.circular(10.r), // حواف دائرية
+              ),
+              child: Text(
+                'Groups',
+                style: TextStyle(
+                  color: selectedTab == 'Groups' ? kPrimaryColor1 : kFontColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

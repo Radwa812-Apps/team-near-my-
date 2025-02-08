@@ -32,7 +32,7 @@ class GeneralNotifications extends StatelessWidget {
               const HeaderNotifications(
                 title: 'Notifications',
                 backArrow: null,
-                showCircleAvatar: false,
+                showCircleAvatar: false, image: "assets/images/group.jpg",
               ),
 
               // Date Label
