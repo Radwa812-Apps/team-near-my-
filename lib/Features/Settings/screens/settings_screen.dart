@@ -175,6 +175,7 @@ class SettingsScreen extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
+                            backgroundColor: Color.fromARGB(255, 151, 199, 130),
                             title: const Text("Confirm Account Deletion"),
                             content: Form(
                               key: formKey,
@@ -236,18 +237,15 @@ class SettingsScreen extends StatelessWidget {
                                     height: 40.h,
                                     width: 70.w,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          40), 
-                                      color: Colors.blue, 
+                                      borderRadius: BorderRadius.circular(40),
+                                      color: Colors.blue,
                                     ),
                                     child: TextButton(
                                       onPressed: () =>
                                           Navigator.of(context).pop(),
                                       child: const Text(
                                         "Cancel",
-                                        style: TextStyle(
-                                            color: Colors
-                                                .white), 
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ),
@@ -255,9 +253,8 @@ class SettingsScreen extends StatelessWidget {
                                     height: 40.h,
                                     width: 70.w,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          40), 
-                                      color: Colors.red, 
+                                      borderRadius: BorderRadius.circular(40),
+                                      color: Colors.red,
                                     ),
                                     child: TextButton(
                                       onPressed: () {
@@ -270,9 +267,7 @@ class SettingsScreen extends StatelessWidget {
                                       },
                                       child: const Text(
                                         "Delete",
-                                        style: TextStyle(
-                                            color: Colors
-                                                .white), 
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ),

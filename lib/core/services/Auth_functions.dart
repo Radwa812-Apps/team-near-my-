@@ -7,7 +7,6 @@ import 'package:nearme_app/core/data/models/custom_places.dart';
 class Services {
   CollectionReference customPlace =
       FirebaseFirestore.instance.collection('users');
-
   Future<void> addUser({
     required String fName,
     required String lName,
@@ -45,7 +44,6 @@ class Services {
       print("❌ Failed to add user: $error");
     }
   }
-
   Future<void> deleteCustomPlace(String dId) {
     return customPlace
         .doc(dId)
@@ -53,7 +51,7 @@ class Services {
         .then((value) => print("customPlace Deleted"))
         .catchError((error) => print("Failed to delete customPlace: $error"));
   }
-
+  
   ShowCustomPlaceMethod(String userId) async {
     var customPlaces = await FirebaseFirestore.instance
         .collection('customPlaces')

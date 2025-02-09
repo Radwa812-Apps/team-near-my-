@@ -103,6 +103,7 @@ class _SignUpVerificationEmailPageState
 
       timer?.cancel();
       final Map<String, dynamic> arguments =
+          // ignore: use_build_context_synchronously
           ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       final String email = arguments['email'] as String;
       final String dateOfBirth = arguments['dateOfBirth'] as String;
@@ -117,7 +118,7 @@ class _SignUpVerificationEmailPageState
         email: email,
         phoneNumber: phoneNumber,
         dateOfBirth: dateOfBirth,
-        profilPicture: 'https://example.com/profile.jpg',
+        profilPicture: 'assets/images/user.jpg',
         role: 'Not admin',
       );
     }

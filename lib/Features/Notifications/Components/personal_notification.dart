@@ -41,7 +41,7 @@ class PersonalNotificationItem extends StatelessWidget {
           ],
           border: Border.all(
             color: Colors.white.withOpacity(0.5),
-            width: 1.0,
+            width: 1.w,
           ),
         ),
         child: Row(
@@ -77,10 +77,10 @@ class PersonalNotificationItem extends StatelessWidget {
               children: [
                 if (showForwardIcon)
                   IconButton(
-                    icon: const Icon(
+                    icon:  Icon(
                       Icons.arrow_forward_ios,
                       color: kPrimaryColor1,
-                      size: 16,
+                      size: 16.sp,
                     ),
                     onPressed: () {},
                   ),

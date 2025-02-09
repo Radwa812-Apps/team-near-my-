@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/Features/Notifications/Components/search_icon.dart';
 import 'package:nearme_app/core/constants.dart';
 import 'package:nearme_app/core/font_style.dart';
@@ -36,15 +37,15 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
 
   @override
   Widget build(BuildContext context) {
-    const Widget defaultBackArrow = Icon(
+     Widget defaultBackArrow = Icon(
       Icons.arrow_back_ios,
       color: kPrimaryColor1,
-      size: 25,
+      size: 25.sp,
     );
 
     return Container(
       width: double.infinity,
-      height: 100,
+      height: 100.h,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(18),
@@ -53,7 +54,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
         color: kPrimaryColor1.withOpacity(0.20),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         child: Align(
           alignment: Alignment.bottomCenter,
           child: _showSearchBar
@@ -76,7 +77,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
                             },
                         child: widget.backArrow ?? defaultBackArrow,
                       ),
-                    const SizedBox(width: 10),
+                     SizedBox(width: 10.w),
                     if (widget.showCircleAvatar)
                       CircleAvatar(
                         backgroundImage: widget.circleAvatarImage != null
@@ -84,7 +85,7 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
                             : AssetImage(widget.image),
                         radius: 20,
                       ),
-                    if (widget.showCircleAvatar) const SizedBox(width: 10),
+                    if (widget.showCircleAvatar)  SizedBox(width: 10.w),
                     Text(
                       widget.title,
                       style: TextStyles.NotificationsTilteText,
@@ -93,10 +94,10 @@ class _HeaderNotificationsState extends State<HeaderNotifications> {
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(
+                          icon:  Icon(
                             Icons.search,
                             color: kPrimaryColor1,
-                            size: 30,
+                            size: 30.sp,
                           ),
                           onPressed: _toggleSearchBar,
                         ),

@@ -50,20 +50,24 @@ class UserModel {
         id: user.uid,
         fName: user.displayName ?? '',
         email: user.email ?? '',
-        phoneNumber: user.phoneNumber ?? '1100235445',
+        phoneNumber: user.phoneNumber ??
+            'PhoneNumber(countryISOCode: EG, countryCode: +20, number: 1100338766)',
         dateOfBirth: '',
-        profilPicture: user.photoURL ?? '',
+        profilPicture: user.photoURL ?? 'assets/images/user.jpg',
         role: 'not admin',
         lName: '');
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'uid': this.id,
-      'name': this.fName,
+      'authUid': this.id,
+      'fName': this.fName,
+      'lName': this.lName,
       'email': this.email,
-      'phone': this.phoneNumber,
+      'phoneNumber': this.phoneNumber,
       'dateOfBirth': this.dateOfBirth,
+      'role': this.role,
+      'profilPicture': this.profilPicture,
     };
   }
 }

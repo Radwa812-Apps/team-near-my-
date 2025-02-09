@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/core/constants.dart';
 
 import '../../../../core/data/models/userRadwa.dart';
@@ -15,7 +16,7 @@ class EditScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double spaceWithRows = screenWidth * 0.05;
+    double spaceWithRows = screenWidth * 0.05.w;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -25,11 +26,11 @@ class EditScreen extends StatelessWidget {
           children: [
             Column(
               children: [
-                const SizedBox(height: 70),
+                SizedBox(height: 70.h),
                 EditUserWidget(
                   spaceWithRows: spaceWithRows,
-                  imagePositionTop: 15,
-                  paddingTopContainer: 70,
+                  imagePositionTop: 15.h,
+                  paddingTopContainer: 70.h,
                 ),
               ],
             ),

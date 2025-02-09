@@ -62,15 +62,15 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                 Padding(
                   padding: EdgeInsets.only(top: widget.paddingTopContainer),
                   child: Container(
-                    width: screenWidth * 0.85,
-                    height: screenHeight * 0.70,
+                    width: screenWidth * 0.80.w,
+                    height: screenHeight * 0.70.h,
                     decoration: BoxDecoration(
                       color: kPrimaryColor1.withOpacity(.20),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
                       children: [
-                        const SizedBox(height: 70),
+                        SizedBox(height: 70.h),
                         const Text(
                           'Edit Your Profile',
                           style: TextStyle(
@@ -80,7 +80,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: screenWidth * 0.06),
+                        SizedBox(height: screenWidth * 0.06.w),
 
                         // First Name Field
                         EditTextField(
@@ -253,7 +253,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                 ),
                 Positioned(
                   top: widget.imagePositionTop,
-                  left: 100.w,
+                  left: 120.w,
                   child: RoundImageWidget(
                     name: kDefaultUserImge,
                     width: 110.w,

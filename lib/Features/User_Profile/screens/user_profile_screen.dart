@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/core/constants.dart';
 import '../components/user_profile_all_info_widget.dart';
 
@@ -18,11 +19,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         backgroundColor: kBackgroundColor,
         body: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               SizedBox(height: 90),
               UserProfileAll_InfoWidget(
                 spaceWithRows: 30,
-                paddingTopContainer: 40,
+                paddingTopContainer: 48.h,
                 imagePositionTop: -20,
               ),
             ],

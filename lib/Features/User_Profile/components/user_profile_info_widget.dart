@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants.dart';
 
@@ -16,7 +17,7 @@ class UserProfileInfoWidget extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 30),
+          padding: EdgeInsets.only(left: 30.w),
           child: Row(
             children: [
               Icon(
@@ -24,23 +25,23 @@ class UserProfileInfoWidget extends StatelessWidget {
                 color: kPrimaryColor1,
                 size: size,
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10.w),
               Text(
                 info!,
-                style: const TextStyle(
+                style: TextStyle(
                   color: kFontColor,
                   fontFamily: kFontRegular,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: 5.h),
         Container(
           height: 1,
           color: kPrimaryColor1,
-          width: screenWidth * 0.7,
+          width: screenWidth * 0.7.w,
         ),
       ],
     );

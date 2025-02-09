@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nearme_app/core/constants.dart';
 
 class DateLabel extends StatefulWidget {
@@ -56,8 +57,8 @@ class _DateLabelState extends State<DateLabel> {
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Container(
-          width: 45,
-          height: 14,
+          width: 45.w,
+          height: 14.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: const Color.fromRGBO(61, 83, 0, 0.29),

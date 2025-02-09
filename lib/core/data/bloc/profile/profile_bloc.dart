@@ -33,6 +33,29 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
     });
 
+    // on<DeleteUserEvent>((event, emit) async {
+    //   try {
+    //     emit(UserDeleteLoadingState());
+    //     User? user = FirebaseAuth.instance.currentUser;
+    //     if (user != null) {
+    //       final authCredential = EmailAuthProvider.credential(
+    //         email: event.email,
+    //         password: event.password,
+    //       );
+    //       await user.reauthenticateWithCredential(authCredential);
+    //       CollectionReference users =
+    //           FirebaseFirestore.instance.collection('users');
+    //       await users.doc(user.uid).delete();
+    //       await user.delete();
+    //       emit(UserDeletedSuccessState());
+    //     } else {
+    //       emit(UserDeleteErrorState(error: 'No user logged in'));
+    //     }
+    //   } catch (e) {
+    //     emit(UserDeleteErrorState(error: 'Failed to delete user: $e'));
+    //   }
+    // });
+
     on<DeleteUserEvent>((event, emit) async {
       try {
         emit(UserDeleteLoadingState());
@@ -44,15 +67,30 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             email: event.email,
             password: event.password,
           );
-
           await user.reauthenticateWithCredential(authCredential);
+
+          final customPlacesRef =
+              FirebaseFirestore.instance.collection('customPlaces');
+          final userCustomPlacesRef =
+              FirebaseFirestore.instance.collection('user_customPlaces');
+
+          final userCustomPlacesQuery =
+              userCustomPlacesRef.where('userId', isEqualTo: user.uid);
+          final userCustomPlacesSnapshot = await userCustomPlacesQuery.get();
+
+          for (var doc in userCustomPlacesSnapshot.docs) {
+            final customPlaceId = doc['customPlaceId'];
+
+            await customPlacesRef.doc(customPlaceId).delete();
+
+            await doc.reference.delete();
+          }
 
           CollectionReference users =
               FirebaseFirestore.instance.collection('users');
           await users.doc(user.uid).delete();
 
           await user.delete();
-
           emit(UserDeletedSuccessState());
         } else {
           emit(UserDeleteErrorState(error: 'No user logged in'));
@@ -61,18 +99,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(UserDeleteErrorState(error: 'Failed to delete user: $e'));
       }
     });
-
     on<ShowUserInfoEvent>((event, emit) async {
       emit(UserInfoLoadingState());
       try {
         final User? user = FirebaseAuth.instance.currentUser;
-        print('suer id                                : ${user!.uid}');
-
+        print('suer id________________: ${user!.uid}');
         if (user == null) {
           emit(UserInfoErrorState(error: "No user logged in"));
           return;
         }
-
         QuerySnapshot querySnapshot = await FirebaseFirestore.instance
             .collection('users')
             .where('authUid', isEqualTo: user.uid)
@@ -86,13 +121,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
         final DocumentSnapshot userDoc = querySnapshot.docs.first;
         final String documentId = userDoc.id;
-
         final data = userDoc.data() as Map<String, dynamic>;
-
         userModel = UserModel.fromJson(data, user.uid);
         print("✅ User info loaded successfully!");
         emit(UserInfoLoadedSuccessState(userModel: userModel!));
-
         print('🔹 First Name: ${userModel!.fName}');
         print('🔹 Last Name: ${userModel!.lName}');
         print('🔹 Phone Number: ${userModel!.phoneNumber}');

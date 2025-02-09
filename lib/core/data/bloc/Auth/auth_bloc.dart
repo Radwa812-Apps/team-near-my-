@@ -19,8 +19,6 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final Services services;
-  // final UserModel userModel;
-
   AuthBloc(this.services) : super(AuthInitial()) {
     on<AuthEvent>((event, emit) async {
       if (event is LoginEvent) {
@@ -34,7 +32,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               return;
             }
           }
-
           final credential = await FirebaseAuth.instance
               .signInWithEmailAndPassword(
                   email: event.email, password: event.pass);

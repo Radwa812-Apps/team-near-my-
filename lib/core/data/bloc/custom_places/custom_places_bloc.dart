@@ -60,7 +60,7 @@ class CustomPlacesBloc extends Bloc<CustomPlacesEvent, CustomPlacesState> {
           emit(ShowCustomPlacesLoading());
           try {
             myList = await services.ShowCustomPlaceMethod(event.uId);
-            print('ssssssssssssssssssssssssssss 😉😉😉😉' + event.uId);
+            print('_____________________ ${event.uId}');
             print(myList.length);
 
             emit(ShowCustomPlacesSuccess(myList));

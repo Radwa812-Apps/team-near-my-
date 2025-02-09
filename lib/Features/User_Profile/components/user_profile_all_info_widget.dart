@@ -122,11 +122,11 @@ class _UserProfileAll_InfoWidgetState extends State<UserProfileAll_InfoWidget> {
           ),
           Positioned(
             top: widget.imagePositionTop,
-            left: 120,
-            child: const RoundImageWidget(
+            left: 120.w,
+            child:  RoundImageWidget(
               name: kDefaultUserImge,
-              width: 110,
-              height: 110,
+              width: 110.w,
+              height: 110.h,
             ),
           ),
         ],

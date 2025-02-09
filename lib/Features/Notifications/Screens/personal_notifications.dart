@@ -22,8 +22,8 @@ class PersonalNotifications extends StatelessWidget {
       backgroundColor: background,
       body: SingleChildScrollView(
         child: Container(
-          width: 393,
-          height: 852,
+          width: 393.w,
+          height: 852.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40),
             color: background,
