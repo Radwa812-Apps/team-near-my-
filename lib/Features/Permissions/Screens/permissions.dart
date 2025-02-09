@@ -68,10 +68,11 @@ class _PermissionsState extends State<Permissions> {
             ),
           ),
         );
+     
       } else if (permissionGranted && value) {
         // ignore: use_build_context_synchronously
-        AppMessages().sendVerification(context, Colors.red.withOpacity(0.5),
-            'Permission already granted for ${_getPermissionName(index)}');
+        // AppMessages().sendVerification(context, Colors.red.withOpacity(0.5),
+        //     'Permission already granted for ${_getPermissionName(index)}');
       } else if (!value) {
         // ignore: use_build_context_synchronously
         AppMessages().sendVerification(context, Colors.red.withOpacity(0.5),

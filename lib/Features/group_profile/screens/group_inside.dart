@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nearme_app/Features/auth/Sign_up_and_in/components/custom_back_button.dart';
 import 'package:nearme_app/Features/group_profile/screens/group_profile_screen.dart';
@@ -63,14 +64,17 @@ class GroupInsideScreen extends StatelessWidget {
                     controller: scrollController,
                     padding: const EdgeInsets.all(16.0),
                     children: [
-                      const Center(
-                        child: Icon(
-                          Icons.horizontal_rule,
-                          color: Colors.grey,
-                          size: 30,
-                        ),
-                      ),
+                      // const Center(
+                      //   child: Icon(
+                      //     Icons.horizontal_rule,
+                      //     color: Colors.grey,
+                      //     size: 30,
+                      //   ),
 
+                      // ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -108,8 +112,8 @@ class GroupInsideScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: 10.w,
                           ),
                           InkWell(
                             onTap: () {},
@@ -120,10 +124,10 @@ class GroupInsideScreen extends StatelessWidget {
                                 color: Colors.grey[200],
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.notifications_outlined,
                                 color: kPrimaryColor1,
-                                size: 30,
+                                size: 30.sp,
                               ),
                             ),
                           ),
@@ -148,8 +152,8 @@ class GroupInsideScreen extends StatelessWidget {
             },
           ),
           Positioned(
-            bottom: 380,
-            left: MediaQuery.of(context).size.width / 2 - 40,
+            bottom: 343.h,
+            left: MediaQuery.of(context).size.width / 2 - 40.sp,
             child: GestureDetector(
               onTap: (() {
                 Navigator.pushNamed(

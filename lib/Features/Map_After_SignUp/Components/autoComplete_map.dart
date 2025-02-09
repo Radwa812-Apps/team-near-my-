@@ -21,8 +21,7 @@ class _AutoCompleteSearchState extends State<AutoCompleteSearch> {
   Widget build(BuildContext context) {
     return Autocomplete<String>(
       optionsBuilder: (TextEditingValue textEditingValue) async {
-        if (textEditingValue.text.isEmpty)
-        { 
+        if (textEditingValue.text.isEmpty) {
           return const Iterable<String>.empty();
         }
         final suggestions = await widget.service
@@ -51,7 +50,16 @@ class _AutoCompleteSearchState extends State<AutoCompleteSearch> {
               borderRadius: BorderRadius.circular(60),
               borderSide: BorderSide.none,
             ),
-            suffixIcon: const Icon(Icons.search, color: kPrimaryColor1),
+            // suffixIcon: const Icon(Icons.search, color: kPrimaryColor1),
+
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.search, color: kPrimaryColor1),
+              onPressed: () async {
+                await widget.GetSearchedPlace(
+                    ''); // استدعاء الدالة بقيمة فارغةw
+                widget.controller.clear(); // مسح النص في TextField
+              },
+            ),
           ),
           onSubmitted: (value) async {
             await widget.GetSearchedPlace(value);
