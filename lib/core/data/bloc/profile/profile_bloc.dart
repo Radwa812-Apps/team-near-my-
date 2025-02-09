@@ -106,8 +106,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
         User? user = FirebaseAuth.instance.currentUser;
 
-        if (user != null) {
-          if (user.providerData
+      
+          if (user!=null|| user!.providerData
               .any((info) => info.providerId == 'google.com')) {
             final GoogleSignIn googleSignIn = GoogleSignIn();
             final GoogleSignInAccount? googleAuth = await googleSignIn.signIn();
@@ -123,7 +123,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
               await user.reauthenticateWithCredential(credential);
             }
-          } else {
+           else if(user!=null) {
             // إعادة المصادقة باستخدام EmailAuthProvider
             final authCredential = EmailAuthProvider.credential(
               email: event.email,
