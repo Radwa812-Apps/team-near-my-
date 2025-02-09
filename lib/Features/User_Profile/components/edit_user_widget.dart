@@ -37,7 +37,8 @@ class _EditUserWidgetState extends State<EditUserWidget> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController birthDateController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
-
+  final GlobalKey<FormFieldState> name = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> name2 = GlobalKey<FormFieldState>();
   bool isChanged = false;
   String? fName, lName, password, email, phoneNumber, dateOfBirth;
   void onFieldChanged(String value) {
@@ -50,12 +51,14 @@ class _EditUserWidgetState extends State<EditUserWidget> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    // final GlobalKey<FormState> formKey = GlobalKey();
 
-    return BlocConsumer<ProfileBloc, ProfileState>(
-      listener: (context, state) {},
+    return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         if (state is UserEditedSuccessState) {
           return Center(
+            // child: Form(
+            //   key: formKey,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -91,7 +94,13 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                             onFieldChanged(p0);
                             fName = p0;
                           }),
+                          ky: name,
+                          validatior: ((p0) {
+                            Validator.validateEmptyField('First Nmae', p0);
+                            // return "Fist Name should not contain any spaces.";
+                          }),
                         ),
+
                         SizedBox(height: widget.spaceWithRows),
 
                         // Last Name Field
@@ -102,6 +111,10 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                           onChanged: ((p0) {
                             onFieldChanged(p0);
                             lName = p0;
+                          }),
+                          ky: name2,
+                          validatior: ((p0) {
+                            Validator.validateEmptyField('First Nmae', p0);
                           }),
                         ),
                         SizedBox(height: widget.spaceWithRows),
@@ -155,7 +168,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                             }),
                             controller: birthDateController,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20.sp,
                               fontFamily: kFontRegular,
                             ),
@@ -201,9 +214,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                             ),
                           ),
                         ),
-
                         SizedBox(height: widget.spaceWithRows),
-
                         SizedBox(height: screenWidth * 0.1.w),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -213,6 +224,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                               fontSize: 20.sp,
                               onTap: isChanged
                                   ? () {
+                                      // if (formKey.currentState!.validate()) {
                                       BlocProvider.of<ProfileBloc>(context).add(
                                           EditUserEvent(
                                               fName: fName ??
@@ -225,10 +237,10 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                   state.userModel.phoneNumber,
                                               dateOfBirth: dateOfBirth ??
                                                   state.userModel.dateOfBirth));
-
                                       setState(() {
                                         isChanged = false;
                                       });
+                                      // }
                                     }
                                   : null,
                               size: Size(100.w, 65.h),

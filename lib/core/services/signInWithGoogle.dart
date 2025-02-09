@@ -24,7 +24,6 @@ class _SocialAuthWidgetState extends State<SocialAuthWidget> {
     setState(() {
       isLoading = true;
     });
-
     if (!await checkConnection()) {
       if (mounted) {
         setState(() {
@@ -33,7 +32,6 @@ class _SocialAuthWidgetState extends State<SocialAuthWidget> {
       }
       return;
     }
-
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
@@ -44,14 +42,12 @@ class _SocialAuthWidgetState extends State<SocialAuthWidget> {
         }
         return;
       }
-
       final GoogleSignInAuthentication? googleAuth =
           await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-
       UserCredential user =
           await FirebaseAuth.instance.signInWithCredential(credential);
       print(user.additionalUserInfo!.username);

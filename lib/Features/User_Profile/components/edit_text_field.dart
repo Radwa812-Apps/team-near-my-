@@ -9,7 +9,8 @@ class EditTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final Function(String)? onChanged;
-
+  final String? Function(String?) validatior;
+  final GlobalKey<FormFieldState> ky;
   const EditTextField({
     super.key,
     required this.hintText,
@@ -18,6 +19,8 @@ class EditTextField extends StatelessWidget {
     this.controller,
     this.keyboardType = TextInputType.text,
     this.onChanged,
+    required this.ky,
+    required this.validatior,
   });
 
   @override
@@ -25,6 +28,8 @@ class EditTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: TextFormField(
+        key: ky,
+        validator: validatior,
         controller: controller,
         readOnly: readOnly!,
         keyboardType: keyboardType,

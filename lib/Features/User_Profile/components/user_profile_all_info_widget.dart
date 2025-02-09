@@ -55,7 +55,7 @@ class _UserProfileAll_InfoWidgetState extends State<UserProfileAll_InfoWidget> {
                           style: TextStyle(
                             color: kFontColor,
                             fontFamily: kFontBold,
-                            fontSize: 30.sp,
+                            fontSize: 26.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -123,7 +123,7 @@ class _UserProfileAll_InfoWidgetState extends State<UserProfileAll_InfoWidget> {
           Positioned(
             top: widget.imagePositionTop,
             left: 120.w,
-            child:  RoundImageWidget(
+            child: RoundImageWidget(
               name: kDefaultUserImge,
               width: 110.w,
               height: 110.h,

@@ -176,7 +176,10 @@ class SettingsScreen extends StatelessWidget {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             backgroundColor: Color.fromARGB(255, 151, 199, 130),
-                            title: const Text("Confirm Account Deletion"),
+                            title: const Text(
+                              "Confirm Account Deletion",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             content: Form(
                               key: formKey,
                               child: Column(
